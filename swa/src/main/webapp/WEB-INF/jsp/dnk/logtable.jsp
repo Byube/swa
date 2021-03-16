@@ -6,6 +6,10 @@
 <meta charset="UTF-8">
 <title>로그조회</title>
 <link rel="stylesheet" href="resources/css/logtable.css">
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script src="resources/js/logtable.js"></script>
+
 </head>
 <body>
 
@@ -109,6 +113,13 @@
 					href="javascript:" title="LAST" class="next_end">LAST</a>
 			</form>
 		</div>
+	</div>
+	
+	
+	<!-- 테스트용 뒤로가기 -->
+	<div class="search_btn">
+		<input style="height: 40px; padding: 0 30px; background: #0071bc; color: #fff; border: none; border-radius: 5px;"
+					type="button" class="search" value="뒤로가기" id="goback" title="조회 버튼">
 	</div>
 
 

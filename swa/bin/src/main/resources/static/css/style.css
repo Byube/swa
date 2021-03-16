@@ -712,14 +712,4 @@ footer .footer-copyright {
 
 }
 
-.blog-post-format span a.btn_user{
-	color: #0f85ea;
-	padding: 10px 20px;
-	border:solid 1px #0f85ea;
-	border-radius:50px;
-	font-weight: bold; 
-}
-.blog-post-format span a.btn_user:hover{
-	background-color: #0f85ea;
-	color: #fff;
-}
+
