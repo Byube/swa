@@ -34,6 +34,7 @@ public class SwaController {
 		String address = "";
 		logger.info("STT_ID : " + STT_ID);
 		logger.info("STT_PW : " + STT_PW);
+		
 		if(STT_ID.equals("admin")) {
 			address = "dnk/logtable";
 		} else if(STT_ID.equals("jeff")) {

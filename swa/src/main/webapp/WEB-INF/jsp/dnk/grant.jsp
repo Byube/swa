@@ -42,7 +42,7 @@
 
 					<div class="blog-post-thumb">
 						<div class="blog-post-image">
-							<a href="single-post.html"> <img src="resources/image/blog-image1.jpg"
+							<a href="#"> <img src="resources/image/blog-image1.jpg"
 								class="img-responsive" alt="Blog Image">
 							</a>
 						</div>
@@ -69,29 +69,17 @@
 								<a href="#"><img src="resources/image/author-image2.jpg" class="img-responsive img-circle"> 운영자 1</a>
 							</span>
 							<span>
-								<i class="fa fa-date"></i> 권한 1 
+								<i class="fa fa-date"></i> 권한 O 
 							</span> 
 							<span>
-								<a href="#" class="btn_user"> 관리자 권한 부여 </a>
+								<a href="#" class="btn_user" id="stt_give"> 관리자 권한 부여 </a>
 							</span>
-							<span class="btn_u"  style="display: none;">
-								<a href="#" class="btn_user"> 관리자 권한 회수 </a>
-							</span>
+						<!-- 	<span>
+								<a href="#" class="btn_user" id="stt_gback" style="display: none;"> 관리자 권한 회수 </a>
+							</span> -->
 						</div>
-						<div class="blog-post-format">
-							<span>
-								<a href="#"><img src="resources/image/author-image2.jpg" class="img-responsive img-circle"> 운영자 2</a>
-							</span>
-							<span>
-								<i class="fa fa-date"></i> 권한 1 
-							</span> 
-							<span>
-								<a href="#" class="btn_user"> 관리자 권한 부여 </a>								
-							</span>
-							<span class="btn_u" style="display: none;">
-								<a href="#" class="btn_user"> 관리자 권한 회수 </a>
-							</span>
-						</div>
+						
+						
 					</div>
 				</div>
 
@@ -106,6 +94,9 @@
 	<script src="resources/js/jquery.js"></script>
 	<script src="resources/js/bootstrap.min.js"></script>
 	<script src="resources/js/custom.js"></script>
+	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+	<script src="resources/js/grant.js"></script>
 
 
 
