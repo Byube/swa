@@ -11,7 +11,7 @@ spring:
     static-path-pattern: /resources/**
   datasource:
     driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
-    url: jdbc:log4jdbc:mysql://98.28.5.80:3306/test?autoReconnect=true&useUnicode=true&characterEncoding=utf8&serverTimezone=UTC
+    url: jdbc:log4jdbc:mysql://98.28.5.80:3306/STT?autoReconnect=true&useUnicode=true&characterEncoding=utf8&serverTimezone=UTC
     username: root
     password: itray##123
   servlet:

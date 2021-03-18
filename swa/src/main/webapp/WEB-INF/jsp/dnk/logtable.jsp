@@ -115,6 +115,10 @@
 		</div>
 	</div>
 	
+	<object type="text/html" data="http://98.28.5.83:8000/lmtool/edit?name=ds'df'sd'&center='center'" width="800" height="400">
+			<embed src="http://98.28.5.83:8000/lmtool/edit" width="800" height="400"> </embed>
+				Error: Embedded data could not be displayed.
+	</object>
 	
 	<!-- 테스트용 뒤로가기 -->
 	<div class="search_btn">
