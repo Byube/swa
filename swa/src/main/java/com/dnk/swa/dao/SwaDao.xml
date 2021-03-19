@@ -4,14 +4,25 @@
  <mapper namespace="com.dnk.swa.dao.SwaDao">
  
  	<select id="getMember" resultType="SwaLoginDto">
- 		select * 
+ 		select *
  		from STT_USER_INFO
+ 		where STT_ID = #{STT_ID}
+ 		and STT_STATUS = 10
  	</select>
  	
  	<select id="checkLogin" parameterType="SwaLoginDto" resultType="String">
  		select STT_PW
  		from STT_USER_INFO
  		where STT_ID = #{STT_ID}
+ 		and STT_STATUS = 10
  	</select>
+ 	
+ 	<select id="getLogtable" parameterType="SwaLogDto" resultType="SwaLogDto">
+ 		select *
+ 		from STT_LOG_INFO
+ 		
+ 	</select>
+ 	
+ 	
  	
  </mapper>

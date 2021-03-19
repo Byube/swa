@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.dnk.swa.dao.SwaDao;
+import com.dnk.swa.dto.SwaLogDto;
 import com.dnk.swa.dto.SwaLoginDto;
 
 @Service
@@ -15,8 +16,8 @@ public class SwaServiceImpl implements SwaService{
 	SwaDao dao;
 
 	@Override
-	public List<SwaLoginDto> getMember() {
-		return dao.getMember();
+	public SwaLoginDto getMember(SwaLoginDto sld) {
+		return dao.getMember(sld);
 	}
 
 	@Override
@@ -27,6 +28,13 @@ public class SwaServiceImpl implements SwaService{
 		}
 		return check;
 	}
+
+	@Override
+	public List<SwaLogDto> getLogtable(SwaLogDto sld) {
+		return dao.getLogtable(sld);
+	}
+	
+	
 	
 	
 

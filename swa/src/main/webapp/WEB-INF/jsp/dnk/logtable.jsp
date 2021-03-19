@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt" %>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -50,12 +53,12 @@
 				<caption style="font-size: 0">게시판</caption>
 				<colgroup>
 					<col width="20%">
-					<col width="10%">
+					<col width="5%">
+					<col width="5%">
 					<col width="10%">
 					<col width="10%">
 					<col width="50%">
 				</colgroup>
-
 				<thead>
 					<tr>
 						<th title="작업일시">작업일시
@@ -66,59 +69,39 @@
 						</th>
 						<th title="센터">센터</th>
 						<th title="관리자">관리자</th>
+						<th title="ip">ip</th>
 						<th title="변경메뉴">변경메뉴</th>
 						<th title="작업내용">작업내용</th>
 					</tr>
 				</thead>
 				<tbody>
+				<c:forEach items="${loglist }" var="log" varStatus="cnt">
 					<tr>
-						<th title="일시">2020-11-18 21:21:05</th>
-						<td title="센터">전체</td>
-						<td title="관리자">관리자1</td>
-						<td title="업무매뉴얼">업무매뉴얼</td>
-						<td title="작업내용">실업 제목 등록</td>
+						<th title="${log.STT_DATE }">${log.STT_DATE }</th>
+						<td title="${log.STT_CENTER }">${log.STT_CENTER }</td>
+						<td title="${log.STT_USER }">${log.STT_USER }</td>
+						<td title="${log.STT_IP }">${log.STT_IP }</td>
+						<td title="${log.STT_MENU }">${log.STT_MENU }</td>
+						<td title="${log.STT_CONTENTS }">${log.STT_CONTENTS }</td>
 					</tr>
-					<tr>
-						<th title="일시">2020-11-18 21:21:05</th>
-						<td title="센터">전체</td>
-						<td title="관리자">관리자1</td>
-						<td title="업무매뉴얼">업무매뉴얼</td>
-						<td title="작업내용">실업 제목 등록</td>
-					</tr>
-					<tr>
-						<th title="일시">2020-11-18 21:21:05</th>
-						<td title="센터">전체</td>
-						<td title="관리자">관리자1</td>
-						<td title="업무매뉴얼">업무매뉴얼</td>
-						<td title="작업내용">실업 제목 등록</td>
-					</tr>
-					<tr>
-						<th title="일시">2020-11-18 21:21:05</th>
-						<td title="센터">전체</td>
-						<td title="관리자">관리자1</td>
-						<td title="업무매뉴얼">업무매뉴얼</td>
-						<td title="작업내용">실업 제목 등록</td>
-					</tr>
+				</c:forEach>
+					
 				</tbody>
 			</table>
 		</div>
 		<!-- 페이지 -->
 		<div class="paging_box">
 			<form class="paging">
-				<input type="hidden" value="1"> <a href="javascript;"
-					title="FIRST" class="pre01">FIRST</a> <a href="javascript:;"
-					title="PREV" class="pre02">PREV</a> <strong>1</strong> <a
-					href="javascript:" title="2" class="txt"> 2 </a> <a
-					href="javascript:" title="NEXT" class="next">NEXT</a> <a
-					href="javascript:" title="LAST" class="next_end">LAST</a>
+				<input type="hidden" value="1"> 
+				<a href="javascript;" title="FIRST" class="pre01">FIRST</a>
+				<a href="javascript:;" title="PREV" class="pre02">PREV</a> 
+							<strong>1</strong> 
+				<a href="javascript:" title="2" class="txt"> 2 </a> 
+				<a href="javascript:" title="NEXT" class="next">NEXT</a> 
+				<a href="javascript:" title="LAST" class="next_end">LAST</a>
 			</form>
 		</div>
 	</div>
-	
-	<object type="text/html" data="http://98.28.5.83:8000/lmtool/edit?name=ds'df'sd'&center='center'" width="800" height="400">
-			<embed src="http://98.28.5.83:8000/lmtool/edit" width="800" height="400"> </embed>
-				Error: Embedded data could not be displayed.
-	</object>
 	
 	<!-- 테스트용 뒤로가기 -->
 	<div class="search_btn">
