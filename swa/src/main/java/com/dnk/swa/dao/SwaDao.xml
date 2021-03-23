@@ -4,24 +4,98 @@
  <mapper namespace="com.dnk.swa.dao.SwaDao">
  
  	<select id="getMember" resultType="SwaLoginDto">
- 		select *
- 		from STT_USER_INFO
- 		where STT_ID = #{STT_ID}
- 		and STT_STATUS = 10
+ 		select	*
+ 		from	STT_USER_INFO
+ 		where	STT_ID = #{STT_ID}
+ 		and		STT_STATUS = 10
  	</select>
  	
  	<select id="checkLogin" parameterType="SwaLoginDto" resultType="String">
- 		select STT_PW
- 		from STT_USER_INFO
- 		where STT_ID = #{STT_ID}
- 		and STT_STATUS = 10
+ 		select	STT_PW
+ 		from	STT_USER_INFO
+ 		where	STT_ID = #{STT_ID}
+ 		and		STT_STATUS = 10
  	</select>
  	
  	<select id="getLogtable" parameterType="SwaLogDto" resultType="SwaLogDto">
- 		select *
- 		from STT_LOG_INFO
- 		
+ 		SELECT	STT_SEQ
+				,STT_DATE
+				,STT_CENTER
+				,STT_USER
+				,STT_IP
+				,STT_MENU
+				,STT_CONTENTS
+				,rowNum
+		FROM	(
+					SELECT	STT_SEQ
+							,STT_DATE
+							,STT_CENTER
+							,STT_USER
+							,STT_IP
+							,STT_MENU
+							,STT_CONTENTS
+							,@row_num:=@row_num + 1 AS rowNum
+					FROM	STT.STT_LOG_INFO
+							,(SELECT @row_num := 0) rn
+					ORDER BY STT_SEQ DESC
+				) urn
+		WHERE	rowNum BETWEEN #{startRow} AND #{endRow}
+		ORDER BY	 rowNum
  	</select>
+ 	
+ 	<select id="getLogCount" resultType="int">
+ 		select	count(STT_SEQ) as logSeq
+ 		from	STT_LOG_INFO
+ 	</select>
+ 	
+ 	<select id="getUser" resultType="SwaLoginDto">
+ 		select	*
+ 		from	STT_USER_INFO
+ 		where	STT_NAME	!=	'admin'
+ 		and		STT_STATUS = 10
+ 	</select>
+ 	
+ 	<insert id="insertUser" parameterType="SwaLoginDto">
+ 		INSERT	INTO	
+ 				STT_USER_INFO
+							(
+							STT_NAME
+							,STT_ID
+							,STT_PW
+							,STT_LEVEL
+							,STT_DATE
+							,STT_STATUS
+							,STT_CENTER
+							)
+				VALUES
+							(
+							#{STT_NAME}
+							,#{STT_ID}
+							,'1234'
+							,1
+							,CURDATE()
+							,10
+							,#{STT_CENTER}
+							)
+ 	 </insert>
+ 	
+ 	<update id="levelChange" parameterType="SwaLoginDto">
+ 		update	STT_USER_INFO
+ 		set		STT_LEVEL	=	#{STT_LEVEL}
+ 		where	STT_SEQ	=	#{STT_SEQ}
+ 	</update>
+ 	
+ 	<update id="deleteUser" parameterType="SwaLoginDto">
+ 		update	STT_USER_INFO
+ 		set		STT_STATUS	=	#{STT_STATUS}
+ 		where	STT_SEQ	=	#{STT_SEQ}
+ 	</update>
+ 	
+ 	<update id="resetPw" parameterType="SwaLoginDto">
+ 		update	STT_USER_INFO
+ 		set		STT_PW	=	#{STT_PW}
+ 		where	STT_SEQ	=	#{STT_SEQ}
+ 	</update>
  	
  	
  	

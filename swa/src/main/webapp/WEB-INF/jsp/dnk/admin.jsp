@@ -44,16 +44,14 @@
                          <h3>음성인식 LM 확인 툴</h3>
                          <h2>실시간 음성 확인부터 전사 및 음성인식 엔진모니터링</h2>
                     </div>
-					
-					${test }
-					
+										
                     <form action="/stt_login" method="post">
                          <div class="col-md-6 col-sm-6">
                               <input type="text" class="form-control" id="user_id" name="STT_ID" placeholder="ID">
                          </div>
                         
                          <div class="col-md-6 col-sm-6">
-                              <input type="text" class="form-control" id="user_pw" name="STT_PW" placeholder="PassWord">
+                              <input type="password" class="form-control" id="user_pw" name="STT_PW" placeholder="PassWord">
                          </div>
                         
                          <div class="col-md-3 col-sm-4">

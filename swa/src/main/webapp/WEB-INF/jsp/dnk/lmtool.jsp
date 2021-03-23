@@ -23,14 +23,16 @@
 <link
 	href="https://fonts.googleapis.com/css?family=Work+Sans:300,400,700"
 	rel="stylesheet">
-
+<c:if test="${empty level}">
+	<c:redirect url="/stt"></c:redirect>
+</c:if>
 </head>
 <body>
 	
 	<!-- Navigation section  -->
 	<input type="hidden" id="userId" value="${userId }">
 	<input type="hidden" id="menuKey" value="${menuKey }">
-
+	<input type="hidden" id="check" value="${check }">>
 		<div class="navbar navbar-default navbar-static-top" role="navigation">
 		     <div class="container">
 		
@@ -44,6 +46,8 @@
 		          </div>
 		          <div class="collapse navbar-collapse">
 		               <ul class="nav navbar-nav navbar-right">
+		              	<c:choose>
+		              		<c:when test="${level eq 0}">
 		                    <li><a href="javascript:;" id="edit" onclick="checkUrl('edit')">음성전사</a></li>
 		                    <li><a href="javascript:;" id="lmdb" onclick="checkUrl('lmdb')">LM DB 관리</a></li>
 		                    <li><a href="javascript:;" id="oov" onclick="checkUrl('oov')">무결성 확인</a></li>
@@ -53,7 +57,18 @@
 		                    <li><a href="javascript:;" id="monitoring/stt.html" onclick="checkUrl('monitoring/stt.html')">파일 STT</a></li>
 		                    <li><a href="javascript:;" id="monitoring/call.html" onclick="checkUrl('monitoring/call.html')">STT 운영 모니터링</a></li>
 		                    <li><a href="javascript:;" id="status" onclick="checkUrl('status')">리소스 모니터링</a></li>
-		                    <li><a href="javascript:;" onclick="searchlog()">로그테이블</a></li>
+		                    <li><a href="javascript:;" onclick="searchlog('searchlog')">로그테이블</a></li>
+		                    <c:if test="${User_Id eq 'admin' }">
+		                    <li><a href="javascript:;" onclick="searchlog('insertUser')">운영관리자 생성</a></li>
+		                    <li><a href="javascript:;" onclick="searchlog('createUser')">운영관리자 관리</a></li>
+		                    </c:if>
+		                    </c:when>
+		                    <c:otherwise>
+		                    <li><a href="javascript:;" id="edit" onclick="checkUrl('edit')">음성전사</a></li>
+		                    <li><a href="javascript:;" id="lmdb" onclick="checkUrl('lmdb')">LM DB 관리</a></li>
+		                    <li><a href="javascript:;" onclick="searchlog('createUser')">비밀번호 변경</a></li>
+		                    </c:otherwise>
+		               </c:choose>
 		               </ul>
 		          </div>
 		

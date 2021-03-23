@@ -17,6 +17,7 @@
 <body>
 
 	<div class="con">
+	 <form id="stt_list_form" method="post" action="/searchlog">
 		<div class="con_sel">
 			<div class="date_search">
 				<input type="date" class="date" title="날짜 검색창">
@@ -90,8 +91,10 @@
 			</table>
 		</div>
 		<!-- 페이지 -->
+		<input type="hidden" id="now_page" name="now_page" value="${nowPage }">
+	 </form>
 		<div class="paging_box">
-			<form class="paging">
+			 <!-- <form class="paging">
 				<input type="hidden" value="1"> 
 				<a href="javascript;" title="FIRST" class="pre01">FIRST</a>
 				<a href="javascript:;" title="PREV" class="pre02">PREV</a> 
@@ -99,14 +102,9 @@
 				<a href="javascript:" title="2" class="txt"> 2 </a> 
 				<a href="javascript:" title="NEXT" class="next">NEXT</a> 
 				<a href="javascript:" title="LAST" class="next_end">LAST</a>
-			</form>
+			</form> -->
+			 ${pageTag}
 		</div>
-	</div>
-	
-	<!-- 테스트용 뒤로가기 -->
-	<div class="search_btn">
-		<input style="height: 40px; padding: 0 30px; background: #0071bc; color: #fff; border: none; border-radius: 5px;"
-					type="button" class="search" value="뒤로가기" id="goback" title="조회 버튼">
 	</div>
 
 

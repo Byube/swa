@@ -35,7 +35,7 @@ public class PagingService {
 			}
 			
 			StringBuilder result = new StringBuilder();
-			result.append("<form id='form' method='post' class='paging' enctype='application/x-www-form-urlencoded'>");
+			result.append("<form method='post' class='paging' enctype='application/x-www-form-urlencoded'>");
 			result.append("<input type='hidden' name='now_page' id='now_page' value='" + page.getNowPage()  + "' />");
 			
 			//이전버튼 생성
@@ -52,11 +52,11 @@ public class PagingService {
 				result.append("PREV");
 				result.append("</a>");
 			} else {
-				result.append("<a href='javascript:void(0);' title='FIRST' class='pre_end preEnNon'>");
+				result.append("<a href='javascript:void(0);' title='FIRST' class='pre01'>");
 				result.append("FIRST");
 				result.append("</a>");
 				
-				result.append("<a href='javascript:void(0);' title='PREV' class='pre preNon'>");
+				result.append("<a href='javascript:void(0);' title='PREV' class='pre02'>");
 				result.append("PREV");
 				result.append("</a>");
 			}
@@ -70,7 +70,7 @@ public class PagingService {
 						result.append(i);
 						result.append("</strong>");
 					} else {
-						result.append("<a href='javascript:" + method + "(");
+						result.append("<a class=\"txt\" href='javascript:" + method + "(");
 						result.append(i);
 						result.append(")' title='" + i + "'> ");
 						result.append(i);
