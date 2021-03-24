@@ -13,7 +13,7 @@
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, maximum-scale=1">
 
-<title>운영관리자 생성</title>
+<title>운영관리자 계정관리</title>
 
 
 <link rel="stylesheet" href="resources/css/bootstrap.min.css">
@@ -51,33 +51,7 @@
 						</div>
 						
 					</div>
-<%-- 
-			<c:choose>
-				<c:when test="${User_Id eq 'admin' }">
-				
-				</c:when>
-				<c:otherwise>
-				
-				</c:otherwise>			
-			</c:choose>
 
-				<div class="col-md-offset-1 col-md-10 col-sm-12">		
-                    <form action="#" method="post">
-                         <div class="col-md-6 col-sm-6">
-                              <input type="text" class="form-control" id="user_id" name="STT_ID" placeholder="ID">
-                         </div>
-                        
-                         <div class="col-md-6 col-sm-6">
-                              <input type="password" class="form-control" id="user_pw" name="STT_PW" placeholder="PassWord">
-                         </div>
-                        
-                         <div class="col-md-3 col-sm-4">
-                              <input type="submit" class="form-control" value="저장">
-                         </div>
-                    </form>
-               </div> --%>
-					
-					
 					<div class="blog-post-thumb">
 						<c:forEach items="${SwaUser }" var="user" varStatus="cnt">
 							<div class="blog-post-format">

@@ -65,6 +65,8 @@ public class SwaServiceImpl implements SwaService{
 	public void resetPw(SwaLoginDto sld) {
 		dao.resetPw(sld);
 	}
+
+	
 	
 	
 	

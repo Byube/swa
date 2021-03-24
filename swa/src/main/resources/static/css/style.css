@@ -435,6 +435,19 @@ a:hover, a:active, a:focus {
   background: #000;
 }
 
+#contact input[type="button"] {
+  background: #222;
+  border-radius: 100px;
+  border: none;
+  color: #ffffff;
+  font-weight: 400;
+  transition: all 0.4s ease-in-out;
+}
+
+#contact input[type="button"]:hover {
+  background: #000;
+}
+
 
 
 /*---------------------------------------

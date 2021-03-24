@@ -6,8 +6,9 @@
  	<select id="getMember" resultType="SwaLoginDto">
  		select	*
  		from	STT_USER_INFO
- 		where	STT_ID = #{STT_ID}
- 		and		STT_STATUS = 10
+ 		where	STT_ID	=	#{STT_ID}
+ 		and		STT_PW	=	#{STT_PW}
+ 		and		STT_STATUS	=	10
  	</select>
  	
  	<select id="checkLogin" parameterType="SwaLoginDto" resultType="String">
@@ -96,6 +97,7 @@
  		set		STT_PW	=	#{STT_PW}
  		where	STT_SEQ	=	#{STT_SEQ}
  	</update>
+
  	
  	
  	

@@ -32,7 +32,8 @@
 	<!-- Navigation section  -->
 	<input type="hidden" id="userId" value="${userId }">
 	<input type="hidden" id="menuKey" value="${menuKey }">
-	<input type="hidden" id="check" value="${check }">>
+	<input type="hidden" id="check" value="${check }">
+	<input type="hidden" id="seq" value="${seq }">>
 		<div class="navbar navbar-default navbar-static-top" role="navigation">
 		     <div class="container">
 		

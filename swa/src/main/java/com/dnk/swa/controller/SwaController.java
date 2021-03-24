@@ -37,7 +37,6 @@ public class SwaController {
 		String address = "dnk/admin";
 		return address;
 	}
-	
 	@RequestMapping(value = "/searchlog")
 	public String searchlog(Model model
 							,HttpSession session, HttpServletRequest request
@@ -56,11 +55,7 @@ public class SwaController {
 		} else {
 			nowPage = Integer.parseInt(page);
 		}
-		
 		totalCount = swaService.getLogCount();
-		
-		logger.info("count : " + totalCount);
-		
 		pageCount = totalCount / recordCnt + 1;
 		if(totalCount % recordCnt == 0) {
 			pageCount = totalCount / recordCnt;
@@ -68,9 +63,6 @@ public class SwaController {
 		if(nowPage > pageCount) {
 			nowPage = 1;
 		}
-		
-		logger.info("count : " + totalCount);
-		
 		pageDto.setNowPage(nowPage);
 		pageDto.setTotalCount(totalCount);
 		
@@ -81,10 +73,7 @@ public class SwaController {
 		List<SwaLogDto> list = swaService.getLogtable(sld);
 		model.addAttribute("nowPage", nowPage);
 		model.addAttribute("pageTag", pagingService.resultString());
-		
-		
 		model.addAttribute("loglist", list);
-		
 		return address;
 	}
 	@RequestMapping(value = "/stt_login")
@@ -98,26 +87,30 @@ public class SwaController {
 		if (ip == null)
 			ip = request.getRemoteAddr();
 		logger.info("ip : " + ip);
-		//logger.info("STT_ID : " + STT_ID);
-		//logger.info("STT_PW : " + STT_PW);
-		
 		SwaLoginDto sld = new SwaLoginDto();
 		sld.setSTT_ID(STT_ID);
 		sld.setSTT_PW(STT_PW);
-		
 		if(swaService.checkLogin(sld)) {
 			SwaLoginDto who = swaService.getMember(sld);
 			session.setAttribute("User_Name", who.getSTT_NAME());	
 			session.setAttribute("level", who.getSTT_LEVEL());
 			session.setAttribute("User_Id", who.getSTT_ID());
 			model.addAttribute("check", who.getSTT_PW());
+			model.addAttribute("seq", who.getSTT_SEQ());
 			model.addAttribute("userId", who.getSTT_ID() + "|" + ip);
 			model.addAttribute("menuKey", who.getSTT_CENTER());
 			address = "dnk/lmtool";
 		} else {
 			address = "redirect:/stt";
 		}		
-		
+		return address;
+	}
+	@RequestMapping(value = "/changePw")
+	public String changePw(Model model
+						,@RequestParam(value = "seq", defaultValue = "")int seq) {
+		String address = "dnk/changePw";
+		//logger.info(">>>>>>>>>>>>>>>>>  seq " + seq);
+		model.addAttribute("seq", seq);
 		return address;
 	}
 	
@@ -182,6 +175,18 @@ public class SwaController {
 		SwaLoginDto sld = new SwaLoginDto();
 		sld.setSTT_SEQ(STT_SEQ);
 		sld.setSTT_PW("1234");
+		swaService.resetPw(sld);
+		return address;
+	}
+	
+	@RequestMapping(value = "/changePws")
+	public String changePws(@RequestParam(value = "STT_SEQ", defaultValue = "")int STT_SEQ
+							,@RequestParam(value = "STT_PW", defaultValue = "")String STT_PW) {
+		String address = "redirect:/stt";
+		SwaLoginDto sld = new SwaLoginDto();
+		logger.info(">>>>>>>>>>>>>>>>>" + STT_SEQ);
+		sld.setSTT_PW(STT_PW);
+		sld.setSTT_SEQ(STT_SEQ);
 		swaService.resetPw(sld);
 		return address;
 	}

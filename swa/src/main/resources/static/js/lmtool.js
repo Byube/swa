@@ -1,7 +1,9 @@
 	$(function() {
 		var check = $("#check").val();	
+		var seq = $("#seq").val();
 		if(check == '1234'){
-			alert("비밀번호를 변경 하세요");
+			alert("비밀번호를 변경 해 주시길 바랍니다.");
+			window.location.href = "/changePw?seq=" + seq;
 		}			
 	});
 	
