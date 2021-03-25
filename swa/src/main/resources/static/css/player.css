@@ -1,0 +1,206 @@
+.flc-vr {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-end;
+  position: relative;
+}
+
+input[type='range']::-ms-fill-lower {
+  width: 100%;
+  background-color: transparent;
+}
+
+input[type='range']::-ms-fill-upper {
+  background-color: transparent;
+}
+
+.audio-wrap {
+  background: #f1f3f4;
+  color: black;
+  display: flex;
+  box-sizing: border-box;
+  height: 56px;
+  align-items: center;
+  border-radius: 28px;
+  padding: 0 14px;
+  font-family: Sans-serif;
+  min-width: 330px;
+}
+.audio-play,
+.audio-volume,
+.audio-progressbar,
+.audio-menu,
+.audio-switch {
+  outline: none;
+}
+/* audio-play */
+.audio-play {
+  border: 7px solid transparent;
+  border-right: 0;
+  border-left-color: black;
+  border-left-width: 11px;
+  margin: 10px;
+  height: 0;
+}
+.audio-play::after {
+  content: '';
+  display: block;
+  width: 32px;
+  height: 32px;
+  position: absolute;
+  border-radius: 50%;
+  margin: -16px 0 0 -23px;
+}
+.audio-play:hover::after,
+.audio-play:focus::after {
+  background: rgba(0, 0, 0, 0.1);
+}
+/* audio-time */
+.audio-timeNow,
+.audio-timeAll {
+  line-height: 36px;
+  font-size: 15px;
+}
+
+.audio-timeNow::after {
+  content: '/';
+  margin: 0 4px;
+}
+/* audio-progressbar */
+.audio-progressbar,
+.audio-volumebar {
+  /* -webkit-appearance: none; */
+  appearance: none;
+  cursor: ew-resize;
+  height: 14px;
+  background: black;
+  border: 7px solid #f1f3f4;
+  overflow: hidden;
+  box-shadow: 0 0 0 5px #ffffff inset;
+  /* mix-blend-mode: darken; */
+  opacity: 0.8;
+  flex-grow: 1;
+
+  padding: 0px;
+}
+.audio-progressbar:focus,
+.audio-progressbar:hover,
+.audio-volumebar:focus,
+.audio-volumebar:hover {
+  outline: 4px solid rgba(0, 0, 0, 0.1);
+  outline-offset: -3px;
+}
+
+/* .audio-progressbar::-webkit-slider-runnable-track, */
+/* .audio-volumebar::-webkit-slider-runnable-track { */
+.audio-progressbar::-ms-track,
+.audio-volumebar::-ms-track {
+  /* -webkit-appearance: none; */
+  appearance: none;
+  background: transparent;
+  border-color: transparent;
+  color: transparent;
+  border-radius: 50%;
+  height: 12px;
+}
+
+/* .audio-progressbar::-webkit-slider-thumb, */
+/* .audio-volumebar::-webkit-slider-thumb { */
+.audio-progressbar::-ms-thumb,
+.audio-volumebar::-ms-thumb {
+  /* -webkit-appearance: none; */
+  appearance: none;
+  height: 0;
+  width: 0;
+  border-radius: 50%;
+  border: 6px solid black;
+  box-shadow: 50vw 0 0 50vw rgba(255, 255, 255, 0.5);
+}
+/* audio-volume */
+.audio-volume {
+  display: flex;
+}
+.audio-switch {
+  width: 4px;
+  height: 6px;
+  background: black;
+  border: 5px solid #f1f3f4;
+  border-right-color: black;
+  margin: 8px 20px 8px 0px;
+}
+.audio-switch::before {
+  content: '';
+  display: block;
+  width: 32px;
+  height: 32px;
+  position: absolute;
+  border-radius: 16px;
+  margin: -13px 0 0 -5px;
+  pointer-events: none;
+}
+.audio-switch::after {
+  content: '';
+  display: block;
+  background: black;
+  border-radius: 50%;
+  width: 18px;
+  height: 18px;
+  position: absolute;
+  clip-path: inset(0% 0% 0% 50%);
+  box-shadow: 0 0 0 2px black inset, 0 0 0 5px #f1f3f4 inset;
+  margin: -6px 0 0 2px;
+  /* mix-blend-mode: darken; */
+  opacity: 0.8;
+}
+.audio-switch:hover::before,
+.audio-switch:focus::before {
+  background: rgba(0, 0, 0, 0.1);
+}
+
+.audio-volumebar {
+  width: 0;
+  border-left-width: 0;
+  border-right-width: 0;
+  transition: width 0.2s;
+}
+.audio-volume:hover .audio-volumebar,
+.audio-volumebar:focus {
+  width: 80px;
+  border-width: 7px;
+}
+.audio-volume:hover .audio-volumebar + .audio-switch::before,
+.audio-volumebar:focus + .audio-switch::before {
+  width: 130px;
+  background: rgba(0, 0, 0, 0.1);
+  margin-left: -100px;
+}
+
+/* audio-menu */
+.audio-menu {
+  width: 4px;
+  height: 4px;
+  background: black;
+  border-radius: 50%;
+  border: 14px solid #f1f3f4;
+}
+.audio-menu:focus,
+.audio-menu:hover {
+  filter: brightness(0.9);
+}
+.audio-menu::before,
+.audio-menu::after {
+  content: '';
+  display: block;
+  width: 4px;
+  height: 4px;
+  background: black;
+  border-radius: 50%;
+  position: absolute;
+}
+.audio-menu::before {
+  margin-top: -6px;
+}
+.audio-menu::after {
+  margin-top: 6px;
+}

@@ -2,7 +2,7 @@ mybatis:
   type-aliases-package: com.dnk.swa.dto
   mapperLocations: classpath:mapping/*.xml
 server:
-  port: 8080
+  port: 8880
 spring:
   mvc:
     view:

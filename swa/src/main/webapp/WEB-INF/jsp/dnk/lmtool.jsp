@@ -51,6 +51,7 @@
 		              		<c:when test="${level eq 0}">
 		                    <li><a href="javascript:;" id="edit" onclick="checkUrl('edit')">음성전사</a></li>
 		                    <li><a href="javascript:;" id="lmdb" onclick="checkUrl('lmdb')">LM DB 관리</a></li>
+		                    <li><a href="javascript:;" onclick="searchlog('player')">음성재생</a></li>
 		                    <li><a href="javascript:;" id="oov" onclick="checkUrl('oov')">무결성 확인</a></li>
 		                    <li><a href="javascript:;" id="build" onclick="checkUrl('build')">음성인식 모델 빌드</a></li>
 		                    <li><a href="javascript:;" id="testset-checkrate" onclick="checkUrl('testset-checkrate')">인식률 확인</a></li>
@@ -67,7 +68,7 @@
 		                    <c:otherwise>
 		                    <li><a href="javascript:;" id="edit" onclick="checkUrl('edit')">음성전사</a></li>
 		                    <li><a href="javascript:;" id="lmdb" onclick="checkUrl('lmdb')">LM DB 관리</a></li>
-		                    <li><a href="javascript:;" onclick="searchlog('createUser')">비밀번호 변경</a></li>
+		                    <li><a href="javascript:;" onclick="searchlog('player')">음성재생</a></li>
 		                    </c:otherwise>
 		               </c:choose>
 		               </ul>

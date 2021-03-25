@@ -191,5 +191,11 @@ public class SwaController {
 		return address;
 	}
 	
+	@RequestMapping(value = "/player")
+	public String player(Model model) {
+		String address = "dnk/player";
+		return address;
+	}
+	
 	
 }
