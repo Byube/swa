@@ -28,7 +28,7 @@
 		$(".eb").attr("src",embedUrl);
 	}
 	function searchlog(myUrl){
-		var searchlogUrl = "http://127.0.0.1:8080/" + myUrl;
+		var searchlogUrl = "http://127.0.0.1:8880/" + myUrl;
 		$(".ob").attr("data",searchlogUrl);		
 		$(".eb").attr("src",searchlogUrl);
 	}
