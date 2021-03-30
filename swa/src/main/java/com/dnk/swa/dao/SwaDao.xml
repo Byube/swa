@@ -3,6 +3,28 @@
 
  <mapper namespace="com.dnk.swa.dao.SwaDao">
  
+ 	<insert id="insertLog" parameterType="SwaLogDto">
+ 		INSERT	INTO	
+ 				STT_LOG_INFO
+							(
+							STT_DATE
+							,STT_CENTER
+							,STT_USER
+							,STT_IP
+							,STT_MENU
+							,STT_CONTENTS
+							)
+				VALUES
+							(
+							CURDATE()
+							,#{STT_CENTER}
+							,#{STT_USER}
+							,#{STT_IP}
+							,#{STT_MENU}
+							,#{STT_CONTENTS}
+							)
+ 	 </insert>
+ 
  	<select id="getMember" resultType="SwaLoginDto">
  		select	*
  		from	STT_USER_INFO
@@ -38,9 +60,16 @@
 							,@row_num:=@row_num + 1 AS rowNum
 					from	STT.STT_LOG_INFO
 							,(SELECT @row_num := 0) rn
+					where	STT_SEQ	> 0
 					<if test="startDate != null and startDate !='' and endDate != null and endDate !='' ">
-					where	date_format(STT_DATE,'%Y-%m-%d') between #{startDate} AND #{endDate} 
+					and		date_format(STT_DATE,'%Y-%m-%d') between #{startDate} AND #{endDate} 
 					</if>					
+					<if test="STT_USER != null and STT_USER != '' ">
+					and		STT_USER = #{STT_USER}				
+					</if>
+					<if test="STT_MENU != null and STT_MENU != '' ">
+					and		STT_MENU = #{STT_MENU}
+					</if>
 					order by 
 							<if test="dateSort != null and dateSort !=''">
 								<if test="dateSort != null and dateSort == 'dateAsc'">STT_DATE ASC,</if>
@@ -52,15 +81,40 @@
 		order by	 rowNum
  	</select>
  	
- 	<select id="getLogCount" resultType="int">
+ 	<select id="getLogCount" parameterType="SwaLogDto" resultType="int">
  		select	count(STT_SEQ) as logSeq
  		from	STT_LOG_INFO
+ 		where	STT_SEQ > 0
+ 		<if test="startDate != null and startDate !='' and endDate != null and endDate !='' ">
+		and		date_format(STT_DATE,'%Y-%m-%d') between #{startDate} AND #{endDate} 
+		</if>					
+		<if test="STT_USER != null and STT_USER != '' ">
+		and		STT_USER = #{STT_USER}				
+		</if>
+		<if test="STT_MENU != null and STT_MENU != '' ">
+		and		STT_MENU = #{STT_MENU}
+		</if>
  	</select>
  	
- 	<select id="getUser" resultType="SwaLoginDto">
+ 	<select id="getUserId" parameterType="SwaLoginDto" resultType="String">
+		select	STT_ID
+		from	STT_USER_INFO
+		where	STT_SEQ = #{STT_SEQ}
+	</select>
+ 	
+ 	
+ 	<select id="getUser" parameterType="SwaLoginDto" resultType="SwaLoginDto">
  		select	*
  		from	STT_USER_INFO
- 		where	STT_NAME	!=	'admin'
+ 		where	
+ 		<choose>
+			<when test="STT_ID != null and STT_ID != ''">
+				STT_SEQ > 0         
+			</when>
+			<otherwise>
+				STT_NAME	!=	'admin'
+			</otherwise>
+		</choose>
  		and		STT_STATUS = 10
  	</select>
  	
@@ -115,6 +169,12 @@
 	<select id="getMin" resultType="String">
 		select	min(date_format(STT_DATE,'%Y-%m-%d'))
 		from	STT_LOG_INFO
+	</select>
+	
+	<select id="getMenu" resultType="SwaLogDto">
+		select		STT_MENU
+		from		STT_LOG_INFO
+		group by	STT_MENU
 	</select>
  	
  	

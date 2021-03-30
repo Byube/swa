@@ -21,6 +21,10 @@
 		//	}
 		});
 		
+		$("#allSearch").click(function(){
+			window.location.href = "/searchlog";
+		});
+		
 	});
 	
 	function getFormatDate(date){

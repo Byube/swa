@@ -26,26 +26,28 @@
 				<input type="date" class="date" title="날짜 검색창" id="endDate" name="endDate"  onclick="haveMin('${dateMin }')" value="${endDate }">
 			</div>
 
-			<select class="sel_01">
-				<option value="0" title="전체">전체</option>
-				<option value="1" title="box1">box1</option>
-				<option value="2" title="box2">box2</option>
-				<option value="3" title="box3">box3</option>
-				<option value="4" title="box4">box4</option>
-				<option value="5" title="box5">box5</option>
-			</select> <select class="sel_02">
-				<option value="0" title="전체">전체</option>
-				<option value="1" title="box1">box1</option>
-				<option value="2" title="box2">box2</option>
-				<option value="3" title="box3">box3</option>
-				<option value="4" title="box4">box4</option>
-				<option value="5" title="box5">box5</option>
+			<select class="sel_01" name="STT_ID">
+				<option value="${sttuser }" title="전체">ID</option>
+			<c:forEach items="${mlist }" var="clist" varStatus="cnt">
+				<option value="${clist.STT_ID }" title="box1" id="stt_center">${clist.STT_ID }</option>
+			</c:forEach>
+			</select> 
+			<select class="sel_02" name="STT_MENU">
+				<option value="${sttmenu }" title="전체">접근메뉴</option>
+			<c:forEach items="${menu }" var="m" varStatus="cnt">	
+				<option value="${m.STT_MENU }" title="box1">${m.STT_MENU }</option>
+			</c:forEach>
 			</select>
 
 			<div class="search_btn">
 				<input
 					style="height: 40px; padding: 0 30px; background: #0071bc; color: #fff; border: none; border-radius: 5px;"
 					type="button" class="search" value="조회" title="조회 버튼" id="searChSort">
+			</div>
+			<div class="search_btn">
+				<input
+					style="height: 40px; padding: 0 30px; background: #0071bc; color: #fff; border: none; border-radius: 5px;"
+					type="button" class="search" value="전체" title="조회 버튼" id="allSearch">
 			</div>
 		</div>
 		<!-- 테이블 -->
@@ -71,7 +73,7 @@
 						<th title="센터">센터</th>
 						<th title="관리자">관리자</th>
 						<th title="ip">ip</th>
-						<th title="변경메뉴">변경메뉴</th>
+						<th title="변경메뉴">접근메뉴</th>
 						<th title="작업내용">작업내용</th>
 					</tr>
 				</thead>

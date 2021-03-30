@@ -15,6 +15,13 @@ public class SwaServiceImpl implements SwaService{
 	
 	@Autowired
 	SwaDao dao;
+	
+	
+
+	@Override
+	public void insertLog(SwaLogDto log) {
+		dao.insertLog(log);
+	}
 
 	@Override
 	public SwaLoginDto getMember(SwaLoginDto sld) {
@@ -36,13 +43,19 @@ public class SwaServiceImpl implements SwaService{
 	}
 
 	@Override
-	public int getLogCount() {
-		return dao.getLogCount();
+	public int getLogCount(SwaLogDto sld) {
+		return dao.getLogCount(sld);
+	}
+
+	
+	@Override
+	public String getUserId(SwaLoginDto sld) {
+		return dao.getUserId(sld);
 	}
 
 	@Override
-	public ArrayList<SwaLoginDto> getUser() {
-		return dao.getUser();
+	public ArrayList<SwaLoginDto> getUser(SwaLoginDto sld) {
+		return dao.getUser(sld);
 	}
 
 	@Override
@@ -80,6 +93,13 @@ public class SwaServiceImpl implements SwaService{
 	public String getMin() {
 		return dao.getMin();
 	}
+
+	@Override
+	public List<SwaLogDto> getMenu() {
+		return dao.getMenu();
+	}
+	
+	
 	
 	
 	

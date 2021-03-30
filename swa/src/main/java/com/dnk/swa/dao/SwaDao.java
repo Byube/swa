@@ -11,11 +11,13 @@ import com.dnk.swa.dto.SwaLoginDto;
 @Mapper
 public interface SwaDao {
 	
+	public void insertLog(SwaLogDto log);
 	public SwaLoginDto getMember(SwaLoginDto sld);
 	public String checkLogin(SwaLoginDto sld);
 	public List<SwaLogDto> getLogtable(SwaLogDto sld);
-	public int getLogCount();
-	public ArrayList<SwaLoginDto> getUser();
+	public int getLogCount(SwaLogDto sld);
+	public String getUserId(SwaLoginDto sld);
+	public ArrayList<SwaLoginDto> getUser(SwaLoginDto sld);
 	
 	public void insertUser(SwaLoginDto sld);
 	public void levelChange(SwaLoginDto sld);
@@ -23,4 +25,5 @@ public interface SwaDao {
 	public void resetPw(SwaLoginDto sld);
 	public int checkIdok(SwaLoginDto sld);
 	public String getMin();
+	public List<SwaLogDto> getMenu();
 }
