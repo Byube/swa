@@ -1,6 +1,10 @@
 package com.dnk.swa.controller;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
@@ -14,6 +18,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.dnk.swa.dto.PageDto;
 import com.dnk.swa.dto.SwaLogDto;
@@ -40,12 +45,16 @@ public class SwaController {
 	@RequestMapping(value = "/searchlog")
 	public String searchlog(Model model
 							,HttpSession session, HttpServletRequest request
-							,@RequestParam(value = "now_page", defaultValue = "0")String now_page) {
+							,@RequestParam(value = "now_page", defaultValue = "0")String now_page
+							,@RequestParam(value = "dateSort", defaultValue = "")String dateSort
+							,@RequestParam(value = "startDate", defaultValue = "")String startDate
+							,@RequestParam(value = "endDate", defaultValue = "")String endDate) {
 		
 		String address = "dnk/logtable";
 		PageDto pageDto = new PageDto();
 		SwaLogDto sld = new SwaLogDto();
 		String page = now_page;
+		String dateMin = "";
 		int totalCount = 0;
 		int nowPage = 1;
 		int pageCount = 0;
@@ -55,6 +64,11 @@ public class SwaController {
 		} else {
 			nowPage = Integer.parseInt(page);
 		}
+		
+		sld.setDateSort(dateSort);
+		sld.setStartDate(startDate);
+		sld.setEndDate(endDate);
+		
 		totalCount = swaService.getLogCount();
 		pageCount = totalCount / recordCnt + 1;
 		if(totalCount % recordCnt == 0) {
@@ -70,12 +84,23 @@ public class SwaController {
 		sld.setStartRow(pagingService.getStartRow());
 		sld.setEndRow(pagingService.getEndRow());
 		
+		
 		List<SwaLogDto> list = swaService.getLogtable(sld);
 		model.addAttribute("nowPage", nowPage);
 		model.addAttribute("pageTag", pagingService.resultString());
 		model.addAttribute("loglist", list);
+		model.addAttribute("dateSort", dateSort);
+		dateMin = swaService.getMin();
+		//String[]min = dateMin.split(" ");
+		//model.addAttribute("dateMin", min[0]);
+		model.addAttribute("dateMin", dateMin);
+		model.addAttribute("startDate", startDate);
+		model.addAttribute("endDate", endDate);
+		logger.info(">>>>>>>>>>>>>>>>>>>>>" + startDate);
+		logger.info(">>>>>>>>>>>>>>>>>>>>>" + endDate);
 		return address;
 	}
+	
 	@RequestMapping(value = "/stt_login")
 	public String stt_login(@RequestParam(value = "STT_ID", defaultValue = "-")String STT_ID
 							,@RequestParam(value = "STT_PW", defaultValue = "-")String STT_PW
@@ -184,7 +209,7 @@ public class SwaController {
 							,@RequestParam(value = "STT_PW", defaultValue = "")String STT_PW) {
 		String address = "redirect:/stt";
 		SwaLoginDto sld = new SwaLoginDto();
-		logger.info(">>>>>>>>>>>>>>>>>" + STT_SEQ);
+		//logger.info(">>>>>>>>>>>>>>>>>" + STT_SEQ);
 		sld.setSTT_PW(STT_PW);
 		sld.setSTT_SEQ(STT_SEQ);
 		swaService.resetPw(sld);
@@ -195,6 +220,20 @@ public class SwaController {
 	public String player(Model model) {
 		String address = "dnk/player";
 		return address;
+	}
+	
+	@RequestMapping(value = "/checkIdok")
+	@ResponseBody
+	public String checkIdok(@RequestParam(value = "id", defaultValue = "")String id) {
+		String result = "false";
+		//logger.info("id >>>>>>>>>>>>>>>>>>>>>  : " + id);
+		SwaLoginDto sld = new SwaLoginDto();
+		sld.setSTT_ID(id);
+		boolean check = swaService.checkIdok(sld);
+		if(check) {
+			result = "true";
+		}
+		return result;
 	}
 	
 	

@@ -59,10 +59,12 @@
 		                    <li><a href="javascript:;" id="monitoring/stt.html" onclick="checkUrl('monitoring/stt.html')">파일 STT</a></li>
 		                    <li><a href="javascript:;" id="monitoring/call.html" onclick="checkUrl('monitoring/call.html')">STT 운영 모니터링</a></li>
 		                    <li><a href="javascript:;" id="status" onclick="checkUrl('status')">리소스 모니터링</a></li>
-		                    <li><a href="javascript:;" onclick="searchlog('searchlog')">로그테이블</a></li>
+		                    
 		                    <c:if test="${User_Id eq 'admin' }">
 		                    <li><a href="javascript:;" onclick="searchlog('insertUser')">운영관리자 생성</a></li>
 		                    <li><a href="javascript:;" onclick="searchlog('createUser')">운영관리자 관리</a></li>
+		                    <li><a href="javascript:;" onclick="searchlog('searchlog')">로그테이블</a></li>
+		                    
 		                    </c:if>
 		                    </c:when>
 		                    <c:otherwise>

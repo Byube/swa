@@ -34,8 +34,11 @@
                          <h3>운영자 계정 생성</h3>
                          <h2>상수도 STT LM툴 확인 운영자 계정 생성</h2>
                     </div>
+                    
+                     <div class="alert alert-danger" id="noid" style="display: none;">중복된 아이디 입니다.</div>
+                      <div class="alert alert-success" id="okid" style="display: none;">사용해도 가능한 아이디 입니다.</div>
 
-                    <form action="/addUser" method="post">
+                    <form action="/addUser" method="post" id="adduser">
                          <div class="col-md-6 col-sm-6">
                               <input type="text" class="form-control" placeholder="Name" id="STT_NAME" name="STT_NAME">
                          </div>
@@ -46,7 +49,10 @@
                               <input type="text" class="form-control" placeholder="센터명" id="STT_CENTER" name="STT_CENTER">
                          </div>
                          <div class="col-md-3 col-sm-4">
-                              <input type="submit" class="form-control" value="저장">
+                              <input type="button" class="form-control" value="아이디 중복 체크" id="checkId">
+                         </div>
+                         <div class="col-md-3 col-sm-4">
+                              <input type="submit" class="form-control" value="저장" id="submit">
                          </div>
                     </form>
                </div>

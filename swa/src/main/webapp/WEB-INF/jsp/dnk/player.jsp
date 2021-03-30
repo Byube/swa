@@ -13,13 +13,13 @@
 </head>
 
 <body>
-	<!-- <audio
+	 <!-- <audio
       id="audio"
       preload="metadata"
       controls
       controlsList="nodownload"
       style="width: 100%"
-    ></audio> -->
+    ></audio>  -->
 	<audio id="audio" preload="metadata"></audio>
 	<div class="audio-wrap">
 		<img id="btn_play" src="resources/image/baseline_play_arrow_black_18dp.png"

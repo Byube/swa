@@ -9,6 +9,9 @@ import org.springframework.boot.web.servlet.support.SpringBootServletInitializer
 public class SwaApplication extends SpringBootServletInitializer{
 
 	
+	public static void main(String[] args) {
+		SpringApplication.run(SwaApplication.class, args);
+	}
 	
 	@Override
 	protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
@@ -16,9 +19,6 @@ public class SwaApplication extends SpringBootServletInitializer{
 		return builder.sources(SwaApplication.class);
 	}
 
-	public static void main(String[] args) {
-		SpringApplication.run(SwaApplication.class, args);
-	}
 	
 	
 

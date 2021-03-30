@@ -66,6 +66,22 @@ public class SwaServiceImpl implements SwaService{
 		dao.resetPw(sld);
 	}
 
+	@Override
+	public boolean checkIdok(SwaLoginDto sld) {
+		boolean check = false;
+		int checkid = dao.checkIdok(sld);
+		if(checkid == 0) {
+			check = true;
+		}
+		return check;
+	}
+
+	@Override
+	public String getMin() {
+		return dao.getMin();
+	}
+	
+	
 	
 	
 	

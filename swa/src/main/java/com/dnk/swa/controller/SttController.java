@@ -79,6 +79,7 @@ public class SttController {
     @ResponseBody
     public String getStream(HttpServletRequest request, HttpServletResponse response) {
         Path pathtofile = Paths.get("0000.wav");
+    	//Path pathtofile = Paths.get("http://98.28.8.45:28881/listen?url=/var/REC/RecSee_Data/20190925/09/20190925_093609_0156_user_3842_93694654_3842_389666_0010.mp3");
         try {
             MultipartFileSender.fromPath(pathtofile).with(request).with(response).serveResource();
         } catch (Exception e) {

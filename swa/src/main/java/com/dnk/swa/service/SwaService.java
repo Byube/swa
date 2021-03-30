@@ -20,5 +20,7 @@ public interface SwaService {
 	public void levelChange(SwaLoginDto sld);
 	public void deleteUser(SwaLoginDto sld);
 	public void resetPw(SwaLoginDto sld);
+	public boolean checkIdok(SwaLoginDto sld);
+	public String getMin();
 
 }

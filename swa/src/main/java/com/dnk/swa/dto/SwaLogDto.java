@@ -23,4 +23,5 @@ public class SwaLogDto {
 	private int rowNum;
 	private int startRow;
 	private int endRow;
+	private String dateSort;
 }

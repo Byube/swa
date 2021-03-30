@@ -20,10 +20,10 @@
 	 <form id="stt_list_form" method="post" action="/searchlog">
 		<div class="con_sel">
 			<div class="date_search">
-				<input type="date" class="date" title="날짜 검색창">
+				<input type="date" class="date" title="날짜 검색창" id="startDate" name="startDate" min="${dateMin }" onclick="checkDate()" value="${startDate }">
 			</div>
 			<div class="date_search">
-				<input type="date" class="date" title="날짜 검색창">
+				<input type="date" class="date" title="날짜 검색창" id="endDate" name="endDate"  onclick="haveMin('${dateMin }')" value="${endDate }">
 			</div>
 
 			<select class="sel_01">
@@ -45,7 +45,7 @@
 			<div class="search_btn">
 				<input
 					style="height: 40px; padding: 0 30px; background: #0071bc; color: #fff; border: none; border-radius: 5px;"
-					type="button" class="search" value="조회" title="조회 버튼">
+					type="button" class="search" value="조회" title="조회 버튼" id="searChSort">
 			</div>
 		</div>
 		<!-- 테이블 -->
@@ -64,8 +64,8 @@
 					<tr>
 						<th title="작업일시">작업일시
 							<div class="updown">
-								<a href="javascript:;" class="btn_up" title="오름차순"></a> 
-								<a href="javascript:;" class="btn_down" title="내림차순" style="display: none"></a>
+								<a href="javascript:;" id="date_sort"  onclick="dateSort()"></a> 
+								<!-- <a href="javascript:;" class="btn_down" title="내림차순" onclick="dateSort('dateDown')" style="display: none"></a> -->
 							</div>
 						</th>
 						<th title="센터">센터</th>
@@ -92,6 +92,7 @@
 		</div>
 		<!-- 페이지 -->
 		<input type="hidden" id="now_page" name="now_page" value="${nowPage }">
+		<input type="hidden" id="dateSort" name="dateSort" class="sort_class" value="${dateSort }">
 	 </form>
 		<div class="paging_box">
 			 <!-- <form class="paging">

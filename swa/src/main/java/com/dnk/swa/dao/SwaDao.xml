@@ -19,7 +19,7 @@
  	</select>
  	
  	<select id="getLogtable" parameterType="SwaLogDto" resultType="SwaLogDto">
- 		SELECT	STT_SEQ
+ 		select	STT_SEQ
 				,STT_DATE
 				,STT_CENTER
 				,STT_USER
@@ -27,8 +27,8 @@
 				,STT_MENU
 				,STT_CONTENTS
 				,rowNum
-		FROM	(
-					SELECT	STT_SEQ
+		from	(
+					select	STT_SEQ
 							,STT_DATE
 							,STT_CENTER
 							,STT_USER
@@ -36,12 +36,20 @@
 							,STT_MENU
 							,STT_CONTENTS
 							,@row_num:=@row_num + 1 AS rowNum
-					FROM	STT.STT_LOG_INFO
+					from	STT.STT_LOG_INFO
 							,(SELECT @row_num := 0) rn
-					ORDER BY STT_SEQ DESC
+					<if test="startDate != null and startDate !='' and endDate != null and endDate !='' ">
+					where	date_format(STT_DATE,'%Y-%m-%d') between #{startDate} AND #{endDate} 
+					</if>					
+					order by 
+							<if test="dateSort != null and dateSort !=''">
+								<if test="dateSort != null and dateSort == 'dateAsc'">STT_DATE ASC,</if>
+								<if test="dateSort != null and dateSort == 'dateDesc'">STT_DATE DESC,</if>
+							</if>
+							STT_SEQ DESC
 				) urn
-		WHERE	rowNum BETWEEN #{startRow} AND #{endRow}
-		ORDER BY	 rowNum
+		where	rowNum BETWEEN #{startRow} AND #{endRow}
+		order by	 rowNum
  	</select>
  	
  	<select id="getLogCount" resultType="int">
@@ -98,6 +106,16 @@
  		where	STT_SEQ	=	#{STT_SEQ}
  	</update>
 
+	<select id="checkIdok" parameterType="SwaLoginDto" resultType="int">
+		select	COUNT(*)
+		from	STT_USER_INFO
+		where	STT_ID = #{STT_ID}
+	</select>
+	
+	<select id="getMin" resultType="String">
+		select	min(date_format(STT_DATE,'%Y-%m-%d'))
+		from	STT_LOG_INFO
+	</select>
  	
  	
  	
