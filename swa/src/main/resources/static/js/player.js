@@ -33,15 +33,15 @@ function initAudio() {
 
   //
   audio = document.getElementById('audio');
-  audio = new Audio();
-  audio.preload = 'metadata';
+  // audio = new Audio();
+  // audio.preload = 'metadata';
 
   console.log(audio);
 
-  audio.src = 'http://98.28.8.45:28881/listen?url=/var/REC/RecSee_Data/20190925/09/20190925_093609_0156_user_3842_93694654_3842_389666_0010.mp3';
- // audio.src = 'http://localhost:8880/player/getwav/';
- // audio.src = 'http://localhost:8880/player/getstream/';
- // audio.src = 'http://localhost:8880/getstream/';
+   audio.src = 'http://98.28.8.45:28881/listen?url=/var/REC/RecSee_Data/20190902/08/20190902_082936_0324_user_4692_01082322114_4692_386971_0008.mp3';
+  // audio.src = 'http://localhost:9220/player/getwav/';
+  // audio.src = 'http://localhost:9230/player/getstream/';
+  audio.src = 'http://localhost:8880/getstream/';
 
   audio.addEventListener('timeupdate', timeUpdate, false);
   audio.addEventListener(
@@ -260,6 +260,6 @@ function getText() {
     }
   };
 
-  httpRequest.open('GET', 'http://localhost:8080/gettxt/');
+  httpRequest.open('GET', 'http://localhost:8880/gettxt/');
   httpRequest.send();
 }

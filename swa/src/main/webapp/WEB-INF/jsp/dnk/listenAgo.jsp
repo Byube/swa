@@ -7,11 +7,11 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>로그조회</title>
+<title>과거녹취 청취</title>
 <link rel="stylesheet" href="resources/css/logtable.css">
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-<script src="resources/js/logtable.js"></script>
+<script src="resources/js/listenAgo.js"></script>
 
 </head>
 <body>
@@ -26,71 +26,70 @@
 				<input type="date" class="date" title="날짜 검색창" id="endDate" name="endDate"  onclick="haveMin('${dateMin }')" value="${endDate }">
 			</div>
 
-			<select class="sel_01" name="STT_ID">
-				<option value="${sttuser }" title="ID">ID</option>
-				<option value="all" title="전체">전체</option>
+		<%-- 	<select class="sel_01" name="STT_ID">
+				<option value="${sttuser }" title="전체">ID</option>
 			<c:forEach items="${mlist }" var="clist" varStatus="cnt">
-				<option value="${clist.STT_ID }" title="${clist.STT_ID }" id="stt_center">${clist.STT_ID }</option>
+				<option value="${clist.STT_ID }" title="box1" id="stt_center">${clist.STT_ID }</option>
 			</c:forEach>
 			</select> 
 			<select class="sel_02" name="STT_MENU">
-				<option value="${sttmenu }" title="접근메뉴">접근메뉴</option>
-				<option value="all" title="전체">전체</option>
+				<option value="${sttmenu }" title="전체">접근메뉴</option>
 			<c:forEach items="${menu }" var="m" varStatus="cnt">	
-				<option value="${m.STT_MENU }" title="${m.STT_MENU }">${m.STT_MENU }</option>
+				<option value="${m.STT_MENU }" title="box1">${m.STT_MENU }</option>
 			</c:forEach>
 			</select>
-
+ --%>
+			<div class="search_btn">
+				<input
+					style="height: 40px; padding: 0 30px; background: #f3e86f; color: #020202; border: none; border-radius: 5px;"
+					type="text" placeholder="키워드입력" class="search" title="검색창">
+			</div>
 			<div class="search_btn">
 				<input
 					style="height: 40px; padding: 0 30px; background: #0071bc; color: #fff; border: none; border-radius: 5px;"
 					type="button" class="search" value="조회" title="조회 버튼" id="searChSort">
 			</div>
-			<div class="search_btn">
-				<input
-					style="height: 40px; padding: 0 30px; background: #0071bc; color: #fff; border: none; border-radius: 5px;"
-					type="button" class="search" value="초기화" title="조회 버튼" id="allSearch">
-			</div>
+			
 		</div>
 		<!-- 테이블 -->
 		<div class="table">
 			<table class="tb_1" summary="게시판 테이블">
 				<caption style="font-size: 0">게시판</caption>
 				<colgroup>
-					<col width="20%">
-					<col width="5%">
-					<col width="5%">
 					<col width="10%">
-					<col width="10%">
-					<col width="50%">
+					<col width="15%">
+					<col width="15%">
+					<col width="60%">
 				</colgroup>
 				<thead>
 					<tr>
-						<th title="작업일시">작업일시
-							<div class="updown">
-								<a href="javascript:;" id="date_sort"  onclick="dateSort()"></a> 
-								<!-- <a href="javascript:;" class="btn_down" title="내림차순" onclick="dateSort('dateDown')" style="display: none"></a> -->
-							</div>
-						</th>
-						<th title="센터">센터</th>
-						<th title="관리자">관리자</th>
-						<th title="ip">ip</th>
-						<th title="변경메뉴">접근메뉴</th>
-						<th title="작업내용">작업내용</th>
+						<th title="순">순</th>
+						<th title="센터">고객전화</th>
+						<th title="내선번호">내선번호</th>
+						<th title="시간">시간</th>
 					</tr>
 				</thead>
 				<tbody>
-				<c:forEach items="${loglist }" var="log" varStatus="cnt">
+					<tr id="test" onclick="golisten(this)">
+						<th title="1">1</th>
+						<td title="010-5555-5555">010-5555-5555</td>
+						<td title="1234">1234</td>
+						<td title="2021-04-01">2021-04-01 09:22:55</td>
+					</tr>
+					<tr id="test2" onclick="golisten(this)">
+						<th title="1">1</th>
+						<td title="010-5555-5555">010-5555-5555</td>
+						<td title="1234">1234</td>
+						<td title="2021-04-01">2021-04-01 09:22:55</td>
+					</tr>
+				<%-- <c:forEach items="${loglist }" var="log" varStatus="cnt">
 					<tr>
 						<th title="${log.STT_DATE }">${log.STT_DATE }</th>
 						<td title="${log.STT_CENTER }">${log.STT_CENTER }</td>
 						<td title="${log.STT_USER }">${log.STT_USER }</td>
 						<td title="${log.STT_IP }">${log.STT_IP }</td>
-						<td title="${log.STT_MENU }">${log.STT_MENU }</td>
-						<td title="${log.STT_CONTENTS }">${log.STT_CONTENTS }</td>
 					</tr>
-				</c:forEach>
-					
+				</c:forEach> --%>
 				</tbody>
 			</table>
 		</div>
@@ -99,7 +98,7 @@
 		<input type="hidden" id="dateSort" name="dateSort" class="sort_class" value="${dateSort }">
 	 </form>
 		<div class="paging_box">
-			 <!-- <form class="paging">
+			 <form class="paging">
 				<input type="hidden" value="1"> 
 				<a href="javascript;" title="FIRST" class="pre01">FIRST</a>
 				<a href="javascript:;" title="PREV" class="pre02">PREV</a> 
@@ -107,8 +106,8 @@
 				<a href="javascript:" title="2" class="txt"> 2 </a> 
 				<a href="javascript:" title="NEXT" class="next">NEXT</a> 
 				<a href="javascript:" title="LAST" class="next_end">LAST</a>
-			</form> -->
-			 ${pageTag}
+			</form> 
+		<%-- 	 ${pageTag} --%>
 		</div>
 	</div>
 

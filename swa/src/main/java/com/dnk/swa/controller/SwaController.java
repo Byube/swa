@@ -1,11 +1,6 @@
 package com.dnk.swa.controller;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -26,7 +21,6 @@ import com.dnk.swa.dto.SwaLoginDto;
 import com.dnk.swa.service.PagingService;
 import com.dnk.swa.service.SwaService;
 
-import groovy.util.logging.Log;
 
 @Controller
 public class SwaController {
@@ -56,7 +50,7 @@ public class SwaController {
 							,@RequestParam(value = "endDate", defaultValue = "")String endDate
 							,@RequestParam(value = "STT_ID", defaultValue = "")String STT_ID
 							,@RequestParam(value = "STT_MENU", defaultValue = "")String STT_MENU) {
-		
+		logger.info(">>>>>>>>>>>>>>>>" + STT_ID + " : " + STT_MENU);
 		String address = "dnk/logtable";
 		PageDto pageDto = new PageDto();
 		SwaLogDto sld = new SwaLogDto();
@@ -77,6 +71,7 @@ public class SwaController {
 		sld.setDateSort(dateSort);
 		sld.setStartDate(startDate);
 		sld.setEndDate(endDate);
+
 		sld.setSTT_USER(STT_ID);
 		sld.setSTT_MENU(STT_MENU);
 		
@@ -159,9 +154,9 @@ public class SwaController {
 		return address;
 	}
 	
-	@RequestMapping(value = "/insertUser")
-	public String insertUser(Model model) {
-		String address = "dnk/insertUser";
+	@RequestMapping(value = "/listenAgo")
+	public String listenAgo(Model model) {
+		String address = "dnk/listenAgo";
 		return address;
 	}
 	
@@ -268,7 +263,6 @@ public class SwaController {
 	@ResponseBody
 	public String checkIdok(@RequestParam(value = "id", defaultValue = "")String id) {
 		String result = "false";
-		//logger.info("id >>>>>>>>>>>>>>>>>>>>>  : " + id);
 		SwaLoginDto sld = new SwaLoginDto();
 		sld.setSTT_ID(id);
 		boolean check = swaService.checkIdok(sld);
@@ -278,5 +272,25 @@ public class SwaController {
 		return result;
 	}
 	
+	@RequestMapping(value = "/logout")
+	public String logout(Model model
+						,HttpSession session) {
+		String address = "redirect:/stt";
+		session.invalidate();
+		return address;
+	}
+	
+	@RequestMapping(value = "/swaMem")
+	public String swaMem(Model model) {
+		String address = "dnk/memList";
+		
+		return address;
+	}
+	
+	@RequestMapping(value = "/test")
+	public String test(Model model) {
+		String address = "dnk/test";
+		return address;
+	}
 	
 }

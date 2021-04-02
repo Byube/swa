@@ -64,11 +64,26 @@
 					<if test="startDate != null and startDate !='' and endDate != null and endDate !='' ">
 					and		date_format(STT_DATE,'%Y-%m-%d') between #{startDate} AND #{endDate} 
 					</if>					
+					
 					<if test="STT_USER != null and STT_USER != '' ">
-					and		STT_USER = #{STT_USER}				
+						<choose>
+							<when test="STT_USER == 'all'">
+							and		STT_USER != #{STT_USER}
+							</when>
+							<otherwise>
+							and		STT_USER = #{STT_USER}	
+							</otherwise>
+						</choose>
 					</if>
 					<if test="STT_MENU != null and STT_MENU != '' ">
-					and		STT_MENU = #{STT_MENU}
+					<choose>
+							<when test="STT_MENU == 'all'">
+							and		STT_MENU != #{STT_MENU}
+							</when>
+							<otherwise>
+							and		STT_MENU = #{STT_MENU}
+							</otherwise>
+						</choose>
 					</if>
 					order by 
 							<if test="dateSort != null and dateSort !=''">

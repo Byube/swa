@@ -1,0 +1,186 @@
+@charset "UTF-8";
+
+* {
+	font-size: 14px;
+	font-family: Consolas, sans-serif;
+}
+
+body {
+	background: #f2f2f2;
+}
+
+.con {
+	background: #f2f2f2;
+	width: 80%;
+	height: auto;
+}
+
+.con_sel {
+	margin: 10px 10px 0 10px;
+}
+
+div {
+	float: left;
+	text-align: center;
+	margin-right: 10px;
+}
+
+select {
+	float: left;
+	border: 1px solid;
+	text-align: center;
+	margin-right: 10px;
+	width: 100px;
+	height: 40px;
+	padding: 0 10px;
+	border-radius: 5px;
+	border: 1px solid #888
+}
+
+input {
+	height: 36px;
+	padding: 0 15px;
+	border-radius: 5px;
+	border: 1px solid #888
+}
+
+table {
+	width: 100%;
+	font-size: 16px;
+	border-spacing: 1px;
+	margin-left: 10px;
+}
+
+thead {
+	border: 1px solid #fff;
+	border-width: 1px 1px 0px 1px;
+	box-sizing: border-box;
+}
+
+thead th {
+	border-right: 1px solid #888;
+}
+
+thead tr {
+	height: 47px;
+	background-color: #244f6d;
+	color: #fff;
+	text-align: center;
+	font-size: 14px;
+}
+
+tbody th {
+	background-color: #fff;
+	vertical-align: middle;
+	padding: 10px;
+	border-bottom: 1px solid #cccccc;
+	border-right: 1px solid #ccc;
+}
+
+tbody td {
+	padding: 5px 25px 5px 20px;
+	border-bottom: 1px solid #e1e1e1;
+	background-color: #fff;
+	border-right: 1px solid #ccc;
+}
+
+.table {
+	display: block;
+	clear: both;
+	margin-top: 10px;
+	width: 100%;
+}
+
+.updown {
+	position: relative;
+	float: right;
+	display: inline-block;
+}
+
+.btn_up {
+	display: inline-block;
+	width: 20px;
+	height: 16px;
+	font-size: 0;
+	background: url("../image/updown.png") no-repeat 0 0;
+	background-size: 80%;
+	background-position: 2px 4px;
+}
+
+.btn_down {
+	display: inline-block;
+	width: 20px;
+	height: 16px;
+	font-size: 0;
+	background: url("../image/updown.png") no-repeat 0 0;
+	background-size: 80%;
+	background-position: 2px -16px;
+}
+
+.paging_box {
+	width: 100%;
+}
+
+.paging {
+	text-align: center;
+	margin: 20px 0;
+}
+
+.paging>* {
+	vertical-align: middle;
+}
+
+.paging strong, .paging a {
+	display: inline-block;
+	min-width: 30px;
+	height: 30px;
+	line-height: 28px;
+	text-align: center;
+	color: #515151;
+	background-color: #fff;
+	box-sizing: border-box;
+}
+
+.paging a {
+	border: 1px solid #b9b9be;
+	background: #fff url("../image/btn_paging.png") no-repeat 0 0;
+}
+
+.paging .pre01 {
+	border: 0;
+	background-color: transparent;
+	background-position: 0 -240px;
+	font-size: 0;
+}
+
+.paging .pre02 {
+	border: 0;
+	background-color: transparent;
+	background-position: 0 -270px;
+	font-size: 0;
+}
+
+.paging strong {
+	background-color: #0071bc;
+	color: #fff;
+	font-weight: 600;
+}
+
+.paging .next {
+	border: 0;
+	background-color: transparent;
+	background-position: 0px -120px;
+	font-size: 0;
+}
+
+.paging .next_end {
+	border: 0;
+	background-color: transparent;
+	background-position: 0px -180px;
+	font-size: 0;
+}
+
+.paging .txt {
+	background: #fff;
+	text-decoration: none;
+}

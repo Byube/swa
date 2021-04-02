@@ -50,6 +50,41 @@
 							</span> 
 						</div>
 						
+					
+						<button id="create-user">운영자 추가</button>
+					</div>
+					
+					<div class="dialog" id="dialog-form" title="Create new user" style="display: none;">
+						<section id="contact">
+						     <div class="container">
+						          <div class="row">
+						               <div class="col-md-offset-1 col-md-10 col-sm-12">
+						                     <div class="alert alert-danger" id="noid" style="display: none;">중복된 아이디 입니다.</div>
+						                      <div class="alert alert-success" id="okid" style="display: none;">사용해도 가능한 아이디 입니다.</div>
+						
+						                    <form action="/addUser" method="post" id="adduser">
+						                    	<fieldset>
+						                         <div class="col-md-6 col-sm-6">
+						                              <input type="text" class="form-control" placeholder="Name" id="STT_NAME" name="STT_NAME">
+						                         </div>
+						                         <div class="col-md-6 col-sm-6">
+						                              <input type="text" class="form-control" placeholder="ID" id="STT_ID" name="STT_ID">
+						                         </div>
+						                         <div class="col-md-6 col-sm-6">
+						                              <input type="text" class="form-control" placeholder="센터명" id="STT_CENTER" name="STT_CENTER">
+						                         </div>
+						                         <div class="col-md-3 col-sm-4">
+						                              <input type="button" class="form-control" value="아이디 중복 체크" id="checkId">
+						                         </div>
+						                         <div class="col-md-3 col-sm-4">
+						                              <input type="submit" class="form-control" value="저장" id="submit">
+						                         </div>
+						                         </fieldset>
+						                    </form>
+						               </div>
+						          </div>
+						     </div>
+						</section>
 					</div>
 
 					<div class="blog-post-thumb">

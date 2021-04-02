@@ -23,8 +23,9 @@
 <link
 	href="https://fonts.googleapis.com/css?family=Work+Sans:300,400,700"
 	rel="stylesheet">
+
 <c:if test="${empty level}">
-	<c:redirect url="/stt"></c:redirect>
+	<c:redirect url="/logout"></c:redirect>
 </c:if>
 </head>
 <body>
@@ -43,7 +44,7 @@
 		                    <span class="icon icon-bar"></span>
 		                    <span class="icon icon-bar"></span>
 		               </button>
-		               <a href="/stt" class="navbar-brand"><i class="fa fa-magnet"></i></a>
+		               <a href="/logout" class="navbar-brand"><i class="fa fa-magnet"></i></a>
 		          </div>
 		          <div class="collapse navbar-collapse">
 		               <ul class="nav navbar-nav navbar-right">
@@ -61,10 +62,11 @@
 		                    <li><a href="javascript:;" id="status" onclick="checkUrl('status')">리소스 모니터링</a></li>
 		                    
 		                    <c:if test="${User_Id eq 'admin' }">
-		                    <li><a href="javascript:;" onclick="searchlog('insertUser')">운영관리자 생성</a></li>
+		                    <li><a href="javascript:;" onclick="searchlog('listenAgo')">과거녹취 청취</a></li>
 		                    <li><a href="javascript:;" onclick="searchlog('createUser')">운영관리자 관리</a></li>
 		                    <li><a href="javascript:;" onclick="searchlog('searchlog')">로그테이블</a></li>
-		                    
+		                    <li><a href="javascript:;" onclick="searchlog('swaMem')">상담사리스트</a></li>
+		                    <li><a href="javascript:;" onclick="searchlog('test')">테스트</a></li>
 		                    </c:if>
 		                    </c:when>
 		                    <c:otherwise>
