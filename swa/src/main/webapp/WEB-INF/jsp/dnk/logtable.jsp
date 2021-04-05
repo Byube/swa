@@ -51,6 +51,11 @@
 					style="height: 40px; padding: 0 30px; background: #0071bc; color: #fff; border: none; border-radius: 5px;"
 					type="button" class="search" value="초기화" title="조회 버튼" id="allSearch">
 			</div>
+			<div class="search_btn">
+				<input
+					style="height: 40px; padding: 0 30px; background: #0071bc; color: #fff; border: none; border-radius: 5px;"
+					type="button" class="search" value="엑셀다운로드" title="엑셀다운로드 버튼" id="excel">
+			</div>
 		</div>
 		<!-- 테이블 -->
 		<div class="table">

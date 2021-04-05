@@ -25,6 +25,10 @@
 			window.location.href = "/searchlog";
 		});
 		
+		$("#excel").click(function(){
+			window.location.href = "/excel/download";
+		});
+		
 	});
 	
 	function getFormatDate(date){
