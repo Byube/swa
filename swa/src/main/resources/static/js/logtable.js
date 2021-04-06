@@ -29,6 +29,11 @@
 			window.location.href = "/excel/download";
 		});
 		
+		if($("#startDate").val() == '' || $("#startDate").val() == null) {
+			$("#startDate").val(date);
+			$("#endDate").val(date);
+		}
+		
 	});
 	
 	function getFormatDate(date){
@@ -71,6 +76,3 @@
 		}
 	}
 	
-	function checkDate(){
-		
-	}

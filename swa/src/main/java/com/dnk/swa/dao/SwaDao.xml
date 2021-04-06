@@ -186,11 +186,50 @@
 		from	STT_LOG_INFO
 	</select>
 	
+	<select id="getMstMin" resultType="String">
+		select	min(date_format(STT_DTM,'%Y-%m-%d'))
+		from	STT_MST_INFO
+	</select>
+	
 	<select id="getMenu" resultType="SwaLogDto">
 		select		STT_MENU
 		from		STT_LOG_INFO
 		group by	STT_MENU
 	</select>
+	
+	<select id="getMstCount" parameterType="SwaMstDto" resultType="int">
+		select	count(R_FILE_NM) as logSeq
+ 		from	STT_MST_INFO
+ 		where	STT_STAT	>	0
+ 		<if test="startDate != null and startDate !='' and endDate != null and endDate !='' ">
+		and		date_format(STT_DTM,'%Y-%m-%d') between #{startDate} AND #{endDate} 
+		</if>					
+		<!-- <if test="STT_USER != null and STT_USER != '' ">
+		and		STT_USER = #{STT_USER}				
+		</if> -->
+		limit		100
+	</select>
+	
+	<select id="getMstList" parameterType="SwaMstDto" resultType="SwaMstDto">
+ 		SELECT		R_FILE_NM
+					,STT_DTM
+					,STT_STAT
+					,rowNum
+		from		(
+					SELECT		R_FILE_NM
+								,STT_DTM
+								,STT_STAT
+								,@row_num:=@row_num + 1 AS rowNum
+					from		STT.STT_MST_INFO
+								,(SELECT @row_num := 0) rn
+					WHERE		date_format(STT_DTM,'%Y-%m-%d') BETWEEN '2021-03-05' AND '2021-04-05'
+					order by 
+								STT_DTM DESC
+					limit		100
+				) urn
+		where	rowNum BETWEEN #{startRow} AND #{endRow}
+		order by	 rowNum
+ 	</select>
  	
  	
  	

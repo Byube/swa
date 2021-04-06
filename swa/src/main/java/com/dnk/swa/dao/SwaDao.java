@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Mapper;
 
 import com.dnk.swa.dto.SwaLogDto;
 import com.dnk.swa.dto.SwaLoginDto;
+import com.dnk.swa.dto.SwaMstDto;
 
 @Mapper
 public interface SwaDao {
@@ -26,4 +27,8 @@ public interface SwaDao {
 	public int checkIdok(SwaLoginDto sld);
 	public String getMin();
 	public List<SwaLogDto> getMenu();
+	
+	public int getMstCount(SwaMstDto smd);
+	public String getMstMin();
+	public List<SwaMstDto> getMstList(SwaMstDto smd);
 }

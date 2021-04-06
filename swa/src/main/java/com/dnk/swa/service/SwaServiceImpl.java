@@ -1,6 +1,7 @@
 package com.dnk.swa.service;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.dnk.swa.dao.SwaDao;
 import com.dnk.swa.dto.SwaLogDto;
 import com.dnk.swa.dto.SwaLoginDto;
+import com.dnk.swa.dto.SwaMstDto;
 
 @Service
 public class SwaServiceImpl implements SwaService{
@@ -98,6 +100,28 @@ public class SwaServiceImpl implements SwaService{
 	public List<SwaLogDto> getMenu() {
 		return dao.getMenu();
 	}
+
+	@Override
+	public int getMstCount(SwaMstDto smd) {
+		return dao.getMstCount(smd);
+	}
+	
+
+	@Override
+	public String getMstMin() {
+		return null;
+	}
+
+	@Override
+	public List<SwaMstDto> getMstList(SwaMstDto smd) {
+		
+		List<SwaMstDto> plist = dao.getMstList(smd);
+		
+		return plist;
+	}
+	
+	
+	
 	
 	
 	

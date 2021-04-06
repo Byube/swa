@@ -28,6 +28,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.dnk.swa.dto.PageDto;
 import com.dnk.swa.dto.SwaLogDto;
 import com.dnk.swa.dto.SwaLoginDto;
+import com.dnk.swa.dto.SwaMstDto;
 import com.dnk.swa.service.PagingService;
 import com.dnk.swa.service.SwaService;
 
@@ -40,146 +41,7 @@ public class SwaController {
 	private String ip = "";
 	SwaLogDto log = new SwaLogDto();
 	
-	List<SwaLogDto> list = new List<SwaLogDto>() {
-		
-		@Override
-		public <T> T[] toArray(T[] a) {
-			// TODO Auto-generated method stub
-			return null;
-		}
-		
-		@Override
-		public Object[] toArray() {
-			// TODO Auto-generated method stub
-			return null;
-		}
-		
-		@Override
-		public List<SwaLogDto> subList(int fromIndex, int toIndex) {
-			// TODO Auto-generated method stub
-			return null;
-		}
-		
-		@Override
-		public int size() {
-			// TODO Auto-generated method stub
-			return 0;
-		}
-		
-		@Override
-		public SwaLogDto set(int index, SwaLogDto element) {
-			// TODO Auto-generated method stub
-			return null;
-		}
-		
-		@Override
-		public boolean retainAll(Collection<?> c) {
-			// TODO Auto-generated method stub
-			return false;
-		}
-		
-		@Override
-		public boolean removeAll(Collection<?> c) {
-			// TODO Auto-generated method stub
-			return false;
-		}
-		
-		@Override
-		public SwaLogDto remove(int index) {
-			// TODO Auto-generated method stub
-			return null;
-		}
-		
-		@Override
-		public boolean remove(Object o) {
-			// TODO Auto-generated method stub
-			return false;
-		}
-		
-		@Override
-		public ListIterator<SwaLogDto> listIterator(int index) {
-			// TODO Auto-generated method stub
-			return null;
-		}
-		
-		@Override
-		public ListIterator<SwaLogDto> listIterator() {
-			// TODO Auto-generated method stub
-			return null;
-		}
-		
-		@Override
-		public int lastIndexOf(Object o) {
-			// TODO Auto-generated method stub
-			return 0;
-		}
-		
-		@Override
-		public Iterator<SwaLogDto> iterator() {
-			// TODO Auto-generated method stub
-			return null;
-		}
-		
-		@Override
-		public boolean isEmpty() {
-			// TODO Auto-generated method stub
-			return false;
-		}
-		
-		@Override
-		public int indexOf(Object o) {
-			// TODO Auto-generated method stub
-			return 0;
-		}
-		
-		@Override
-		public SwaLogDto get(int index) {
-			// TODO Auto-generated method stub
-			return null;
-		}
-		
-		@Override
-		public boolean containsAll(Collection<?> c) {
-			// TODO Auto-generated method stub
-			return false;
-		}
-		
-		@Override
-		public boolean contains(Object o) {
-			// TODO Auto-generated method stub
-			return false;
-		}
-		
-		@Override
-		public void clear() {
-			// TODO Auto-generated method stub
-			
-		}
-		
-		@Override
-		public boolean addAll(int index, Collection<? extends SwaLogDto> c) {
-			// TODO Auto-generated method stub
-			return false;
-		}
-		
-		@Override
-		public boolean addAll(Collection<? extends SwaLogDto> c) {
-			// TODO Auto-generated method stub
-			return false;
-		}
-		
-		@Override
-		public void add(int index, SwaLogDto element) {
-			// TODO Auto-generated method stub
-			
-		}
-		
-		@Override
-		public boolean add(SwaLogDto e) {
-			// TODO Auto-generated method stub
-			return false;
-		}
-	};
+	
 	
 	@Autowired
 	SwaService swaService;
@@ -201,7 +63,7 @@ public class SwaController {
 							,@RequestParam(value = "endDate", defaultValue = "")String endDate
 							,@RequestParam(value = "STT_ID", defaultValue = "")String STT_ID
 							,@RequestParam(value = "STT_MENU", defaultValue = "")String STT_MENU) {
-		logger.info(">>>>>>>>>>>>>>>>" + STT_ID + " : " + STT_MENU);
+		//logger.info(">>>>>>>>>>>>>>>>" + STT_ID + " : " + STT_MENU);
 		String address = "dnk/logtable";
 		PageDto pageDto = new PageDto();
 		SwaLogDto sld = new SwaLogDto();
@@ -241,7 +103,6 @@ public class SwaController {
 		sld.setStartRow(pagingService.getStartRow());
 		sld.setEndRow(pagingService.getEndRow());
 		
-		
 		List<SwaLogDto> plist = swaService.getLogtable(sld);
 		ArrayList<SwaLoginDto> mlist = swaService.getUser(slg);
 		List<SwaLogDto> menu = swaService.getMenu();
@@ -257,10 +118,6 @@ public class SwaController {
 		model.addAttribute("endDate", endDate);
 		model.addAttribute("sttuser", STT_ID);
 		model.addAttribute("sttmenu", STT_MENU);
-		
-		//엑셀저장용
-		sld.setEndRow(totalCount);
-		list = swaService.getLogtable(sld);
 		return address;
 	}
 	
@@ -308,8 +165,78 @@ public class SwaController {
 	}
 	
 	@RequestMapping(value = "/listenAgo")
-	public String listenAgo(Model model) {
+	public String listenAgo(Model model
+							,@RequestParam(value = "now_page", defaultValue = "0")String now_page
+							,@RequestParam(value = "dateSort", defaultValue = "")String dateSort
+							,@RequestParam(value = "startDate", defaultValue = "")String startDate
+							,@RequestParam(value = "endDate", defaultValue = "")String endDate
+							,@RequestParam(value = "STT_ID", defaultValue = "")String STT_ID
+							,@RequestParam(value = "STT_MENU", defaultValue = "")String STT_MENU) {
 		String address = "dnk/listenAgo";
+		SwaMstDto smd = new SwaMstDto();
+		PageDto pageDto = new PageDto();
+		String page = now_page;
+		String dateMin = "";
+		int totalCount = 0;
+		int nowPage = 1;
+		int pageCount = 0;
+		
+		if(page.equals("0")) {
+			nowPage = 1;
+		} else {
+			nowPage = Integer.parseInt(page);
+		}
+		
+		smd.setDateSort(dateSort);
+		smd.setStartDate(startDate);
+		smd.setEndDate(endDate);
+
+		
+		
+		totalCount = swaService.getMstCount(smd);
+		pageCount = totalCount / recordCnt + 1;
+		if(totalCount % recordCnt == 0) {
+			pageCount = totalCount / recordCnt;
+		}
+		if(nowPage > pageCount) {
+			nowPage = 1;
+		}
+		pageDto.setNowPage(nowPage);
+		pageDto.setTotalCount(totalCount);
+		
+		PagingService pagingService = new PagingService(pageDto, recordCnt, pagingCnt, "pageEvent");
+		smd.setStartRow(pagingService.getStartRow());
+		smd.setEndRow(pagingService.getEndRow());
+		
+		List<SwaMstDto> agolist = swaService.getMstList(smd);
+		String[] user_nm;
+		SwaMstDto smmd = new SwaMstDto();
+		for (int i = 0; i < agolist.size(); i++) {
+			smmd = agolist.get(i);
+			user_nm = smmd.getR_FILE_NM().split("_");
+			for (int j = 0; j < user_nm.length; j++) {
+				smmd.setSTT_USER_NUM(user_nm[3]);
+				smmd.setSTT_MEM_NUM(user_nm[1]);
+				smmd.setCall_Id1(user_nm[4]);
+				smmd.setCall_Id2(user_nm[5]);
+				smmd.setCall_Id3(user_nm[6]);
+			}
+		}
+		
+		agolist.add(smmd);
+		
+		
+		
+		
+		
+		model.addAttribute("agolist", agolist);
+		model.addAttribute("nowPage", nowPage);
+		model.addAttribute("pageTag", pagingService.resultString());
+		model.addAttribute("dateSort", dateSort);
+		dateMin = swaService.getMstMin();
+		model.addAttribute("dateMin", dateMin);
+		model.addAttribute("startDate", startDate);
+		model.addAttribute("endDate", endDate);
 		return address;
 	}
 	
@@ -447,12 +374,58 @@ public class SwaController {
 	}
 	
 	@RequestMapping(value = "/excel/download")
-	public void excelDownload(HttpServletResponse response) throws IOException{
+	public void excelDownload(HttpServletResponse response
+							,@RequestParam(value = "now_page", defaultValue = "0")String now_page
+							,@RequestParam(value = "dateSort", defaultValue = "")String dateSort
+							,@RequestParam(value = "startDate", defaultValue = "")String startDate
+							,@RequestParam(value = "endDate", defaultValue = "")String endDate
+							,@RequestParam(value = "STT_ID", defaultValue = "")String STT_ID
+							,@RequestParam(value = "STT_MENU", defaultValue = "")String STT_MENU) throws IOException{
 		Workbook wb = new XSSFWorkbook();
 		Sheet sheet = wb.createSheet("테스트 시트");
 		Row row = null;
 		Cell cell = null;
 		int rowNum = 0;
+		
+		PageDto pageDto = new PageDto();
+		SwaLogDto sld = new SwaLogDto();
+		SwaLoginDto slg = new SwaLoginDto();
+		slg.setSTT_ID("hello");
+		String page = now_page;
+		String dateMin = "";
+		int totalCount = 0;
+		int nowPage = 1;
+		int pageCount = 0;
+		
+		if(page.equals("0")) {
+			nowPage = 1;
+		} else {
+			nowPage = Integer.parseInt(page);
+		}
+		
+		sld.setDateSort(dateSort);
+		sld.setStartDate(startDate);
+		sld.setEndDate(endDate);
+
+		sld.setSTT_USER(STT_ID);
+		sld.setSTT_MENU(STT_MENU);
+		
+		totalCount = swaService.getLogCount(sld);
+		pageCount = totalCount / recordCnt + 1;
+		if(totalCount % recordCnt == 0) {
+			pageCount = totalCount / recordCnt;
+		}
+		if(nowPage > pageCount) {
+			nowPage = 1;
+		}
+		pageDto.setNowPage(nowPage);
+		pageDto.setTotalCount(totalCount);
+		
+		PagingService pagingService = new PagingService(pageDto, recordCnt, pagingCnt, "pageEvent");
+		sld.setStartRow(pagingService.getStartRow());
+		sld.setEndRow(totalCount);
+		
+		List<SwaLogDto> plist = swaService.getLogtable(sld);
 
 	    // Header
 	    row = sheet.createRow(rowNum++);
@@ -471,39 +444,26 @@ public class SwaController {
 	    cell.setCellValue("작업내용");
 
 	    // Body
-	    SwaLogDto sld = new SwaLogDto();
-	    for (int i = 0; i < list.size(); i++) {
-	    	 sld = list.get(i);
+	    SwaLogDto sld2 = new SwaLogDto();
+	    for (int i = 0; i < plist.size(); i++) {
+	    	 sld2 = plist.get(i);
 	    	row = sheet.createRow(rowNum++);
 	 	    cell = row.createCell(0);
-	 	    cell.setCellValue(sld.getSTT_DATE());
+	 	    cell.setCellValue(sld2.getSTT_DATE());
 	 	    cell = row.createCell(1);
-	 	    cell.setCellValue(sld.getSTT_CENTER());
+	 	    cell.setCellValue(sld2.getSTT_CENTER());
 	 	    cell = row.createCell(2);
-	 	    cell.setCellValue(sld.getSTT_USER());
+	 	    cell.setCellValue(sld2.getSTT_USER());
 	 	    cell = row.createCell(3);
-	 	    cell.setCellValue(sld.getSTT_IP());
+	 	    cell.setCellValue(sld2.getSTT_IP());
 	 	    cell = row.createCell(4);
-	 	    cell.setCellValue(sld.getSTT_MENU());
+	 	    cell.setCellValue(sld2.getSTT_MENU());
 	 	    cell = row.createCell(5);
-	 	    cell.setCellValue(sld.getSTT_CONTENTS());
+	 	    cell.setCellValue(sld2.getSTT_CONTENTS());
 		}
-	    
-	    
-//	    
-//	    for (int i=0; i<3; i++) {
-//	    row = sheet.createRow(rowNum++);
-//	    cell = row.createCell(0);
-//	    cell.setCellValue(i);
-//	    cell = row.createCell(1);
-//	    cell.setCellValue(i+"_name");
-//	    cell = row.createCell(2);
-//	    cell.setCellValue(i+"_title");
-//	    }
 
 	    // 컨텐츠 타입과 파일명 지정
 	    response.setContentType("ms-vnd/excel");
-//	    response.setHeader("Content-Disposition", "attachment;filename=example.xls");
 	    response.setHeader("Content-Disposition", "attachment;filename=example.xlsx");
 
 	    // Excel File Output

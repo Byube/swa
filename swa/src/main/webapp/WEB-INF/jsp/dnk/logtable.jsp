@@ -9,12 +9,24 @@
 <meta charset="UTF-8">
 <title>로그조회</title>
 <link rel="stylesheet" href="resources/css/logtable.css">
-<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<!-- <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script> -->
+<!-- <script src="resources/css/jquery-1.12.4.js"></script>
+<script src="resources/css/jquery-ui.js"></script>
 <script src="resources/js/logtable.js"></script>
+<script src="resources/js/custom.js"></script>
 
+ -->
 </head>
 <body>
+
+<!-- PRE LOADER -->
+
+<div class="preloader">
+     <div class="sk-spinner sk-spinner-wordpress">
+          <span class="sk-inner-circle"></span>
+     </div>
+</div>
 
 	<div class="con">
 	 <form id="stt_list_form" method="post" action="/searchlog">
@@ -73,8 +85,8 @@
 					<tr>
 						<th title="작업일시">작업일시
 							<div class="updown">
-								<a href="javascript:;" id="date_sort"  onclick="dateSort()"></a> 
-								<!-- <a href="javascript:;" class="btn_down" title="내림차순" onclick="dateSort('dateDown')" style="display: none"></a> -->
+								<a href="javascript:;" class="btn_down" id="date_sort"  onclick="dateSort()"></a> 
+								 <!-- <a href="javascript:;" class="btn_down" title="내림차순" onclick="dateSort('dateDown')" style="display: none"></a> -->
 							</div>
 						</th>
 						<th title="센터">센터</th>
@@ -104,19 +116,13 @@
 		<input type="hidden" id="dateSort" name="dateSort" class="sort_class" value="${dateSort }">
 	 </form>
 		<div class="paging_box">
-			 <!-- <form class="paging">
-				<input type="hidden" value="1"> 
-				<a href="javascript;" title="FIRST" class="pre01">FIRST</a>
-				<a href="javascript:;" title="PREV" class="pre02">PREV</a> 
-							<strong>1</strong> 
-				<a href="javascript:" title="2" class="txt"> 2 </a> 
-				<a href="javascript:" title="NEXT" class="next">NEXT</a> 
-				<a href="javascript:" title="LAST" class="next_end">LAST</a>
-			</form> -->
 			 ${pageTag}
 		</div>
 	</div>
-
+<script src="resources/js/jquery.js"></script>
+<script src="resources/js/bootstrap.min.js"></script>
+<script src="resources/js/custom.js"></script>
+<script src="resources/js/logtable.js"></script>
 
 </body>
 </html>
