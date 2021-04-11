@@ -37,4 +37,7 @@ public interface SwaDao {
 	public int checksIdok(SwaMemDto smd);
 	public int getSwaMemCount(SwaMemDto smd);
 	public List<SwaMemDto> getSwaMemList(SwaMemDto smd);
+	public String getSwaMemName(SwaMemDto smd);
+	public void updateSwaMem(SwaMemDto smd);
+	public void deleteSwaMem(SwaMemDto smd);
 }

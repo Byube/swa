@@ -1,8 +1,11 @@
 package com.dnk.swa.controller;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collection;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
@@ -164,7 +167,7 @@ public class SwaController {
 			swaService.insertLog(log);
 			address = "dnk/lmtool";
 		} else {
-			address = "redirect:/stt";
+			address = "redirect:/stt/stt";
 		}		
 		return address;
 	}
@@ -193,14 +196,26 @@ public class SwaController {
 		int totalCount = 0;
 		int nowPage = 1;
 		int pageCount = 0;
-		
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+		Calendar cal = Calendar.getInstance();
 		if(page.equals("0")) {
 			nowPage = 1;
-//			log.setSTT_MENU("운영자 삭제");
-//			log.setSTT_CONTENTS("과거녹취 청취");
+//			log.setSTT_MENU("과거녹취 청취");
+//			log.setSTT_CONTENTS("과거녹취 청취 시작");
 //			swaService.insertLog(log);
 		} else {
 			nowPage = Integer.parseInt(page);
+		}
+		
+		logger.info(">>>>>>>>>>>" + startDate);
+		
+		if(startDate.equals("")) {
+			Date today = new Date();
+			cal.setTime(today);
+			cal.add(Calendar.DATE, -30);
+			endDate = format.format(today).toString();
+			startDate = format.format(cal.getTime()).toString();
+			logger.info( startDate + ">>>>>>>>>>>>>>" + endDate);
 		}
 		
 		smd.setDateSort(dateSort);
@@ -286,7 +301,7 @@ public class SwaController {
 	@RequestMapping(value = "/levelChange")
 	public String levelChange(@RequestParam(value = "STT_SEQ", defaultValue = "")int STT_SEQ
 							,@RequestParam(value = "code", defaultValue = "")String code) {
-		String address = "redirect:/createUser";
+		String address = "redirect:/stt/createUser";
 		SwaLoginDto sld = new SwaLoginDto();
 		sld.setSTT_SEQ(STT_SEQ);
 		if(code.equals("add")) {
@@ -305,7 +320,7 @@ public class SwaController {
 	
 	@RequestMapping(value = "/deleteUser")
 	public String deleteUser(@RequestParam(value = "STT_SEQ", defaultValue = "")int STT_SEQ) {
-		String address = "redirect:/createUser";
+		String address = "redirect:/stt/createUser";
 		SwaLoginDto sld = new SwaLoginDto();
 		sld.setSTT_SEQ(STT_SEQ);
 		sld.setSTT_STATUS(40);
@@ -321,7 +336,7 @@ public class SwaController {
 	
 	@RequestMapping(value = "/resetPw")
 	public String resetPw(@RequestParam(value = "STT_SEQ", defaultValue = "")int STT_SEQ) {
-		String address = "redirect:/createUser";
+		String address = "redirect:/stt/createUser";
 		SwaLoginDto sld = new SwaLoginDto();
 		sld.setSTT_SEQ(STT_SEQ);
 		sld.setSTT_PW("1234");
@@ -335,7 +350,7 @@ public class SwaController {
 	@RequestMapping(value = "/changePws")
 	public String changePws(@RequestParam(value = "STT_SEQ", defaultValue = "")int STT_SEQ
 							,@RequestParam(value = "STT_PW", defaultValue = "")String STT_PW) {
-		String address = "redirect:/stt";
+		String address = "redirect:/stt/stt";
 		SwaLoginDto sld = new SwaLoginDto();
 		//logger.info(">>>>>>>>>>>>>>>>>" + STT_SEQ);
 		sld.setSTT_PW(STT_PW);
@@ -522,10 +537,10 @@ public class SwaController {
 	@RequestMapping(value = "/insertSwaMem")
 	public String insertSwaMem(Model model
 							,@RequestParam(value = "SWA_CENTER", defaultValue = "NO")String SWA_CENTER
-							,@RequestParam(value = "SWA_INNUM", defaultValue = "user")String SWA_INNUM
+							,@RequestParam(value = "SWA_INNUM", defaultValue = "0000")String SWA_INNUM
 							,@RequestParam(value = "SWA_ID", defaultValue = "-")String SWA_ID
 							,@RequestParam(value = "SWA_NAME", defaultValue = "-")String SWA_NAME) {
-		String address = "redirect:/swaMem";
+		String address = "redirect:/stt/swaMem";
 		SwaMemDto smd = new SwaMemDto();
 		smd.setSWA_CENTER(SWA_CENTER);
 		smd.setSWA_ID(SWA_ID);
@@ -549,6 +564,44 @@ public class SwaController {
 			result = "true";
 		}
 		return result;
+	}
+	
+	@RequestMapping(value = "/updateSwaMem")
+	public String updateSwaMem(Model model
+							,@RequestParam(value = "SWA_SEQ", defaultValue = "0")int SWA_SEQ
+							,@RequestParam(value = "SWA_CENTER", defaultValue = "NO")String SWA_CENTER
+							,@RequestParam(value = "SWA_INNUM", defaultValue = "0000")String SWA_INNUM
+							,@RequestParam(value = "SWA_ID", defaultValue = "-")String SWA_ID
+							,@RequestParam(value = "SWA_NAME", defaultValue = "-")String SWA_NAME) {
+		String address = "redirect:/stt/swaMem";
+//		logger.info("[update SwaMem] : " + SWA_SEQ);
+		SwaMemDto smd = new SwaMemDto();
+		smd.setSWA_SEQ(SWA_SEQ);
+		smd.setSWA_CENTER(SWA_CENTER);
+		smd.setSWA_INNUM(SWA_INNUM);
+		smd.setSWA_ID(SWA_ID);
+		smd.setSWA_NAME(SWA_NAME);
+		log.setSTT_MENU("상담사리스트");
+		log.setSTT_CONTENTS("상담사"+ swaService.getSwaMemName(smd) + "의 정보 수정 "
+							+ " 새로 입력한 센테명 : " + SWA_CENTER
+							+ " 새로 입력한 내선번호 : " + SWA_INNUM
+							+ " 새로 입력한 아이디 : " + SWA_ID
+							+ " 새로 입력한 상담사이름 : " + SWA_NAME);
+		swaService.insertLog(log);
+		swaService.updateSwaMem(smd);
+//		logger.info("[update SwaMem] : " + smd);
+		return address;
+	}
+	@RequestMapping(value = "/deleteSwaMem")
+	public String deleteSwaMem(@RequestParam(value = "SWA_SEQ", defaultValue = "")int SWA_SEQ) {
+		String address = "redirect:/stt/swaMem";
+		SwaMemDto smd = new SwaMemDto();
+		smd.setSWA_SEQ(SWA_SEQ);
+		log.setSTT_MENU("상담사리스트");
+		log.setSTT_CONTENTS("상담사 " + swaService.getSwaMemName(smd) + "님 계정 삭제");
+		swaService.insertLog(log);
+		swaService.deleteSwaMem(smd);		
+		return address;
 	}
 	
 }

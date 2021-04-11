@@ -49,7 +49,9 @@ public class SttController {
         String result1 = "";
         smd.setSTT_CALL(R_F_NM);
         result = swaService.getMstC(smd);
- //       logger.info(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"+result);
+        
+        logger.info(STT_CALL1 + ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>" + STT_CALL2 + ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>" + STT_CALL3);
+        
         smd.setSTT_USER_NUM(STT_USER_NUM);
         smd.setSTT_MEM_NUM(STT_MEM_NUM);
         String[] line;

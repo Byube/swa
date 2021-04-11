@@ -200,14 +200,13 @@
 	<select id="getMstCount" parameterType="SwaMstDto" resultType="int">
 		select	count(R_FILE_NM) as logSeq
  		from	STT_MST_INFO
- 		where	STT_STAT	>	0
+ 		where	R_FILE_NM	!=	''
  		<if test="startDate != null and startDate !='' and endDate != null and endDate !='' ">
 		and		date_format(STT_DTM,'%Y-%m-%d') between #{startDate} AND #{endDate} 
 		</if>					
 		<!-- <if test="STT_USER != null and STT_USER != '' ">
 		and		STT_USER = #{STT_USER}				
 		</if> -->
-		limit		100
 	</select>
 	
 	<select id="getMstList" parameterType="SwaMstDto" resultType="SwaMstDto">
@@ -222,10 +221,9 @@
 								,@row_num:=@row_num + 1 AS rowNum
 					from		STT.STT_MST_INFO
 								,(SELECT @row_num := 0) rn
-					WHERE		date_format(STT_DTM,'%Y-%m-%d') BETWEEN '2021-03-06' AND '2021-04-05'
+					WHERE		date_format(STT_DTM,'%Y-%m-%d') between #{startDate} AND #{endDate}
 					order by 
 								STT_DTM DESC
-					limit		100
 				) urn
 		where	rowNum BETWEEN #{startRow} AND #{endRow}
 		order by	 rowNum
@@ -289,6 +287,27 @@
 		where	rowNum BETWEEN #{startRow} AND #{endRow}
 		order by	 rowNum
  	</select>
+ 	
+ 	<select id="getSwaMemName" parameterType="SwaMemDto" resultType="String">
+ 		select	SWA_NAME
+ 		from	SWA_MEM_INFO
+ 		where	SWA_SEQ = #{SWA_SEQ}
+ 	</select>
+ 	
+ 	<update id="updateSwaMem" parameterType="SwaMemDto">
+ 		update	SWA_MEM_INFO
+ 		set		SWA_CENTER	=	#{SWA_CENTER}
+ 				,SWA_INNUM	=	#{SWA_INNUM}
+ 				,SWA_ID		=	#{SWA_ID}
+ 				,SWA_NAME	=	#{SWA_NAME}
+ 		where	SWA_SEQ	=	#{SWA_SEQ}
+ 	</update>
+ 	
+ 	<delete id="deleteSwaMem" parameterType="SwaMemDto">
+ 		delete	
+ 		from	SWA_MEM_INFO
+ 		where	SWA_SEQ	=	#{SWA_SEQ}
+ 	</delete>
  	
  	
  </mapper>

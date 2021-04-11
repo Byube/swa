@@ -35,7 +35,7 @@ function initAudio() {
 
   console.log(audio);
 
-   audio.src = 'http://98.28.8.45:28881/listen?url=/var/REC/RecSee_Data/20190902/08/20190902_082936_0324_user_4692_01082322114_4692_386971_0008.mp3';
+   audio.src = 'HTTP://98.28.8.45:28881/listen?url=/var/REC/RecSee_Data/20210409/18/202104091800110199_3825_I_01047160485_A.mp3';
   // audio.src = 'http://localhost:9220/player/getwav/';
   // audio.src = 'http://localhost:9230/player/getstream/';
  // audio.src = 'http://localhost:8880/getstream/';

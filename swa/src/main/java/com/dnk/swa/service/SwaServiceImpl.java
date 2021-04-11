@@ -150,6 +150,22 @@ public class SwaServiceImpl implements SwaService{
 	public List<SwaMemDto> getSwaMemList(SwaMemDto smd) {
 		return dao.getSwaMemList(smd);
 	}
+
+	@Override
+	public String getSwaMemName(SwaMemDto smd) {
+		return dao.getSwaMemName(smd);
+	}
+
+	@Override
+	public void updateSwaMem(SwaMemDto smd) {
+		dao.updateSwaMem(smd);
+	}
+
+	@Override
+	public void deleteSwaMem(SwaMemDto smd) {
+		dao.deleteSwaMem(smd);
+	}
+	
 	
 	
 	

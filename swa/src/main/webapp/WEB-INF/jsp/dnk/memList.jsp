@@ -9,7 +9,7 @@
 <meta charset="UTF-8">
 <title>로그조회</title>
 <link rel="stylesheet" href="resources/css/logtable.css">
-<script src="resources/js/memList.js"></script>
+
 
 </head>
 <body>
@@ -47,30 +47,18 @@
 				<c:forEach items="${swalist }" var="swa" varStatus="cnt">
 					<tr lang="${swa.SWA_SEQ }">
 						<th title="${cnt.count }" id="${swa.SWA_SEQ }">${cnt.count }</th>
-						<td title="${swa.SWA_CENTER }">${swa.SWA_CENTER }</td>
-						<td title="${swa.SWA_INNUM }">${swa.SWA_INNUM }</td>
-						<td title="${swa.SWA_ID }">${swa.SWA_ID }</td>
-						<td title="${swa.SWA_NAME }">${swa.SWA_NAME }</td>
+						<td title="${swa.SWA_CENTER }" id="ucenter${swa.SWA_SEQ }">${swa.SWA_CENTER }</td>
+						<td title="${swa.SWA_INNUM }" id="uinnum${swa.SWA_SEQ }">${swa.SWA_INNUM }</td>
+						<td title="${swa.SWA_ID }" id="uid${swa.SWA_SEQ }">${swa.SWA_ID }</td>
+						<td title="${swa.SWA_NAME }" id="uname${swa.SWA_SEQ }">${swa.SWA_NAME }</td>
 						<td title="수정버튼">
 						    <a href="javascript:;" class="btn_modify" title="수정" onclick="upDate(${swa.SWA_SEQ })" >수정</a>
 						    <a href="javascript:;" class="btn_modify ok" title="확인" id="yesGoup" style="display: none;">확인</a>
 						    <a href="javascript:;" class="btn_modify cancel" title="취소" id="noCancel" style="display: none;">취소</a>
 						</td>
-						<td title="삭제버튼"><a href="javascript:;" class="btn_del" title="삭제">삭제</a></td>
+						<td title="삭제버튼"><a href="javascript:;" class="btn_del" title="삭제" onclick="deleteSwaMem(${swa.SWA_SEQ })">삭제</a></td>
 					</tr>
-				<%-- 	<tr lang="${swa.SWA_SEQ }" style="display: none;">
-						<th title="${cnt.count }" id="${swa.SWA_SEQ }">${cnt.count }</th>
-						<td title="${swa.SWA_CENTER }"><input type="text" name="SWA_CENTER"></td>
-						<td title="${swa.SWA_INNUM }"><input type="text" name="SWA_INNUM"></td>
-						<td title="${swa.SWA_ID }"><input type="text" name="SWA_ID"></td>
-						<td title="${swa.SWA_NAME }"><input type="text" name="SWA_NAME"></td>
-						<td title="수정버튼">
-						    <a href="javascript:;" class="btn_modify" title="수정" onclick="upDate(${cnt.count })" id="${cnt.count }updateSwa" >수정</a>
-						    <a href="javascript:;" class="btn_modify ok" title="확인" id="yesGoup" style="display: none;">확인</a>
-						    <a href="javascript:;" class="btn_modify cancel" title="취소" id="noCancel" style="display: none;">취소</a>
-						</td>
-						<td title="삭제버튼"><a href="javascript:;" class="btn_del" title="삭제">삭제</a></td>
-					</tr> --%>
+			
 				</c:forEach>
 				</tbody>
 			</table>
@@ -109,18 +97,20 @@
                     <tbody>
                         <tr>
                             <td><input type="text" title="센터입력란"  placeholder="센터명" id="SWA_CENTER" name="SWA_CENTER"/></td>
-                            <td><input type="number" title="내선번호입력란"  placeholder="내선번호" id="SWA_INMUM" name="SWA_INMUM"/></td>
+                            <td><input type="number" title="내선번호입력란"  placeholder="내선번호" id="SWA_INNUM" name="SWA_INNUM"/></td>
                             <td><input type="text" title="ID입력란"  placeholder="ID" id="SWA_ID" name="SWA_ID"/></td>
                             <td><input type="text" title="이름입력란"  placeholder="이름" id="SWA_NAME" name="SWA_NAME"/></td>
                         </tr>
                     </tbody>
                 </table>
+                <input type="hidden" id="swa_seq" name="SWA_SEQ">
             </form>
             </div>
               <p id="okid" style="color: green; display: none;">아이디를 사용하셔도 됩니다.</p>
               <p id="noid" style="color: red; display: none;">해당 아이디는 이미 사용중 입니다.</p>
             <div class="pup_foot">
                 <a href="javascript:;" class="btn_check" title="ID중복확인" id="buone" onclick="checkid()">ID중복확인</a>
+            	<a href="javascript:;" class="btn_update" title="수정" id="buth" style="display: none;" onclick="updapego()">수정</a>
                 <a href="javascript:;" class="btn_save" title="저장" id="butwo" onclick="goinsert()">저장</a>
             </div>
 		</div>
@@ -129,6 +119,7 @@
 <script src="resources/js/jquery.js"></script>
 <script src="resources/js/bootstrap.min.js"></script>
 <script src="resources/js/custom.js"></script>
+<script src="resources/js/memList.js"></script>
 
 </body>
 </html>

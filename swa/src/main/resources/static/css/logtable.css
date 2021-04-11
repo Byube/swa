@@ -255,7 +255,7 @@ tbody td:last-child{
     display: block;
     width: 65px;
     height: 65px;
-    background: #045890 url(/resources/image/ico_pup_close.png) no-repeat center;
+    background: #045890 url(/stt/resources/image/ico_pup_close.png) no-repeat center;
     border-radius: 0px 3px 0px 0px;
     font-size: 0;
     cursor: pointer;
@@ -300,12 +300,17 @@ tbody td:last-child{
     border: 1px solid #028679;
     color: #fff;
 }
+.pup_foot a.btn_update {
+    background-color: #00b1a0;
+    border: 1px solid #028679;
+    color: #fff;
+}
 .btn_del{
 	display: block;
 	width: 30px;
     height: 30px;
     margin:auto;
-    background: url(/resources/image/btn_del.png) no-repeat center;
+    background: url(/stt/resources/image/btn_del.png) no-repeat center;
     background-size:100%;
     font-size: 0;
     cursor: pointer;
@@ -343,6 +348,12 @@ tbody td:last-child{
 	border-radius: 5px;
 	cursor:pointer;
 }
+
+/*과거녹취청취*/
+.con_sel.liten{
+	width: 100%;
+	margin: 5px 0;
+}
 .audio_tb{
 	display: block;
 	width: 100%;
@@ -352,6 +363,22 @@ tbody td:last-child{
 	width: 100%;
 }
 .audio_tb .audio_txt{
+	width: 100%;
 	margin-top: 20px; 
-	width:1450px;
+}
+.liten_tb {
+	width: 49%;
+	font-size: 16px;
+	border-spacing: 1px;
+	margin-right: 1%;
+}
+.liten_tb:last-child{
+	margin-right: 0;
+}
+.liten_tb table{
+	margin:0;
+}
+.tui-grid-cell-has-input .tui-grid-cell-content{
+	white-space: break-spaces;
+	text-align: left;
 }
