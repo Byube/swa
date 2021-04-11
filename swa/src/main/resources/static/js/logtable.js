@@ -1,6 +1,7 @@
 	$(function() {
+		
 		$("#goback").click(function(){
-			location.href = "/stt";
+			location.href = "/stt/stt";
 		});
 		
 		if($("#dateSort").val()=='dateAsc'){
@@ -22,15 +23,15 @@
 		});
 		
 		$("#allSearch").click(function(){
-			window.location.href = "/searchlog";
+			window.location.href = "/stt/searchlog";
 		});
 		
 		$("#excel").click(function(){
-			window.location.href = "/excel/download";
+			window.location.href = "/stt/excel/download";
 		});
 		
 		if($("#startDate").val() == '' || $("#startDate").val() == null) {
-			$("#startDate").val(date);
+			$("#startDate").val($("#minda").val());
 			$("#endDate").val(date);
 		}
 		

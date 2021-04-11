@@ -45,7 +45,7 @@
                          <h2>실시간 음성 확인부터 전사 및 음성인식 엔진모니터링</h2>
                     </div>
 										
-                    <form action="/stt_login" method="post">
+                    <form action="/stt/stt_login" method="post">
                          <div class="col-md-6 col-sm-6">
                               <input type="text" class="form-control" id="user_id" name="STT_ID" placeholder="ID">
                          </div>

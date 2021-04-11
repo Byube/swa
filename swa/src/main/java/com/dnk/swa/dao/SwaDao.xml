@@ -222,7 +222,7 @@
 								,@row_num:=@row_num + 1 AS rowNum
 					from		STT.STT_MST_INFO
 								,(SELECT @row_num := 0) rn
-					WHERE		date_format(STT_DTM,'%Y-%m-%d') BETWEEN '2021-03-05' AND '2021-04-05'
+					WHERE		date_format(STT_DTM,'%Y-%m-%d') BETWEEN '2021-03-06' AND '2021-04-05'
 					order by 
 								STT_DTM DESC
 					limit		100
@@ -231,6 +231,64 @@
 		order by	 rowNum
  	</select>
  	
+ 	<select id="getMstC" parameterType="SwaMstDto" resultType="String">
+ 		SELECT		STT_MRESULT
+		from		STT_MST_INFO
+		where		R_FILE_NM = #{STT_CALL}
+ 	</select>
+ 	
+ 	<insert id="insertSwaMem" parameterType="SwaMemDto">
+ 		INSERT	INTO	
+ 				SWA_MEM_INFO
+							(
+							SWA_CENTER
+							,SWA_NAME
+							,SWA_INNUM
+							,SWA_ID
+							)
+				VALUES
+							(
+							#{SWA_CENTER}
+							,#{SWA_NAME}
+							,#{SWA_INNUM}
+							,#{SWA_ID}
+							)
+ 	 </insert>
+ 	 
+ 	 <select id="checksIdok" parameterType="SwaMemDto" resultType="int">
+		select	COUNT(*)
+		from	SWA_MEM_INFO
+		where	SWA_ID = #{SWA_ID}
+	</select>
+ 	
+ 	<select id="getSwaMemCount" parameterType="SwaMemDto" resultType="int">
+ 		select	count(SWA_SEQ) as memlog
+ 		from	SWA_MEM_INFO
+ 		where	SWA_SEQ > 0
+ 	</select>
+ 	
+ 	<select id="getSwaMemList" parameterType="SwaMemDto" resultType="SwaMemDto">
+ 		SELECT		SWA_SEQ
+					,SWA_CENTER
+					,SWA_NAME
+					,SWA_INNUM
+					,SWA_ID
+					,rowNum
+		from		(
+					SELECT		SWA_SEQ
+								,SWA_CENTER
+								,SWA_NAME
+								,SWA_INNUM
+								,SWA_ID								
+								,@row_num:=@row_num + 1 AS rowNum
+					from		SWA_MEM_INFO
+								,(SELECT @row_num := 0) rn
+					order by 
+								SWA_CENTER ASC
+				) urn
+		where	rowNum BETWEEN #{startRow} AND #{endRow}
+		order by	 rowNum
+ 	</select>
  	
  	
  </mapper>

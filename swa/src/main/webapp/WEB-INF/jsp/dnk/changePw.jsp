@@ -38,7 +38,7 @@
                          <br>
                          <div class="alert alert-danger" id="alert-danger">비밀번호가 일치 하지 않습니다.</div>
                          <div class="alert alert-warning" id="alert-warning">비밀번호 규격 확인 바랍니다.</div>
-                    <form action="/changePws" method="post" id="changegogo">
+                    <form action="/stt/changePws" method="post" id="changegogo">
                          <div class="col-md-6 col-sm-6">
                               <input type="password" class="form-control" placeholder="비밀번호" id="stt_pw" name="STT_PW">
                          </div>

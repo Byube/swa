@@ -18,10 +18,7 @@ const griddata = [];
 
 window.onload = function (event) {
   initGrid();
-
-  getText();
   // loadData();
-
   initAudio();
 };
 
@@ -41,7 +38,7 @@ function initAudio() {
    audio.src = 'http://98.28.8.45:28881/listen?url=/var/REC/RecSee_Data/20190902/08/20190902_082936_0324_user_4692_01082322114_4692_386971_0008.mp3';
   // audio.src = 'http://localhost:9220/player/getwav/';
   // audio.src = 'http://localhost:9230/player/getstream/';
-  audio.src = 'http://localhost:8880/getstream/';
+ // audio.src = 'http://localhost:8880/getstream/';
 
   audio.addEventListener('timeupdate', timeUpdate, false);
   audio.addEventListener(
@@ -241,9 +238,8 @@ function fancyTimeFormat(duration) {
   return ret;
 }
 
-function getText() {
+function getText(STT_CALL1,STT_CALL2,STT_CALL3,STT_USER_NUM,STT_MEM_NUM,fname) {
   httpRequest = new XMLHttpRequest();
-
   if (!httpRequest) {
     alert('Giving up :( Cannot create an XMLHTTP instance');
     return false;
@@ -260,6 +256,6 @@ function getText() {
     }
   };
 
-  httpRequest.open('GET', 'http://localhost:8880/gettxt/');
+  httpRequest.open('GET', "http://localhost:8880/gettxt/?STT_CALL1="+STT_CALL1+"&STT_CALL2="+STT_CALL2+"&STT_CALL3="+STT_CALL3+"&STT_USER_NUM="+STT_USER_NUM+"&STT_MEM_NUM="+STT_MEM_NUM+"&R_F_NM="+fname);
   httpRequest.send();
 }

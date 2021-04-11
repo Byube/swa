@@ -3,7 +3,7 @@
 		var seq = $("#seq").val();
 		if(check == '1234'){
 			alert("비밀번호를 변경 해 주시길 바랍니다.");
-			window.location.href = "/changePw?seq=" + seq;
+			window.location.href = "/stt/changePw?seq=" + seq;
 		}			
 	});
 	
@@ -28,7 +28,7 @@
 		$(".eb").attr("src",embedUrl);
 	}
 	function searchlog(myUrl){
-		var searchlogUrl = "http://127.0.0.1:8880/" + myUrl;
+		var searchlogUrl = "http://127.0.0.1:8880/stt/" + myUrl;
 		$(".ob").attr("data",searchlogUrl);		
 		$(".eb").attr("src",searchlogUrl);
 	}

@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.dnk.swa.dao.SwaDao;
 import com.dnk.swa.dto.SwaLogDto;
 import com.dnk.swa.dto.SwaLoginDto;
+import com.dnk.swa.dto.SwaMemDto;
 import com.dnk.swa.dto.SwaMstDto;
 
 @Service
@@ -109,7 +110,7 @@ public class SwaServiceImpl implements SwaService{
 
 	@Override
 	public String getMstMin() {
-		return null;
+		return dao.getMstMin();
 	}
 
 	@Override
@@ -119,6 +120,38 @@ public class SwaServiceImpl implements SwaService{
 		
 		return plist;
 	}
+
+	@Override
+	public String getMstC(SwaMstDto smd) {
+		return dao.getMstC(smd);
+	}
+
+	@Override
+	public void insertSwaMem(SwaMemDto smd) {
+		dao.insertSwaMem(smd);
+	}
+
+	@Override
+	public boolean checksIdok(SwaMemDto smd) {
+		boolean check = false;
+		int checkid = dao.checksIdok(smd);
+		if(checkid == 0) {
+			check = true;
+		}
+		return check;
+	}
+
+	@Override
+	public int getSwaMemCount(SwaMemDto smd) {
+		return dao.getSwaMemCount(smd);
+	}
+
+	@Override
+	public List<SwaMemDto> getSwaMemList(SwaMemDto smd) {
+		return dao.getSwaMemList(smd);
+	}
+	
+	
 	
 	
 	

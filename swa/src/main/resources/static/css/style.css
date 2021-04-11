@@ -674,6 +674,37 @@ footer .footer-copyright {
     transform: scale(1.1);
 }
 
+/*---------------------------------------
+   21.04.06 스타일 수정         
+-----------------------------------------*/
+
+.navbar .main_logo{
+	display: block;
+	width: 250px;
+	margin:auto;
+	text-align: center;
+}
+.nav.sub_menu{
+	width:100%;
+	border-bottom:solid 0.5px #efefef;
+	background-color: #f9f9f9;
+}
+.nav.sub_menu a:hover{
+	font-weight: bold;
+}
+.nav_tit{
+	width: 130px;
+	padding: 15px;
+	line-height: 20px;
+	font-size: 16px;
+	font-weight: bold;
+	background-color: #2c66ab;
+	color: #fff;
+}
+
+
+
+
 
 
 /*---------------------------------------
@@ -737,4 +768,115 @@ footer .footer-copyright {
 	color: #fff;
 }
 
+.sub_tit h2{
+	font-size: 22px;
+	margin-top: 20px;
+	text-align: center;
+	font-weight: bold;
+}
+.admin_box{
+	width: 100%;
+	padding: 30px 0;
+	text-align: center;
+	border-bottom: 1px solid #f0f0f0;
+    margin-bottom: 35px;
+}
+.admin_box .ico_admin{
+	width: 100px;
+}
+.admin_box h3{
+	font-size: 20px;
+	font-weight: bold;
+}
+.admin_box .btn_add{
+	display: block;
+	margin:auto;
+	padding: 10px 30px;
+	border-radius: 50px;
+	background-color: #05a8d2;
+	color:#fff;
+	border:none;
+}
+.admin_box .btn_add:hover{
+	background-color: #0a86a5;
+}
+.user_box{
+	margin-bottom: 50px;
+}
 
+.user_box .user_box_list{
+	padding: 15px;
+	border:1px solid #f0f0f0;
+}
+.user_box ul li{
+	display: inline-block;
+	vertical-align: middle;
+	list-style: none;
+	padding: 0 10px;
+	box-sizing:border-box;
+}
+.user_box .user_box_list.user_box_head{
+	background-color: #f5f8fa;
+	border:none;
+}
+.user_box .user_box_list.user_box_head li{
+	color:#48515e;
+	font-weight: 600;
+}
+.user_box .user_box_list.user_box_head .stt_btn{
+	width:170px;
+	text-align: center;
+}
+.user_box ul li.ico_user{
+	width:56px;
+}
+.user_box ul li.ico_user img{
+	display: inline-block;
+    width: 100%;
+    margin-right: 4px;
+
+}
+.user_box ul li.stt_name{
+	width: 100px;
+	
+}
+.user_box ul li.stt_id{
+	width: 150px;
+	
+}
+.user_box ul li.stt_level{
+	width: 80px;
+	
+}
+.user_box ul li.stt_date{
+	width: 250px;
+	
+}
+
+.user_box a.btn_user{
+	display: inline-block;
+	width: 150px;
+	padding: 10px;
+	text-align: center;
+	color: #0f85ea;
+	border:solid 1px #0f85ea;
+	border-radius:50px;
+	font-weight: bold; 
+}
+.user_box a.btn_user:hover{
+	background-color: #0f85ea;
+	color: #fff;
+}
+
+.loginmem {
+	margin-left: 87%;
+}
+
+.navbar .main_logout{
+   display: block;
+   text-align: right;
+   font-size: 15px;
+}
+.navbar .main_logout img{
+   margin-right:5px;
+}

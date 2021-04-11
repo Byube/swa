@@ -26,7 +26,18 @@
 		
 		$("#startDate").change(function(){
 			var sd = $("#startDate").val();
-			alert(sd + 30);
+			$("#endDate").attr("min",sd);
+			var youd = sd.split('-');
+			var youds = new Date(youd[0],youd[1] - 1,youd[2]);
+			alert(getFormatDate(youds));
+			youds.setDate(youds.getDate()+1);
+			var maxday = getFormatDate(youds);
+			$("#endDate").attr("max",maxday);
+			if(today < youds){
+				$("#endDate").attr("max",date);
+			} else {
+				$("#endDate").attr("max",maxday);
+			}
 		});
 		
 	});
@@ -63,4 +74,6 @@
 		$("#now_page").val(pageNum);
 		$("#mst_list_form").submit();
 	}
+	
+	
 	

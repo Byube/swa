@@ -6,13 +6,15 @@
 }
 
 body {
-	background: #f2f2f2;
+	background: #fff;
 }
 
 .con {
-	background: #f2f2f2;
-	width: 80%;
+	width: 100%;
 	height: auto;
+    margin: auto;
+    float:none;
+    overflow: hidden;
 }
 
 .con_sel {
@@ -50,7 +52,9 @@ table {
 	border-spacing: 1px;
 	margin-left: 10px;
 }
-
+caption{
+	font-size: 0;
+}
 thead {
 	border: 1px solid #fff;
 	border-width: 1px 1px 0px 1px;
@@ -81,7 +85,10 @@ tbody td {
 	padding: 5px 25px 5px 20px;
 	border-bottom: 1px solid #e1e1e1;
 	background-color: #fff;
-	border-right: 1px solid #ccc;
+	border-right: 1px solid #e1e1e1;
+}
+tbody td:last-child{
+	border-right: none;
 }
 
 .table {
@@ -183,4 +190,168 @@ tbody td {
 .paging .txt {
 	background: #fff;
 	text-decoration: none;
+}
+
+
+/*팝업추가*/
+.btn_pup{
+	display: block;
+	float: right;
+	width: 36px;
+	height: 36px;
+	margin-bottom: 5px;
+	color:#fff;
+	font-size: 30px;
+	line-height: 33px;
+	border-radius: 50%;
+	background-color: #0071bc;
+	text-decoration:none;
+}
+
+.pup_wrap{
+	position: fixed;
+    left: 50%;
+    top: 41%;
+    margin-top: -220px;
+    margin-left: -380px;
+    width: 770px;
+    height: 290px;
+    background: #fff;
+    box-shadow: 10px 10px 20px rgba(0,0,0,0.5);
+    z-index: 100;
+}
+.pup_head {
+    position: relative;
+    width: 100%;
+    height: 65px;
+    box-sizing: border-box;
+    padding-top: 15px;
+    background: #0071bc;
+    color: #fff;
+}
+.pup_head h3{
+	font-size: 20px;
+	margin:5px 0;
+}
+.pup_cont{
+	width: 100%;
+    min-height: 150px;
+    padding: 20px;
+    box-sizing: border-box;
+    overflow: auto;
+}
+.pup_foot{
+	width: 100%;
+    height: 75px;
+    text-align: center;
+    box-sizing: border-box;
+    padding-top: 20px;
+    background: #f3f4f6;
+}
+.pup_head .btn_close{
+	position: absolute;
+    right: 0;
+    top: 0;
+    display: block;
+    width: 65px;
+    height: 65px;
+    background: #045890 url(/resources/image/ico_pup_close.png) no-repeat center;
+    border-radius: 0px 3px 0px 0px;
+    font-size: 0;
+    cursor: pointer;
+}
+.pup_cont .pup_tb{
+	width: 100%;
+	margin:0;
+	border-top: 1px solid #000;
+}
+.pup_cont .pup_tb thead th{
+	background-color: #f6f6f6;
+	border-right: 1px solid #e1e1e1;
+	color: #2d2d2d;
+}
+.pup_cont .pup_tb td{
+	padiing: 5px 10px;
+}
+.pup_tb input{
+	width: 90%;
+	height: 30px;
+    line-height: 30px;
+    padding: 0 10px;
+}
+.pup_foot a{
+	display: inline-block;
+    padding: 3px 30px 5px;
+    line-height: 24px;
+    background-color: #ffffff;
+    border-radius: 3px;
+    font-size: 14px;
+    box-sizing: border-box;
+    cursor: pointer;
+}
+.pup_foot a.btn_save {
+    background-color: #467de2;
+    border: 1px solid #2658b4;
+    color: #fff;
+    margin-right: 5px;
+}
+.pup_foot a.btn_check {
+    background-color: #00b1a0;
+    border: 1px solid #028679;
+    color: #fff;
+}
+.btn_del{
+	display: block;
+	width: 30px;
+    height: 30px;
+    margin:auto;
+    background: url(/resources/image/btn_del.png) no-repeat center;
+    background-size:100%;
+    font-size: 0;
+    cursor: pointer;
+}
+.btn_modify{
+	display: inline-block;
+    padding: 3px 15px;
+    line-height: 24px;
+    background-color: #ffffff;
+    border-radius: 3px;
+    font-size: 14px;
+    box-sizing: border-box;
+    cursor: pointer;
+    background-color: #f1a75e;
+    border: 1px solid #e27000;
+    color: #fff;
+}
+.btn_modify.ok{
+	background-color: #099bc0;
+    border: 1px solid #046c86;
+}
+
+.btn_modify.cancel{
+	background-color: #ddd;
+    border: 1px solid #797979;
+    color:#000;
+}
+.btn_excel{
+	display: inline-block;
+	height: 40px;
+	line-height: 43px;
+	padding: 0 20px 0 45px;
+	color:#fff;
+	background: #4c9a51 url(/resources/image/btn_excel.png) no-repeat 10px center;
+	border-radius: 5px;
+	cursor:pointer;
+}
+.audio_tb{
+	display: block;
+	width: 100%;
+}
+.audio_tb .audio-wrap{
+	float: none;
+	width: 100%;
+}
+.audio_tb .audio_txt{
+	margin-top: 20px; 
+	width:1450px;
 }

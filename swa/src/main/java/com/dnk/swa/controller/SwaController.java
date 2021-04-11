@@ -21,6 +21,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -28,13 +29,17 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.dnk.swa.dto.PageDto;
 import com.dnk.swa.dto.SwaLogDto;
 import com.dnk.swa.dto.SwaLoginDto;
+import com.dnk.swa.dto.SwaMemDto;
 import com.dnk.swa.dto.SwaMstDto;
 import com.dnk.swa.service.PagingService;
 import com.dnk.swa.service.SwaService;
 
 
 @Controller
+@RequestMapping("/stt")
 public class SwaController {
+	
+
 	
 	private static final Logger logger = LoggerFactory.getLogger(SwaController.class);
 	
@@ -68,6 +73,7 @@ public class SwaController {
 		PageDto pageDto = new PageDto();
 		SwaLogDto sld = new SwaLogDto();
 		SwaLoginDto slg = new SwaLoginDto();
+		
 		slg.setSTT_ID("hello");
 		String page = now_page;
 		String dateMin = "";
@@ -77,6 +83,9 @@ public class SwaController {
 		
 		if(page.equals("0")) {
 			nowPage = 1;
+			log.setSTT_MENU("운영자 삭제");
+			log.setSTT_CONTENTS("로그테이블 조회");
+			swaService.insertLog(log);
 		} else {
 			nowPage = Integer.parseInt(page);
 		}
@@ -118,6 +127,7 @@ public class SwaController {
 		model.addAttribute("endDate", endDate);
 		model.addAttribute("sttuser", STT_ID);
 		model.addAttribute("sttmenu", STT_MENU);
+		
 		return address;
 	}
 	
@@ -128,6 +138,9 @@ public class SwaController {
 							,HttpServletRequest request
 							,HttpSession session) {
 		String address = "";
+//		model.addAttribute("level", 0);
+//		model.addAttribute("User_Id", "admin");
+//		address = "dnk/lmtool";
 		log.setSTT_MENU("로그인");
 		log.setSTT_USER(STT_ID);
 		ip = request.getHeader("X-FORWARDED-FOR");
@@ -183,6 +196,9 @@ public class SwaController {
 		
 		if(page.equals("0")) {
 			nowPage = 1;
+//			log.setSTT_MENU("운영자 삭제");
+//			log.setSTT_CONTENTS("과거녹취 청취");
+//			swaService.insertLog(log);
 		} else {
 			nowPage = Integer.parseInt(page);
 		}
@@ -190,8 +206,6 @@ public class SwaController {
 		smd.setDateSort(dateSort);
 		smd.setStartDate(startDate);
 		smd.setEndDate(endDate);
-
-		
 		
 		totalCount = swaService.getMstCount(smd);
 		pageCount = totalCount / recordCnt + 1;
@@ -213,20 +227,21 @@ public class SwaController {
 		SwaMstDto smmd = new SwaMstDto();
 		for (int i = 0; i < agolist.size(); i++) {
 			smmd = agolist.get(i);
+			
+			smmd.setSTT_CALL(smmd.getR_FILE_NM());
 			user_nm = smmd.getR_FILE_NM().split("_");
 			for (int j = 0; j < user_nm.length; j++) {
 				smmd.setSTT_USER_NUM(user_nm[3]);
 				smmd.setSTT_MEM_NUM(user_nm[1]);
-				smmd.setCall_Id1(user_nm[4]);
-				smmd.setCall_Id2(user_nm[5]);
-				smmd.setCall_Id3(user_nm[6]);
+//				logger.info(">>>>>>>>>>>>>>>>>>>>" + user_nm[j] + " >>>> " + j);
+				smmd.setSTT_CALL1(user_nm[4]);
+				smmd.setSTT_CALL2(user_nm[5]);
+				smmd.setSTT_CALL3(user_nm[6].replace(".mp3", ""));
 			}
 		}
 		
+		
 		agolist.add(smmd);
-		
-		
-		
 		
 		
 		model.addAttribute("agolist", agolist);
@@ -278,13 +293,12 @@ public class SwaController {
 			sld.setSTT_LEVEL(0);
 			log.setSTT_MENU("권한부여");
 			log.setSTT_CONTENTS("운영자 "+swaService.getUserId(sld)+"님에게 권한부여");
-			swaService.insertLog(log);
 		} else {
 			log.setSTT_MENU("권한회수");
 			log.setSTT_CONTENTS("운영자 "+swaService.getUserId(sld)+"님 권한회수");
-			swaService.insertLog(log);
 			sld.setSTT_LEVEL(1);
 		}
+		swaService.insertLog(log);
 		swaService.levelChange(sld);
 		return address;
 	}
@@ -355,15 +369,47 @@ public class SwaController {
 	@RequestMapping(value = "/logout")
 	public String logout(Model model
 						,HttpSession session) {
-		String address = "redirect:/stt";
+		String address = "redirect:/stt/stt";
 		session.invalidate();
 		return address;
 	}
 	
 	@RequestMapping(value = "/swaMem")
-	public String swaMem(Model model) {
-		String address = "dnk/memList";
+	public String swaMem(Model model
+						,@RequestParam(value = "now_page", defaultValue = "0")String now_page) {
 		
+		String address = "dnk/memList";
+		SwaMemDto smd = new SwaMemDto();
+		PageDto pageDto = new PageDto();
+		String page = now_page;
+		int totalCount = 0;
+		int nowPage = 1;
+		int pageCount = 0;
+		if(page.equals("0")) {
+			nowPage = 1;
+//			log.setSTT_MENU("상담사리스트");
+//			log.setSTT_CONTENTS("상담사 리스트 조회");
+//			swaService.insertLog(log);
+		} else {
+			nowPage = Integer.parseInt(page);
+		}
+		totalCount = swaService.getSwaMemCount(smd);
+		pageCount = totalCount / recordCnt + 1;
+		if(totalCount % recordCnt == 0) {
+			pageCount = totalCount / recordCnt;
+		}
+		if(nowPage > pageCount) {
+			nowPage = 1;
+		}
+		pageDto.setNowPage(nowPage);
+		pageDto.setTotalCount(totalCount);
+		PagingService pagingService = new PagingService(pageDto, recordCnt, pagingCnt, "pageEvent");
+		smd.setStartRow(pagingService.getStartRow());
+		smd.setEndRow(pagingService.getEndRow());
+		List<SwaMemDto> swalist = swaService.getSwaMemList(smd);
+		model.addAttribute("swalist", swalist);
+		model.addAttribute("nowPage", nowPage);
+		model.addAttribute("pageTag", pagingService.resultString());
 		return address;
 	}
 	
@@ -392,7 +438,6 @@ public class SwaController {
 		SwaLoginDto slg = new SwaLoginDto();
 		slg.setSTT_ID("hello");
 		String page = now_page;
-		String dateMin = "";
 		int totalCount = 0;
 		int nowPage = 1;
 		int pageCount = 0;
@@ -469,6 +514,41 @@ public class SwaController {
 	    // Excel File Output
 	    wb.write(response.getOutputStream());
 	    wb.close();
+	    log.setSTT_MENU("운영자 삭제");
+		log.setSTT_CONTENTS("로그 엑셀 다운로드");
+		swaService.insertLog(log);
+	}
+	
+	@RequestMapping(value = "/insertSwaMem")
+	public String insertSwaMem(Model model
+							,@RequestParam(value = "SWA_CENTER", defaultValue = "NO")String SWA_CENTER
+							,@RequestParam(value = "SWA_INNUM", defaultValue = "user")String SWA_INNUM
+							,@RequestParam(value = "SWA_ID", defaultValue = "-")String SWA_ID
+							,@RequestParam(value = "SWA_NAME", defaultValue = "-")String SWA_NAME) {
+		String address = "redirect:/swaMem";
+		SwaMemDto smd = new SwaMemDto();
+		smd.setSWA_CENTER(SWA_CENTER);
+		smd.setSWA_ID(SWA_ID);
+		smd.setSWA_INNUM(SWA_INNUM);
+		smd.setSWA_NAME(SWA_NAME);
+	//	logger.info(">>>>>>>" + smd);
+		log.setSTT_MENU("삼당사 추가 및 아이디 생성");
+		log.setSTT_CONTENTS("새로운 상담사 "+ SWA_NAME + " id : " + SWA_ID + " 생성");
+		swaService.insertLog(log);
+		swaService.insertSwaMem(smd);
+		return address;
+	}
+	@RequestMapping(value = "/checksIdok")
+	@ResponseBody
+	public String checksIdok(@RequestParam(value = "id", defaultValue = "")String id) {
+		String result = "false";
+		SwaMemDto smd = new SwaMemDto();
+		smd.setSWA_ID(id);
+		boolean check = swaService.checksIdok(smd);
+		if(check) {
+			result = "true";
+		}
+		return result;
 	}
 	
 }
