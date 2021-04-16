@@ -5,9 +5,9 @@
 		});
 		
 		if($("#dateSort").val()=='dateAsc'){
-			$("#date_sort").attr("class", "btn_down");
-		} else {
 			$("#date_sort").attr("class", "btn_up");
+		} else {
+			$("#date_sort").attr("class", "btn_down");
 		}
 		
 		var date = getFormatDate(new Date());
@@ -58,7 +58,7 @@
 	
 	function dateSort(){
 		$(".sort_class").val("");
-		if($("#date_sort").attr("class") == "btn_up") {
+		if($("#date_sort").attr("class") == "btn_down") {
 			//alert("up");
 			$("#dateSort").val("dateAsc");
 		} else {

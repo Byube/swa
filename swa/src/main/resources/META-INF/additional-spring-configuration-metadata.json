@@ -1,0 +1,142 @@
+{"properties": [
+  {
+    "name": "spring.datasource1.driver-class-name",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.datasource1.driver-class-name'"
+  },
+  {
+    "name": "spring.datasource1.url",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.datasource1.url'"
+  },
+  {
+    "name": "spring.datasource1.username",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.datasource1.username'"
+  },
+  {
+    "name": "spring.datasource1.password",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.datasource1.password'"
+  },
+  {
+    "name": "spring.datasource2.driver-class-name",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.datasource2.driver-class-name'"
+  },
+  {
+    "name": "spring.datasource2.url",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.datasource2.url'"
+  },
+  {
+    "name": "spring.datasource2.username",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.datasource2.username'"
+  },
+  {
+    "name": "spring.datasource2.password",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.datasource2.password'"
+  },
+  {
+    "name": "spring.datasource1.jmx-enabled",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.datasource1.jmx-enabled'"
+  },
+  {
+    "name": "spring.datasource2.jmx-enabled",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.datasource2.jmx-enabled'"
+  },
+  {
+    "name": "spring.datasource1.jdbc-url",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.datasource1.jdbc-url'"
+  },
+  {
+    "name": "spring.datasource2.jdbc-url",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.datasource2.jdbc-url'"
+  },
+  {
+    "name": "spring.datasource1.hikari.jdbc-url",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.datasource1.hikari.jdbc-url'"
+  },
+  {
+    "name": "spring.datasource1.tomcat.jmx-enabled",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.datasource1.tomcat.jmx-enabled'"
+  },
+  {
+    "name": "datasource.mysql.url",
+    "type": "java.lang.String",
+    "description": "A description for 'datasource.mysql.url'"
+  },
+  {
+    "name": "datasource.mysql.username",
+    "type": "java.lang.String",
+    "description": "A description for 'datasource.mysql.username'"
+  },
+  {
+    "name": "datasource.mysql.password",
+    "type": "java.lang.String",
+    "description": "A description for 'datasource.mysql.password'"
+  },
+  {
+    "name": "datasource.mysql.driver-class-name",
+    "type": "java.lang.String",
+    "description": "A description for 'datasource.mysql.driver-class-name'"
+  },
+  {
+    "name": "datasource.postgresql.url",
+    "type": "java.lang.String",
+    "description": "A description for 'datasource.postgresql.url'"
+  },
+  {
+    "name": "datasource.postgresql.username",
+    "type": "java.lang.String",
+    "description": "A description for 'datasource.postgresql.username'"
+  },
+  {
+    "name": "datasource.postgresql.password",
+    "type": "java.lang.String",
+    "description": "A description for 'datasource.postgresql.password'"
+  },
+  {
+    "name": "datasource.postgresql.driver-class-name",
+    "type": "java.lang.String",
+    "description": "A description for 'datasource.postgresql.driver-class-name'"
+  },
+  {
+    "name": "servlet.multipart.enabled",
+    "type": "java.lang.String",
+    "description": "A description for 'servlet.multipart.enabled'"
+  },
+  {
+    "name": "servlet.multipart.max-file-size",
+    "type": "java.lang.String",
+    "description": "A description for 'servlet.multipart.max-file-size'"
+  },
+  {
+    "name": "servlet.multipart.max-request-size",
+    "type": "java.lang.String",
+    "description": "A description for 'servlet.multipart.max-request-size'"
+  },
+  {
+    "name": "mvc.view.prefix",
+    "type": "java.lang.String",
+    "description": "A description for 'mvc.view.prefix'"
+  },
+  {
+    "name": "mvc.view.suffix",
+    "type": "java.lang.String",
+    "description": "A description for 'mvc.view.suffix'"
+  },
+  {
+    "name": "mvc.static-path-pattern",
+    "type": "java.lang.String",
+    "description": "A description for 'mvc.static-path-pattern'"
+  }
+]}

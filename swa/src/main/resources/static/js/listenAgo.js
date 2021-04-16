@@ -14,9 +14,9 @@
 		$("#endDate").attr("max",date);
 		
 		$("#searChSort").click(function(){
-			alert($("#startDate").val());
-			alert($("#endDate").val());
-			//$("#mst_list_form").submit();
+		//	alert($("#startDate").val());
+		//	alert($("#endDate").val());
+			$("#mst_list_form").submit();
 		});
 		
 		if($("#startDate").val() == '' || $("#startDate").val() == null) {
@@ -29,7 +29,7 @@
 			$("#endDate").attr("min",sd);
 			var youd = sd.split('-');
 			var youds = new Date(youd[0],youd[1] - 1,youd[2]);
-			alert(getFormatDate(youds));
+		//	alert(getFormatDate(youds));
 			youds.setDate(youds.getDate()+1);
 			var maxday = getFormatDate(youds);
 			$("#endDate").attr("max",maxday);

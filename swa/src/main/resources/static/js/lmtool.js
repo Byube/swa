@@ -28,6 +28,7 @@
 		$(".eb").attr("src",embedUrl);
 	}
 	function searchlog(myUrl){
+	//	var searchlogUrl = "https://98.28.5.83:8000/stt/" + myUrl;
 		var searchlogUrl = "http://127.0.0.1:8880/stt/" + myUrl;
 		$(".ob").attr("data",searchlogUrl);		
 		$(".eb").attr("src",searchlogUrl);

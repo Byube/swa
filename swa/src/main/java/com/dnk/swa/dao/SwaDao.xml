@@ -16,7 +16,7 @@
 							)
 				VALUES
 							(
-							CURDATE()
+							now()
 							,#{STT_CENTER}
 							,#{STT_USER}
 							,#{STT_IP}
@@ -151,7 +151,7 @@
 							,#{STT_ID}
 							,'1234'
 							,1
-							,CURDATE()
+							,now()
 							,10
 							,#{STT_CENTER}
 							)
@@ -163,11 +163,11 @@
  		where	STT_SEQ	=	#{STT_SEQ}
  	</update>
  	
- 	<update id="deleteUser" parameterType="SwaLoginDto">
- 		update	STT_USER_INFO
- 		set		STT_STATUS	=	#{STT_STATUS}
- 		where	STT_SEQ	=	#{STT_SEQ}
- 	</update>
+ 	<delete id="deleteUser" parameterType="SwaLoginDto">
+ 		delete			
+ 		from		STT_USER_INFO
+ 		where		STT_SEQ	=	#{STT_SEQ}
+ 	</delete>
  	
  	<update id="resetPw" parameterType="SwaLoginDto">
  		update	STT_USER_INFO

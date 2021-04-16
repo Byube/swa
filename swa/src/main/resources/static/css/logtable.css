@@ -344,7 +344,7 @@ tbody td:last-child{
 	line-height: 43px;
 	padding: 0 20px 0 45px;
 	color:#fff;
-	background: #4c9a51 url(/resources/image/btn_excel.png) no-repeat 10px center;
+	background: #4c9a51 url(/stt/resources/image/btn_excel.png) no-repeat 10px center;
 	border-radius: 5px;
 	cursor:pointer;
 }
@@ -368,9 +368,11 @@ tbody td:last-child{
 }
 .liten_tb {
 	width: 49%;
+	height: 780px;
 	font-size: 16px;
 	border-spacing: 1px;
 	margin-right: 1%;
+	overflow-y: auto;
 }
 .liten_tb:last-child{
 	margin-right: 0;

@@ -22,7 +22,7 @@
 
 
 <c:if test="${empty level}">
-	<c:redirect url="/logout"></c:redirect>
+	<c:redirect url="/stt/logout"></c:redirect>
 </c:if>
 </head>
 <body>
@@ -39,24 +39,25 @@
 	<input type="hidden" id="userId" value="${userId }">
 	<input type="hidden" id="menuKey" value="${menuKey }">
 	<input type="hidden" id="check" value="${check }">
-	<input type="hidden" id="seq" value="${seq }">>
+	<input type="hidden" id="seq" value="${seq }">
 		<div class="navbar navbar-default navbar-static-top" role="navigation">
-		     <div class="container">
+		     <div class="container" >
 		
-				 <div class="navbar">
+				 <div class="navbar" style="text-align-last: right; ">
 		               <button class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
 		                    <span class="icon icon-bar"></span>
 		                    <span class="icon icon-bar"></span>
 		                    <span class="icon icon-bar"></span>
 		               </button>
-		               <a href="/stt/logout" class="main_logo"><img src="resources/image/seoul_water_logo.png"></a>
-		               <a href="/stt/logout" class="main_logout" title="로그아웃">${User_Name } 님 로그인 하셨습니다.  <img src="resources/image/btn_logout.png">로그아웃</a>
+		               <!-- <a href="#" class="main_logo"> --><img class="main_logo" src="resources/image/seoul_water_logo.png"><!-- </a> -->
+		               ${User_Name } 님 로그인 하셨습니다.
+		               <a href="/stt/logout" class="main_logout" title="로그아웃"><img src="resources/image/btn_logout.png">로그아웃</a>
 		          </div>
 		          <div class="collapse navbar-collapse">
 		               <c:choose>
 		              		<c:when test="${level eq 0}">
                                 <ul class="nav navbar-nav navbar-left sub_menu">
-                                    <li class="nav_tit">stt학습</li>
+                                    <li class="nav_tit">STT학습</li>
                                     <li><a href="javascript:;" id="edit" onclick="checkUrl('edit')">음성전사</a></li>
                                     <li><a href="javascript:;" id="lmdb" onclick="checkUrl('lmdb')">LM DB 관리</a></li>
                                     <li><a href="javascript:;" id="oov" onclick="checkUrl('oov')">무결성 확인</a></li>
@@ -71,54 +72,26 @@
                                     <li><a href="javascript:;" id="status" onclick="checkUrl('status')">리소스 모니터링</a></li>
                                     <li><a href="javascript:;" onclick="searchlog('listenAgo')">과거녹취 청취</a></li>
                                 </ul>
-                                <ul class="nav navbar-nav navbar-left sub_menu">
+                                <ul class="nav navbar-nav navbar-left sub_menu" style="">
                                     <li class="nav_tit">사용자메뉴</li>
                                     
                                     <c:if test="${User_Id eq 'admin' }">
                                     <li><a href="javascript:;" onclick="searchlog('createUser')">운영관리자 관리</a></li>
-                                    <li><a href="javascript:;" onclick="searchlog('swaMem')">상담사리스트</a></li>
+                                    <li><a href="javascript:;" onclick="searchlog('swaMem')">내선번호관리</a></li>
                                     </c:if>
                                     <li><a href="javascript:;" onclick="searchlog('searchlog')">로그테이블</a></li>
                                   <!-- 	<li><a href="javascript:;" onclick="searchlog('player')">음성재생</a></li>
                                     <li><a href="javascript:;" onclick="searchlog('test')">테스트</a></li>  -->
                                 </ul>
-
-                                   
 		                    </c:when>
 		                    <c:otherwise>
-                                <li><a href="javascript:;" id="edit" onclick="checkUrl('edit')">음성전사</a></li>
-                                <li><a href="javascript:;" id="lmdb" onclick="checkUrl('lmdb')">LM DB 관리</a></li>
-                                <li><a href="javascript:;" onclick="searchlog('player')">음성재생</a></li>
+                                <script type="text/javascript">
+                                	alert("권한이 없습니다. 관리자에게 요청 후 사용해 주세요");
+                                	window.location.href = "/stt/logout";
+                                </script>
 		                    </c:otherwise>
 		               </c:choose>
-		              	<%-- <c:choose>
-		              		<c:when test="${level eq 0}">
-		                    <li><a href="javascript:;" id="edit" onclick="checkUrl('edit')">음성전사</a></li>
-		                    <li><a href="javascript:;" id="lmdb" onclick="checkUrl('lmdb')">LM DB 관리</a></li>
-		                    <li><a href="javascript:;" onclick="searchlog('player')">음성재생</a></li>
-		                    <li><a href="javascript:;" id="oov" onclick="checkUrl('oov')">무결성 확인</a></li>
-		                    <li><a href="javascript:;" id="build" onclick="checkUrl('build')">음성인식 모델 빌드</a></li>
-		                    <li><a href="javascript:;" id="testset-checkrate" onclick="checkUrl('testset-checkrate')">인식률 확인</a></li>
-		                    <li><a href="javascript:;" id="upgrade" onclick="checkUrl('upgrade')">음성인식 모델 배포</a></li>
-		                    <li><a href="javascript:;" id="monitoring/stt.html" onclick="checkUrl('monitoring/stt.html')">파일 STT</a></li>
-		                    <li><a href="javascript:;" id="monitoring/call.html" onclick="checkUrl('monitoring/call.html')">STT 운영 모니터링</a></li>
-		                    <li><a href="javascript:;" id="status" onclick="checkUrl('status')">리소스 모니터링</a></li>
-		                    
-		                    <c:if test="${User_Id eq 'admin' }">
-		                    <li><a href="javascript:;" onclick="searchlog('listenAgo')">과거녹취 청취</a></li>
-		                    <li><a href="javascript:;" onclick="searchlog('createUser')">운영관리자 관리</a></li>
-		                    <li><a href="javascript:;" onclick="searchlog('searchlog')">로그테이블</a></li>
-		                    <li><a href="javascript:;" onclick="searchlog('swaMem')">상담사리스트</a></li>
-		                    <li><a href="javascript:;" onclick="searchlog('test')">테스트</a></li>
-		                    </c:if>
-		                    </c:when>
-		                    <c:otherwise>
-		                    <li><a href="javascript:;" id="edit" onclick="checkUrl('edit')">음성전사</a></li>
-		                    <li><a href="javascript:;" id="lmdb" onclick="checkUrl('lmdb')">LM DB 관리</a></li>
-		                    <li><a href="javascript:;" onclick="searchlog('player')">음성재생</a></li>
-		                    </c:otherwise>
-		               </c:choose>
-		               </ul>  --%>
+		              	
 		          </div>
 		 
 		  	</div>

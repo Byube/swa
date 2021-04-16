@@ -9,8 +9,8 @@
 <meta charset="UTF-8">
 <title>과거녹취 청취</title>
     <link rel="stylesheet" href="resources/tui-grid/tui-grid.css" />
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-    <link rel="stylesheet" href="/resources/demos/style.css">
+    <!-- <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"> -->
+    <link rel="stylesheet" href="resources/css/style.css">
     <link rel="stylesheet" href="resources/css/logtable.css">
     <link rel="stylesheet" href="resources/css/player.css" />
 
@@ -27,7 +27,7 @@
 
 
 	<div class="con">
-	 <form id="stt_list_form" method="post" action="/searchlog">
+	 <form id="mst_list_form" method="post" action="/stt/listenAgo">
 	     <div class="liten_tb">
             <div class="con_sel liten">
                 <div class="date_search">

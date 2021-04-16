@@ -18,7 +18,7 @@
 
 <!-- Main css -->
 <link rel="stylesheet" href="resources/css/style.css">
-<link href="https://fonts.googleapis.com/css?family=Work+Sans:300,400,700" rel="stylesheet">
+<!-- <link href="https://fonts.googleapis.com/css?family=Work+Sans:300,400,700" rel="stylesheet"> -->
 
 </head>
 <body>
@@ -62,8 +62,6 @@
 <script src="resources/js/jquery.js"></script>
 <script src="resources/js/bootstrap.min.js"></script>
 <script src="resources/js/custom.js"></script>
-<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script src="resources/js/changePw.js"></script>
 
 </body>

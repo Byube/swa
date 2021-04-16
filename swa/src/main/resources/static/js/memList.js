@@ -14,6 +14,8 @@
 	});
 	var check = false;
 	
+	var update = false;
+	
 	//중복체크 하면서 id 특수기호 입력 등 체크 
 	function checkid(){
 		var sName = $("#SWA_NAME").val();
@@ -32,6 +34,7 @@
 				$("#SWA_INMUM").val("");
 				$("#SWA_CENTER").focus();
 			} else {
+				var isUrl = "/stt/checksIdok?id="+sId;
 				if (spe > 0){
 				alert("아이디는 영문 또는 영문 + 숫자 로만 가능 합니다.");
 				$("#SWA_ID").val("");
@@ -39,7 +42,7 @@
 				} else {
 					$.ajax({
 						type : "GET",
-						url : "/stt/checksIdok?id="+sId,
+						url : isUrl,
 						dataType : "text",
 						success : function(data) {
 							if(data == "true"){
@@ -80,6 +83,11 @@
 	}
 	
 	function updapego(){
+		if (update) {
+			check = true;
+		} else {
+			check = false;
+		}
 		if(check){
 			$("#insertMem").submit();
 			$(".pup_wrap").hide();
@@ -90,6 +98,7 @@
 	}
 	
 	function insertMem(){
+		update = false;
 		$("#SWA_CENTER").val("");
 		$("#SWA_INMUM").val("");
 		$("#SWA_ID").val("");
@@ -110,6 +119,7 @@
 		$("#swa_list").submit();
 	}
 	function upDate(c){
+		update = true;
 		$("#insertMem").attr("action","/stt/updateSwaMem");
 		var ucenter = $("#ucenter" + c).text();
 		var uinnum = $("#uinnum" + c).text();

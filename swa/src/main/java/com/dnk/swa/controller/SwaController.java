@@ -49,13 +49,14 @@ public class SwaController {
 	private String ip = "";
 	SwaLogDto log = new SwaLogDto();
 	
-	
+	//private String test1 = "redirect:https://98.28.5.83:8000/stt/stt";
+	private String test2 = "redirect:/stt/stt";
 	
 	@Autowired
 	SwaService swaService;
 	
 	private final int pagingCnt = 10;
-	private final int recordCnt = 10;
+	private final int recordCnt = 15;
 	
 	@RequestMapping(value = "/stt")
 	public String stt() {
@@ -141,14 +142,16 @@ public class SwaController {
 							,HttpServletRequest request
 							,HttpSession session) {
 		String address = "";
-//		model.addAttribute("level", 0);
-//		model.addAttribute("User_Id", "admin");
-//		address = "dnk/lmtool";
 		log.setSTT_MENU("로그인");
 		log.setSTT_USER(STT_ID);
 		ip = request.getHeader("X-FORWARDED-FOR");
 		if (ip == null)
-			ip = request.getRemoteAddr();
+			if (request.getRemoteAddr().equals("0:0:0:0:0:0:0:1")) {
+				ip = "127.0.0.1";
+			} else {
+				ip = request.getRemoteAddr();
+			}
+			
 		log.setSTT_IP(ip);
 		log.setSTT_CONTENTS(STT_ID + "님 ip : " + ip +" 에서 로그인 하셨습니다.");
 		SwaLoginDto sld = new SwaLoginDto();
@@ -167,7 +170,7 @@ public class SwaController {
 			swaService.insertLog(log);
 			address = "dnk/lmtool";
 		} else {
-			address = "redirect:/stt/stt";
+			address = test2;
 		}		
 		return address;
 	}
@@ -200,14 +203,14 @@ public class SwaController {
 		Calendar cal = Calendar.getInstance();
 		if(page.equals("0")) {
 			nowPage = 1;
-//			log.setSTT_MENU("과거녹취 청취");
-//			log.setSTT_CONTENTS("과거녹취 청취 시작");
-//			swaService.insertLog(log);
+			log.setSTT_MENU("과거녹취 청취");
+			log.setSTT_CONTENTS("과거녹취 청취 시작");
+			swaService.insertLog(log);
 		} else {
 			nowPage = Integer.parseInt(page);
 		}
 		
-		logger.info(">>>>>>>>>>>" + startDate);
+//		logger.info(">>>>>>>>>>>" + startDate);
 		
 		if(startDate.equals("")) {
 			Date today = new Date();
@@ -215,7 +218,7 @@ public class SwaController {
 			cal.add(Calendar.DATE, -30);
 			endDate = format.format(today).toString();
 			startDate = format.format(cal.getTime()).toString();
-			logger.info( startDate + ">>>>>>>>>>>>>>" + endDate);
+//			logger.info( startDate + ">>>>>>>>>>>>>>" + endDate);
 		}
 		
 		smd.setDateSort(dateSort);
@@ -254,11 +257,7 @@ public class SwaController {
 				smmd.setSTT_CALL3(user_nm[6].replace(".mp3", ""));
 			}
 		}
-		
-		
 		agolist.add(smmd);
-		
-		
 		model.addAttribute("agolist", agolist);
 		model.addAttribute("nowPage", nowPage);
 		model.addAttribute("pageTag", pagingService.resultString());
@@ -275,7 +274,8 @@ public class SwaController {
 							,@RequestParam(value = "STT_NAME", defaultValue = "NO")String STT_NAME
 							,@RequestParam(value = "STT_ID", defaultValue = "user")String STT_ID
 							,@RequestParam(value = "STT_CENTER", defaultValue = "-")String STT_CENTER) {
-		String address = "redirect:/createUser";
+		String address = "redirect:/stt/createUser";
+//		String address = "redirect:https://98.28.5.83:8000/stt/createUser";
 		SwaLoginDto sld = new SwaLoginDto();
 		sld.setSTT_NAME(STT_NAME);
 		sld.setSTT_ID(STT_ID);
@@ -302,6 +302,7 @@ public class SwaController {
 	public String levelChange(@RequestParam(value = "STT_SEQ", defaultValue = "")int STT_SEQ
 							,@RequestParam(value = "code", defaultValue = "")String code) {
 		String address = "redirect:/stt/createUser";
+//		String address = "redirect:https://98.28.5.83:8000/stt/createUser";
 		SwaLoginDto sld = new SwaLoginDto();
 		sld.setSTT_SEQ(STT_SEQ);
 		if(code.equals("add")) {
@@ -321,6 +322,7 @@ public class SwaController {
 	@RequestMapping(value = "/deleteUser")
 	public String deleteUser(@RequestParam(value = "STT_SEQ", defaultValue = "")int STT_SEQ) {
 		String address = "redirect:/stt/createUser";
+//		String address = "redirect:https://98.28.5.83:8000/stt/createUser";
 		SwaLoginDto sld = new SwaLoginDto();
 		sld.setSTT_SEQ(STT_SEQ);
 		sld.setSTT_STATUS(40);
@@ -337,6 +339,7 @@ public class SwaController {
 	@RequestMapping(value = "/resetPw")
 	public String resetPw(@RequestParam(value = "STT_SEQ", defaultValue = "")int STT_SEQ) {
 		String address = "redirect:/stt/createUser";
+//		String address = "redirect:https://98.28.5.83:8000/stt/createUser";
 		SwaLoginDto sld = new SwaLoginDto();
 		sld.setSTT_SEQ(STT_SEQ);
 		sld.setSTT_PW("1234");
@@ -350,7 +353,8 @@ public class SwaController {
 	@RequestMapping(value = "/changePws")
 	public String changePws(@RequestParam(value = "STT_SEQ", defaultValue = "")int STT_SEQ
 							,@RequestParam(value = "STT_PW", defaultValue = "")String STT_PW) {
-		String address = "redirect:/stt/stt";
+		String address = test2;
+		
 		SwaLoginDto sld = new SwaLoginDto();
 		//logger.info(">>>>>>>>>>>>>>>>>" + STT_SEQ);
 		sld.setSTT_PW(STT_PW);
@@ -384,7 +388,7 @@ public class SwaController {
 	@RequestMapping(value = "/logout")
 	public String logout(Model model
 						,HttpSession session) {
-		String address = "redirect:/stt/stt";
+		String address = test2;
 		session.invalidate();
 		return address;
 	}
@@ -402,9 +406,9 @@ public class SwaController {
 		int pageCount = 0;
 		if(page.equals("0")) {
 			nowPage = 1;
-//			log.setSTT_MENU("상담사리스트");
-//			log.setSTT_CONTENTS("상담사 리스트 조회");
-//			swaService.insertLog(log);
+			log.setSTT_MENU("내선번호관리");
+			log.setSTT_CONTENTS("내선번호 리스트 조회");
+			swaService.insertLog(log);
 		} else {
 			nowPage = Integer.parseInt(page);
 		}
@@ -541,13 +545,14 @@ public class SwaController {
 							,@RequestParam(value = "SWA_ID", defaultValue = "-")String SWA_ID
 							,@RequestParam(value = "SWA_NAME", defaultValue = "-")String SWA_NAME) {
 		String address = "redirect:/stt/swaMem";
+//		String address = "redirect:https://98.28.5.83:8000/stt/swaMem";
 		SwaMemDto smd = new SwaMemDto();
 		smd.setSWA_CENTER(SWA_CENTER);
 		smd.setSWA_ID(SWA_ID);
 		smd.setSWA_INNUM(SWA_INNUM);
 		smd.setSWA_NAME(SWA_NAME);
 	//	logger.info(">>>>>>>" + smd);
-		log.setSTT_MENU("삼당사 추가 및 아이디 생성");
+		log.setSTT_MENU("내선번호관리");
 		log.setSTT_CONTENTS("새로운 상담사 "+ SWA_NAME + " id : " + SWA_ID + " 생성");
 		swaService.insertLog(log);
 		swaService.insertSwaMem(smd);
@@ -574,19 +579,21 @@ public class SwaController {
 							,@RequestParam(value = "SWA_ID", defaultValue = "-")String SWA_ID
 							,@RequestParam(value = "SWA_NAME", defaultValue = "-")String SWA_NAME) {
 		String address = "redirect:/stt/swaMem";
+//		String address = "redirect:https://98.28.5.83:8000/stt/swaMem";
 //		logger.info("[update SwaMem] : " + SWA_SEQ);
+		
 		SwaMemDto smd = new SwaMemDto();
 		smd.setSWA_SEQ(SWA_SEQ);
 		smd.setSWA_CENTER(SWA_CENTER);
 		smd.setSWA_INNUM(SWA_INNUM);
 		smd.setSWA_ID(SWA_ID);
 		smd.setSWA_NAME(SWA_NAME);
-		log.setSTT_MENU("상담사리스트");
+		log.setSTT_MENU("내선번호관리");
 		log.setSTT_CONTENTS("상담사"+ swaService.getSwaMemName(smd) + "의 정보 수정 "
 							+ " 새로 입력한 센테명 : " + SWA_CENTER
 							+ " 새로 입력한 내선번호 : " + SWA_INNUM
 							+ " 새로 입력한 아이디 : " + SWA_ID
-							+ " 새로 입력한 상담사이름 : " + SWA_NAME);
+							+ " 새로 입력한 직원이름 : " + SWA_NAME);
 		swaService.insertLog(log);
 		swaService.updateSwaMem(smd);
 //		logger.info("[update SwaMem] : " + smd);
@@ -595,9 +602,10 @@ public class SwaController {
 	@RequestMapping(value = "/deleteSwaMem")
 	public String deleteSwaMem(@RequestParam(value = "SWA_SEQ", defaultValue = "")int SWA_SEQ) {
 		String address = "redirect:/stt/swaMem";
+//		String address = "redirect:https://98.28.5.83:8000/stt/swaMem";
 		SwaMemDto smd = new SwaMemDto();
 		smd.setSWA_SEQ(SWA_SEQ);
-		log.setSTT_MENU("상담사리스트");
+		log.setSTT_MENU("내선번호관리");
 		log.setSTT_CONTENTS("상담사 " + swaService.getSwaMemName(smd) + "님 계정 삭제");
 		swaService.insertLog(log);
 		swaService.deleteSwaMem(smd);		

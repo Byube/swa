@@ -19,10 +19,10 @@ const griddata = [];
 window.onload = function (event) {
   initGrid();
   // loadData();
-  initAudio();
+  // initAudio();
 };
 
-function initAudio() {
+function initAudio(getaudioUrl) {
   console.log('initAudio()');
 
   audioTimeAll = document.getElementById('audiomax');
@@ -35,7 +35,7 @@ function initAudio() {
 
   console.log(audio);
 
-   audio.src = 'HTTP://98.28.8.45:28881/listen?url=/var/REC/RecSee_Data/20210409/18/202104091800110199_3825_I_01047160485_A.mp3';
+   audio.src = getaudioUrl;
   // audio.src = 'http://localhost:9220/player/getwav/';
   // audio.src = 'http://localhost:9230/player/getstream/';
  // audio.src = 'http://localhost:8880/getstream/';
@@ -197,7 +197,11 @@ function loadData(sttresult) {
 
   // const lines = sttresult.toString().split(/\r\n|\n/);
   const lines = sttresult.split('\n');
-  // console.log(lines);
+   console.log(lines);
+
+	var getaudioUrl = lines[lines.length-1];
+
+  initAudio(getaudioUrl);
 
   griddata.length = 0;
 
@@ -239,6 +243,8 @@ function fancyTimeFormat(duration) {
 }
 
 function getText(STT_CALL1,STT_CALL2,STT_CALL3,STT_USER_NUM,STT_MEM_NUM,fname) {
+	btnPlay = document.getElementById('btn_play');
+	btnPlay.src = 'resources/image/baseline_play_arrow_black_18dp.png';
   httpRequest = new XMLHttpRequest();
   if (!httpRequest) {
     alert('Giving up :( Cannot create an XMLHTTP instance');
@@ -256,6 +262,7 @@ function getText(STT_CALL1,STT_CALL2,STT_CALL3,STT_USER_NUM,STT_MEM_NUM,fname) {
     }
   };
 
-  httpRequest.open('GET', "http://localhost:8880/gettxt/?STT_CALL1="+STT_CALL1+"&STT_CALL2="+STT_CALL2+"&STT_CALL3="+STT_CALL3+"&STT_USER_NUM="+STT_USER_NUM+"&STT_MEM_NUM="+STT_MEM_NUM+"&R_F_NM="+fname);
+  httpRequest.open('GET', "http://localhost:8880/stt/gettxt/?STT_CALL1="+STT_CALL1+"&STT_CALL2="+STT_CALL2+"&STT_CALL3="+STT_CALL3+"&STT_USER_NUM="+STT_USER_NUM+"&STT_MEM_NUM="+STT_MEM_NUM+"&R_F_NM="+fname);
+  //httpRequest.open('GET', "https://98.28.5.83:8000/stt/gettxt/?STT_CALL1="+STT_CALL1+"&STT_CALL2="+STT_CALL2+"&STT_CALL3="+STT_CALL3+"&STT_USER_NUM="+STT_USER_NUM+"&STT_MEM_NUM="+STT_MEM_NUM+"&R_F_NM="+fname);
   httpRequest.send();
 }

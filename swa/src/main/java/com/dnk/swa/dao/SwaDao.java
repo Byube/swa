@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.context.annotation.Primary;
 
 import com.dnk.swa.dto.SwaLogDto;
 import com.dnk.swa.dto.SwaLoginDto;
@@ -13,7 +15,9 @@ import com.dnk.swa.dto.SwaMstDto;
 @Mapper
 public interface SwaDao {
 	
+
 	public void insertLog(SwaLogDto log);
+	
 	public SwaLoginDto getMember(SwaLoginDto sld);
 	public String checkLogin(SwaLoginDto sld);
 	public List<SwaLogDto> getLogtable(SwaLogDto sld);
