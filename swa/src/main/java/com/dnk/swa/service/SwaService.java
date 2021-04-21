@@ -1,8 +1,8 @@
 package com.dnk.swa.service;
 
-import java.util.ArrayList;
 import java.util.List;
 
+import com.dnk.swa.dto.ListenAgoDto;
 import com.dnk.swa.dto.SwaLogDto;
 import com.dnk.swa.dto.SwaLoginDto;
 import com.dnk.swa.dto.SwaMemDto;
@@ -10,13 +10,15 @@ import com.dnk.swa.dto.SwaMstDto;
 
 public interface SwaService {
 	
+	public List<SwaLoginDto> gettest();
+	
 	public void insertLog(SwaLogDto log);
-	public SwaLoginDto getMember(SwaLoginDto sld);
+	public List<SwaLoginDto> getMember(SwaLoginDto sld);
 	public boolean checkLogin(SwaLoginDto sld);
 	public List<SwaLogDto> getLogtable(SwaLogDto sld);
 	public int getLogCount(SwaLogDto sld);
 	public String getUserId(SwaLoginDto sld);
-	public ArrayList<SwaLoginDto> getUser(SwaLoginDto sld);
+	public List<SwaLoginDto> getUser(SwaLoginDto sld);
 	
 	public void insertUser(SwaLoginDto sld);
 	
@@ -37,5 +39,8 @@ public interface SwaService {
 	public String getSwaMemName(SwaMemDto smd);
 	public void updateSwaMem(SwaMemDto smd);
 	public void deleteSwaMem(SwaMemDto smd);
-
+	
+	//퓨렌스 연결
+	public String getMp3Url(ListenAgoDto lad);
+	
 }

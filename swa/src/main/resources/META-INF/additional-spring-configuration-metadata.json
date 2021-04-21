@@ -138,5 +138,45 @@
     "name": "mvc.static-path-pattern",
     "type": "java.lang.String",
     "description": "A description for 'mvc.static-path-pattern'"
+  },
+  {
+    "name": "spring.datasource.hikari.mariadb.driver-class-name",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.datasource.hikari.mariadb.driver-class-name'"
+  },
+  {
+    "name": "spring.datasource.hikari.mariadb.jdbc-url",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.datasource.hikari.mariadb.jdbc-url'"
+  },
+  {
+    "name": "spring.datasource.hikari.mariadb.username",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.datasource.hikari.mariadb.username'"
+  },
+  {
+    "name": "spring.datasource.hikari.mariadb.password",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.datasource.hikari.mariadb.password'"
+  },
+  {
+    "name": "spring.datasource.hikari.postgre.driver-class-name",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.datasource.hikari.postgre.driver-class-name'"
+  },
+  {
+    "name": "spring.datasource.hikari.postgre.jdbc-url",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.datasource.hikari.postgre.jdbc-url'"
+  },
+  {
+    "name": "spring.datasource.hikari.postgre.username",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.datasource.hikari.postgre.username'"
+  },
+  {
+    "name": "spring.datasource.hikari.postgre.password",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.datasource.hikari.postgre.password'"
   }
 ]}

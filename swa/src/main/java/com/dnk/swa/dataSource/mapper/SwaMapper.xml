@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
- <mapper namespace="com.dnk.swa.dao.SwaDao">
+ <mapper namespace="com.dnk.swa.dao.SttDao">
+ 
+ 
+ 	<select id="gettest" resultType="SwaLoginDto">
+ 		select	*
+ 		from	STT_USER_INFO
+ 	</select>
  
  	<insert id="insertLog" parameterType="SwaLogDto">
  		INSERT	INTO	
@@ -24,20 +30,25 @@
 							,#{STT_CONTENTS}
 							)
  	 </insert>
- 
- 	<select id="getMember" resultType="SwaLoginDto">
- 		select	*
- 		from	STT_USER_INFO
- 		where	STT_ID	=	#{STT_ID}
- 		and		STT_PW	=	#{STT_PW}
- 		and		STT_STATUS	=	10
- 	</select>
  	
  	<select id="checkLogin" parameterType="SwaLoginDto" resultType="String">
  		select	STT_PW
  		from	STT_USER_INFO
  		where	STT_ID = #{STT_ID}
  		and		STT_STATUS = 10
+ 	</select>
+ 	
+ 	<select id="getMember" parameterType="SwaLoginDto" resultType="SwaLoginDto">
+ 		select	STT_NAME
+ 				,STT_ID
+ 				,STT_PW
+ 				,STT_LEVEL
+ 				,STT_DATE
+ 				,STT_CENTER
+ 		from	STT_USER_INFO
+ 		where	STT_ID	=	#{STT_ID}
+ 		and		STT_PW	=	#{STT_PW}
+ 		and		STT_STATUS	=	10
  	</select>
  	
  	<select id="getLogtable" parameterType="SwaLogDto" resultType="SwaLogDto">
@@ -308,6 +319,27 @@
  		from	SWA_MEM_INFO
  		where	SWA_SEQ	=	#{SWA_SEQ}
  	</delete>
+ 	
+ 	<select id="getMp3Url" parameterType="ListenAgoDto" resultType="String">
+ 		select		r_listen_url
+		from		vw_rs_recfile
+		where		r_rec_date > ''
+		<if test="r_call_id1 != null and r_call_id1 != '' ">
+		and			r_call_id1 = #{r_call_id1}
+		</if>
+		<if test="r_call_id2 != null and r_call_id2 != '' ">
+		and			r_call_id2 = #{r_call_id2}
+		</if>
+		<if test="r_call_id3 != null and r_call_id3 != '' ">
+		and			r_call_id3 = #{r_call_id3}
+		</if>
+		<if test="r_ext_num != null and r_ext_num != '' ">
+		and			r_ext_num = #{r_ext_num}
+		</if>
+		<if test="r_cust_phone1 != null and r_cust_phone1 != '' ">
+		and			r_cust_phone1 = #{r_cust_phone1}
+		</if>
+ 	</select>
  	
  	
  </mapper>

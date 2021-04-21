@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class SwaLoginDto {
+	
 	private int STT_SEQ;
 	private String STT_NAME;
 	private String STT_ID;

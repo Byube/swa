@@ -2,13 +2,9 @@ package com.dnk.swa.controller;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Collection;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
-import java.util.ListIterator;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -24,7 +20,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -53,10 +48,20 @@ public class SwaController {
 	private String test2 = "redirect:/stt/stt";
 	
 	@Autowired
-	SwaService swaService;
+	private SwaService swaService;
 	
 	private final int pagingCnt = 10;
 	private final int recordCnt = 15;
+	
+	@RequestMapping(value = "/test")
+	public String test() {
+		String address = "dnk/admin";
+		
+		logger.info(">>>>>>>>>>>>>" + swaService.gettest());
+		
+		return address;
+	}
+	
 	
 	@RequestMapping(value = "/stt")
 	public String stt() {
@@ -117,7 +122,7 @@ public class SwaController {
 		sld.setEndRow(pagingService.getEndRow());
 		
 		List<SwaLogDto> plist = swaService.getLogtable(sld);
-		ArrayList<SwaLoginDto> mlist = swaService.getUser(slg);
+		List<SwaLoginDto> mlist = swaService.getUser(slg);
 		List<SwaLogDto> menu = swaService.getMenu();
 		model.addAttribute("menu", menu);
 		model.addAttribute("mlist", mlist);
@@ -142,6 +147,7 @@ public class SwaController {
 							,HttpServletRequest request
 							,HttpSession session) {
 		String address = "";
+		SwaLoginDto who = new SwaLoginDto();
 		log.setSTT_MENU("로그인");
 		log.setSTT_USER(STT_ID);
 		ip = request.getHeader("X-FORWARDED-FOR");
@@ -155,10 +161,23 @@ public class SwaController {
 		log.setSTT_IP(ip);
 		log.setSTT_CONTENTS(STT_ID + "님 ip : " + ip +" 에서 로그인 하셨습니다.");
 		SwaLoginDto sld = new SwaLoginDto();
+		
 		sld.setSTT_ID(STT_ID);
 		sld.setSTT_PW(STT_PW);
+		
+		logger.info("  >>>>>>   " + sld);
+		
+		
+		
+		logger.info("  >>>>>>   " +  swaService.getMember(sld));
+		
 		if(swaService.checkLogin(sld)) {
-			SwaLoginDto who = swaService.getMember(sld);
+			List<SwaLoginDto> wholist = swaService.getMember(sld);
+			logger.info("  >>>>>>   " + wholist);
+			for (int i = 0; i < wholist.size(); i++) {
+				who = wholist.get(i);
+			}
+			logger.info("  >>>>>>   " + who);
 			session.setAttribute("User_Name", who.getSTT_NAME());	
 			session.setAttribute("level", who.getSTT_LEVEL());
 			session.setAttribute("User_Id", who.getSTT_ID());
@@ -291,9 +310,8 @@ public class SwaController {
 	public String createUser(Model model) {
 		String address = "dnk/createUser";
 		SwaLoginDto sld = new SwaLoginDto();
-		ArrayList<SwaLoginDto> alist = new ArrayList<>();
 		sld.setSTT_ID(null);
-		alist = swaService.getUser(sld);
+		List<SwaLoginDto> alist = swaService.getUser(sld);
 		model.addAttribute("SwaUser", alist);
 		return address;
 	}
@@ -429,12 +447,6 @@ public class SwaController {
 		model.addAttribute("swalist", swalist);
 		model.addAttribute("nowPage", nowPage);
 		model.addAttribute("pageTag", pagingService.resultString());
-		return address;
-	}
-	
-	@RequestMapping(value = "/test")
-	public String test(Model model) {
-		String address = "dnk/test";
 		return address;
 	}
 	

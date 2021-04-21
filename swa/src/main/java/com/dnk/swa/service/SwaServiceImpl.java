@@ -1,12 +1,12 @@
 package com.dnk.swa.service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.dnk.swa.dao.SwaDao;
+import com.dnk.swa.dao.SttDao;
+import com.dnk.swa.dto.ListenAgoDto;
 import com.dnk.swa.dto.SwaLogDto;
 import com.dnk.swa.dto.SwaLoginDto;
 import com.dnk.swa.dto.SwaMemDto;
@@ -16,18 +16,18 @@ import com.dnk.swa.dto.SwaMstDto;
 public class SwaServiceImpl implements SwaService{
 	
 	@Autowired
-	SwaDao dao;
+	SttDao dao;
 	
 	
+	
+	@Override
+	public List<SwaLoginDto> gettest() {
+		return dao.gettest();
+	}
 
 	@Override
 	public void insertLog(SwaLogDto log) {
 		dao.insertLog(log);
-	}
-
-	@Override
-	public SwaLoginDto getMember(SwaLoginDto sld) {
-		return dao.getMember(sld);
 	}
 
 	@Override
@@ -37,6 +37,11 @@ public class SwaServiceImpl implements SwaService{
 			check = true;
 		}
 		return check;
+	}
+	
+	@Override
+	public List<SwaLoginDto> getMember(SwaLoginDto sld) {
+		return dao.getMember(sld);
 	}
 
 	@Override
@@ -56,7 +61,7 @@ public class SwaServiceImpl implements SwaService{
 	}
 
 	@Override
-	public ArrayList<SwaLoginDto> getUser(SwaLoginDto sld) {
+	public List<SwaLoginDto> getUser(SwaLoginDto sld) {
 		return dao.getUser(sld);
 	}
 
@@ -163,6 +168,12 @@ public class SwaServiceImpl implements SwaService{
 	@Override
 	public void deleteSwaMem(SwaMemDto smd) {
 		dao.deleteSwaMem(smd);
+	}
+
+	//퓨렌스 db 연결
+	@Override
+	public String getMp3Url(ListenAgoDto lad) {
+		return dao.getMp3Url(lad);
 	}
 	
 	
