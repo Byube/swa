@@ -46,7 +46,7 @@
                               <input type="password" class="form-control" placeholder="비밀번호확인" id="stt_pw2" name="STT_PW2">
                          </div>
                          <div class="col-md-3 col-sm-4">
-                              <input type="submit" id="submit" class="form-control" value="저장">
+                              <input type="submit" id="submit" class="form-control" value="저장" onclick="gochange()">
                          </div>
                          <input type="hidden" id="seq" name="STT_SEQ" value="${seq }">
                     </form>

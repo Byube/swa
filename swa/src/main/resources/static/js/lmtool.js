@@ -34,5 +34,14 @@
 		$(".eb").attr("src",searchlogUrl);
 	}
 	
+	function changepw(){
+		var seq = $("#seq").val();
+		if(confirm("비밀번호를 변경 페이지로 이동 하시겠습니까?")) {
+ 			window.location.href = "/stt/changePw?seq=" + seq;
+ 			} else {
+ 			return;
+		}
+	}
+	
 	
 	

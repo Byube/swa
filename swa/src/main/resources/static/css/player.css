@@ -71,7 +71,7 @@ input[type='range']::-ms-fill-upper {
 .audio-progressbar,
 .audio-volumebar {
   /* -webkit-appearance: none; */
-  appearance: none;
+  appearance: auto;
   cursor: ew-resize;
   height: 14px;
   background: black;

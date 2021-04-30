@@ -2,6 +2,8 @@ package com.dnk.swa.controller;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.text.SimpleDateFormat;
+import java.util.Iterator;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -39,7 +41,8 @@ public class SttController {
     					,@RequestParam(value = "STT_CALL3",defaultValue = "")String STT_CALL3
     					,@RequestParam(value = "STT_USER_NUM",defaultValue = "")String STT_USER_NUM
     					,@RequestParam(value = "STT_MEM_NUM",defaultValue = "")String STT_MEM_NUM
-    					,@RequestParam(value = "R_F_NM",defaultValue = "")String R_F_NM) {
+    					,@RequestParam(value = "R_F_NM",defaultValue = "")String R_F_NM
+    					,@RequestParam(value = "STT_DTM",defaultValue = "")String STT_DTM) {
         response.setContentType("text/plain");
         logger.info("[gettxt] :");
         
@@ -48,9 +51,14 @@ public class SttController {
         String result1 = "";
         smd.setSTT_CALL(R_F_NM);
         result = swaService.getMstC(smd);
-//        logger.info(STT_CALL1 + ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>" + STT_CALL2 + ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>" + STT_CALL3);
-        smd.setSTT_USER_NUM(STT_USER_NUM);
-        smd.setSTT_MEM_NUM(STT_MEM_NUM);
+       logger.info(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>" + smd );
+        String [] dtm = STT_DTM.split(" ");
+        String [] dtm1 = dtm[0].split("-");
+        String dtmis = "";
+        for (int i = 0; i < dtm1.length; i++) {
+			dtmis += dtm1[i];
+		}
+ //       logger.info(">>>>>>>>>>>>>>>>>>>>>>>>>>>"+dtmis);
         String[] line;
         String []hp;
         line = result.split("\n");
@@ -59,10 +67,7 @@ public class SttController {
 			result1 += hp[0] + "|" + hp[1] + "|" + hp[2] +"\n";
 			
 		}
-        
- 
 		String result2 = "";
-		
 		ListenAgoDto lad = new ListenAgoDto();
 		if(STT_CALL1.equals("CALLID1")) {
 			lad.setR_call_id1("");
@@ -82,12 +87,11 @@ public class SttController {
 		
 		lad.setR_cust_phone1(STT_USER_NUM);
 		lad.setR_ext_num(STT_MEM_NUM);
-		
+		lad.setSTT_DTM(dtmis);
 		result2 = swaService.getMp3Url(lad);
-  
 		result1 += result2;
         
-       logger.info(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>" + result2);
+ //      logger.info( R_F_NM + " >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>" + result2);
         return result1;
     }
 

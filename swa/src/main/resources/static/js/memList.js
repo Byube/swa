@@ -100,7 +100,7 @@
 	function insertMem(){
 		update = false;
 		$("#SWA_CENTER").val("");
-		$("#SWA_INMUM").val("");
+		$("#SWA_INNUM").val("");
 		$("#SWA_ID").val("");
 		$("#SWA_NAME").val("");
 		$("#insertMem").attr("action","/stt/insertSwaMem");
@@ -108,6 +108,10 @@
 	}
 	
 	function closeMem(){
+		$("#SWA_CENTER").val("");
+		$("#SWA_INNUM").val("");
+		$("#SWA_ID").val("");
+		$("#SWA_NAME").val("");
 		$("#swa_title").text("멤버추가");
 		$("#buth").hide();
 		$("#butwo").text("저장");

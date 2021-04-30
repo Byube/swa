@@ -4,7 +4,8 @@
 		$("#alert-danger").hide();
 		$("#alert-warning").hide();
 		$("#submit").attr("disabled","disabled");
-		$("input").keyup(function(){
+		
+		$("#stt_pw2").keyup(function(){
 			var pwd1 = $("#stt_pw").val();
 			var pwd2 =	$("#stt_pw2").val();
 			var num = pwd1.search(/[0-9]/g);
@@ -44,7 +45,18 @@
 			}
 		});
 		
+		$("#stt_pw").keyup(function(){
+			$("#alert-success").hide();
+			$("#alert-danger").hide();
+			$("#alert-warning").hide();
+			$("#submit").attr("disabled","disabled");
+		});
+		
 		
 		
 		
 	});
+	
+	function gochange(){
+		alert("비밀번호 변경 완료 하였습니다.");
+	}

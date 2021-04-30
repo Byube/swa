@@ -45,6 +45,7 @@
  				,STT_LEVEL
  				,STT_DATE
  				,STT_CENTER
+ 				,STT_SEQ
  		from	STT_USER_INFO
  		where	STT_ID	=	#{STT_ID}
  		and		STT_PW	=	#{STT_PW}
@@ -94,7 +95,7 @@
 							<otherwise>
 							and		STT_MENU = #{STT_MENU}
 							</otherwise>
-						</choose>
+					</choose>
 					</if>
 					order by 
 							<if test="dateSort != null and dateSort !=''">
@@ -200,6 +201,7 @@
 	<select id="getMstMin" resultType="String">
 		select	min(date_format(STT_DTM,'%Y-%m-%d'))
 		from	STT_MST_INFO
+		where	STT_DTM	> concat('2021-03-19','%')
 	</select>
 	
 	<select id="getMenu" resultType="SwaLogDto">
@@ -212,12 +214,30 @@
 		select	count(R_FILE_NM) as logSeq
  		from	STT_MST_INFO
  		where	R_FILE_NM	!=	''
- 		<if test="startDate != null and startDate !='' and endDate != null and endDate !='' ">
-		and		date_format(STT_DTM,'%Y-%m-%d') between #{startDate} AND #{endDate} 
-		</if>					
-		<!-- <if test="STT_USER != null and STT_USER != '' ">
-		and		STT_USER = #{STT_USER}				
-		</if> -->
+ 		<choose>
+ 			<when test="key_word != null and key_word != ''">
+ 					and		STT_DTM like concat(#{endDate},'%')
+ 				<if test="STT_USER_NUM != '' and STT_USER_NUM != null">
+ 					and		R_CUST_NO	=	#{STT_USER_NUM}
+ 				</if>
+ 				<if test="STT_MEM_NUM != '' and STT_MEM_NUM != null">
+ 					and		R_EXT_NO	=	#{STT_MEM_NUM}
+ 				</if>
+ 					and		STT_MRESULT	like concat('%', #{key_word},'%')
+ 			</when>
+ 			<when test="STT_USER_NUM != '' and STT_USER_NUM != null or STT_MEM_NUM != '' and STT_MEM_NUM != null">
+ 					and		STT_DTM between #{startDate} AND #{endDate}
+				 	<if test="STT_USER_NUM != '' and STT_USER_NUM != null">
+				 	and		R_CUST_NO	=	#{STT_USER_NUM}
+				 	</if>
+				 	<if test="STT_MEM_NUM != '' and STT_MEM_NUM != null">
+				 	and		R_EXT_NO	=	#{STT_MEM_NUM}
+			 		</if>
+			</when>
+ 			<otherwise>
+ 					and		STT_DTM between #{startDate} AND #{endDate}
+ 			</otherwise>
+ 		</choose>				
 	</select>
 	
 	<select id="getMstList" parameterType="SwaMstDto" resultType="SwaMstDto">
@@ -232,7 +252,31 @@
 								,@row_num:=@row_num + 1 AS rowNum
 					from		STT.STT_MST_INFO
 								,(SELECT @row_num := 0) rn
-					WHERE		date_format(STT_DTM,'%Y-%m-%d') between #{startDate} AND #{endDate}
+					WHERE		R_FILE_NM	!=	''
+					<choose>
+			 			<when test="key_word != null and key_word != ''">
+			 					and		STT_DTM like concat(#{endDate},'%')
+			 				<if test="STT_USER_NUM != '' and STT_USER_NUM != null">
+			 					and		R_CUST_NO	=	#{STT_USER_NUM}
+			 				</if>
+			 				<if test="STT_MEM_NUM != '' and STT_MEM_NUM != null">
+			 					and		R_EXT_NO	=	#{STT_MEM_NUM}
+			 				</if>
+			 					and		STT_MRESULT	like concat('%', #{key_word},'%')
+			 			</when>
+			 			<when test="STT_USER_NUM != '' and STT_USER_NUM != null or STT_MEM_NUM != '' and STT_MEM_NUM != null">
+			 					and		STT_DTM between #{startDate} AND #{endDate}
+							 	<if test="STT_USER_NUM != '' and STT_USER_NUM != null">
+							 	and		R_CUST_NO	=	#{STT_USER_NUM}
+							 	</if>
+							 	<if test="STT_MEM_NUM != '' and STT_MEM_NUM != null">
+							 	and		R_EXT_NO	=	#{STT_MEM_NUM}
+						 		</if>
+						</when>
+			 			<otherwise>
+			 					and		STT_DTM between #{startDate} AND #{endDate}
+			 			</otherwise>
+			 		</choose>			
 					order by 
 								STT_DTM DESC
 				) urn
@@ -241,7 +285,7 @@
  	</select>
  	
  	<select id="getMstC" parameterType="SwaMstDto" resultType="String">
- 		SELECT		STT_MRESULT
+ 		select		STT_MRESULT
 		from		STT_MST_INFO
 		where		R_FILE_NM = #{STT_CALL}
  	</select>
@@ -323,7 +367,7 @@
  	<select id="getMp3Url" parameterType="ListenAgoDto" resultType="String">
  		select		r_listen_url
 		from		vw_rs_recfile
-		where		r_rec_date > ''
+		where		r_rec_date = #{STT_DTM}
 		<if test="r_call_id1 != null and r_call_id1 != '' ">
 		and			r_call_id1 = #{r_call_id1}
 		</if>

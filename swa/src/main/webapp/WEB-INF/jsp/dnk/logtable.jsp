@@ -30,10 +30,10 @@
 			</div>
 
 			<select class="sel_01" name="STT_ID">
-				<option value="${sttuser }" title="ID">ID</option>
-				<option value="all" title="전체">전체</option>
+			<option title="ID" value="${sttuser }">ID</option>
+			<option value="all" title="전체">전체</option>
 			<c:forEach items="${mlist }" var="clist" varStatus="cnt">
-				<option value="${clist.STT_ID }" title="${clist.STT_ID }" id="stt_center">${clist.STT_ID }</option>
+				<option value="${clist.STT_ID }" title="${clist.STT_ID }" id="stt_center" >${clist.STT_ID }</option>
 			</c:forEach>
 			</select> 
 			<select class="sel_02" name="STT_MENU">
@@ -114,7 +114,7 @@
 <script src="resources/js/jquery.js"></script>
 <script src="resources/js/bootstrap.min.js"></script>
 <script src="resources/js/custom.js"></script>
-<script src="resources/js/logtable.js"></script>
+<script src="resources/js/logtable.js" type="text/javascript" ></script>
 
 </body>
 </html>

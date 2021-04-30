@@ -50,7 +50,7 @@
 		                    <span class="icon icon-bar"></span>
 		               </button>
 		               <!-- <a href="#" class="main_logo"> --><img class="main_logo" src="resources/image/seoul_water_logo.png"><!-- </a> -->
-		               ${User_Name } 님 로그인 하셨습니다.
+		               <a href="javascript:;" onclick="changepw()">${User_Name } 님 로그인 하셨습니다.</a>
 		               <a href="/stt/logout" class="main_logout" title="로그아웃"><img src="resources/image/btn_logout.png">로그아웃</a>
 		          </div>
 		          <div class="collapse navbar-collapse">

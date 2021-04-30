@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>로그조회</title>
+<title>내선번호관리</title>
 <link rel="stylesheet" href="resources/css/logtable.css">
 
 

@@ -173,7 +173,17 @@ public class SwaServiceImpl implements SwaService{
 	//퓨렌스 db 연결
 	@Override
 	public String getMp3Url(ListenAgoDto lad) {
-		return dao.getMp3Url(lad);
+		String result = "";
+		String listenurl = dao.getMp3Url(lad);
+//		if(listenurl.equals("") || listenurl.equals(null)) {
+//			result = listenurl;
+//		} else {
+//			String[] check = listenurl.split("28881/");
+//			result += "https://98.28.5.83:8000/";
+//			result += check[1];
+//		}
+//		return result;
+		return listenurl;
 	}
 	
 	

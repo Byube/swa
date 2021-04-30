@@ -34,6 +34,7 @@ function initAudio(getaudioUrl) {
   // audio.preload = 'metadata';
 
   console.log(audio);
+//	console.log(getaudioUrl);
 
    audio.src = getaudioUrl;
   // audio.src = 'http://localhost:9220/player/getwav/';
@@ -193,7 +194,7 @@ function initGrid() {
 function loadData(sttresult) {
   console.log('loadData()');
 
-  // console.log(sttresult);
+   console.log(sttresult);
 
   // const lines = sttresult.toString().split(/\r\n|\n/);
   const lines = sttresult.split('\n');
@@ -242,7 +243,7 @@ function fancyTimeFormat(duration) {
   return ret;
 }
 
-function getText(STT_CALL1,STT_CALL2,STT_CALL3,STT_USER_NUM,STT_MEM_NUM,fname) {
+function getText(STT_CALL1,STT_CALL2,STT_CALL3,STT_USER_NUM,STT_MEM_NUM,fname,dtm) {
 	btnPlay = document.getElementById('btn_play');
 	btnPlay.src = 'resources/image/baseline_play_arrow_black_18dp.png';
   httpRequest = new XMLHttpRequest();
@@ -257,12 +258,12 @@ function getText(STT_CALL1,STT_CALL2,STT_CALL3,STT_USER_NUM,STT_MEM_NUM,fname) {
         const res = httpRequest.responseText;
         loadData(res);
       } else {
-        alert('There was a problem with the request.');
+        alert('녹취파일이 없습니다.');
       }
     }
   };
 
-  httpRequest.open('GET', "http://localhost:8880/stt/gettxt/?STT_CALL1="+STT_CALL1+"&STT_CALL2="+STT_CALL2+"&STT_CALL3="+STT_CALL3+"&STT_USER_NUM="+STT_USER_NUM+"&STT_MEM_NUM="+STT_MEM_NUM+"&R_F_NM="+fname);
-  //httpRequest.open('GET', "https://98.28.5.83:8000/stt/gettxt/?STT_CALL1="+STT_CALL1+"&STT_CALL2="+STT_CALL2+"&STT_CALL3="+STT_CALL3+"&STT_USER_NUM="+STT_USER_NUM+"&STT_MEM_NUM="+STT_MEM_NUM+"&R_F_NM="+fname);
+  httpRequest.open('GET', "http://localhost:8880/stt/gettxt/?STT_CALL1="+STT_CALL1+"&STT_CALL2="+STT_CALL2+"&STT_CALL3="+STT_CALL3+"&STT_USER_NUM="+STT_USER_NUM+"&STT_MEM_NUM="+STT_MEM_NUM+"&R_F_NM="+fname+"&STT_DTM="+dtm);
+ // httpRequest.open('GET', "https://98.28.5.83:8000/stt/gettxt/?STT_CALL1="+STT_CALL1+"&STT_CALL2="+STT_CALL2+"&STT_CALL3="+STT_CALL3+"&STT_USER_NUM="+STT_USER_NUM+"&STT_MEM_NUM="+STT_MEM_NUM+"&R_F_NM="+fname+"&STT_DTM="+dtm);
   httpRequest.send();
 }

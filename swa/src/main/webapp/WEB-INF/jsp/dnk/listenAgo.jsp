@@ -8,8 +8,9 @@
 <head>
 <meta charset="UTF-8">
 <title>과거녹취 청취</title>
-    <link rel="stylesheet" href="resources/tui-grid/tui-grid.css" />
-    <!-- <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"> -->
+
+	<link rel="stylesheet" href="resources/tui-grid/tui-grid.css" />
+  <!--   <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"> -->
     <link rel="stylesheet" href="resources/css/style.css">
     <link rel="stylesheet" href="resources/css/logtable.css">
     <link rel="stylesheet" href="resources/css/player.css" />
@@ -34,18 +35,16 @@
                     <input type="date" class="date" title="날짜 검색창" id="startDate" name="startDate" min="${dateMin }" onclick="checkDate()" value="${startDate }">
                 </div>
                 <div class="date_search">
-                    <input type="date" class="date" title="날짜 검색창" id="endDate" name="endDate"  onclick="haveMin('${dateMin }')" value="${endDate }">
+                    <input type="date" class="date" title="날짜 검색창" id="endDate" name="endDate"   value="${endDate }">
                 </div>
-
+        
                 <div class="search_btn">
-                    <input
-                        style="height: 40px; padding: 0 30px; background: #f3e86f; color: #020202; border: none; border-radius: 5px;"
-                        type="text" placeholder="키워드입력" class="search" title="검색창">
-                </div>
-                <div class="search_btn">
+                    <input type="text" placeholder="내선번호" title="검색창" id="mem_num" name="STT_MEM_NUM" value="${mem_num }">
+                    <input type="text" placeholder="고객번호" title="검색창" id="user_num" name="STT_USER_NUM" value="${user_num }">
+                    <input type="text" class="keyword" placeholder="키워드입력" title="검색창" id="key_word" name="key_word" value="${key_word }">
                     <input
                         style="height: 40px; padding: 0 30px; background: #0071bc; color: #fff; border: none; border-radius: 5px;"
-                        type="button" class="search" value="조회" title="조회 버튼" id="searChSort">
+                        type="button" class="btn_search" value="조회" title="조회 버튼" id="searChSort">
                 </div>
 
             </div>
@@ -61,18 +60,18 @@
 				<thead>
 					<tr>
 						<th title="순">순</th>
-						<th title="센터">고객전화</th>
-						<th title="내선번호">내선번호</th>
 						<th title="시간">시간</th>
+						<th title="내선번호">내선번호</th>
+						<th title="센터">고객전화</th>
 					</tr>
 				</thead>
 				<tbody>
 					<c:forEach items="${agolist }" var="ago" varStatus="cnt">
-					<tr id="test" onclick="getText('${ago.STT_CALL1}','${ago.STT_CALL2}','${ago.STT_CALL3}','${ago.STT_USER_NUM}','${ago.STT_MEM_NUM}','${ago.STT_CALL }')">
+					<tr id="test" onclick="getText('${ago.STT_CALL1}','${ago.STT_CALL2}','${ago.STT_CALL3}','${ago.STT_USER_NUM}','${ago.STT_MEM_NUM}','${ago.STT_CALL }','${ago.STT_DTM }')">
 						<th title="${cnt.count }">${cnt.count }</th>
-						<td title="${ago.STT_USER_NUM}">${ago.STT_USER_NUM}</td>
-						<td title="${ago.STT_MEM_NUM}">${ago.STT_MEM_NUM}</td>
 						<td title="${ago.STT_DTM }">${ago.STT_DTM }</td>
+						<td title="${ago.STT_MEM_NUM}">${ago.STT_MEM_NUM}</td>
+						<td title="${ago.STT_USER_NUM}">${ago.STT_USER_NUM}</td>
 					</tr>
 					</c:forEach>
 				</tbody>
@@ -107,7 +106,7 @@
 		</div>
 		<!-- 페이지 -->
 		<input type="hidden" id="now_page" name="now_page" value="${nowPage }">
-		<input type="hidden" id="dateSort" name="dateSort" class="sort_class" value="${dateSort }">
+		<input type="hidden" id="dateMin" name="dateMin" value="${dateMin }">
 		
 	 </form>
 		<div class="paging_box">

@@ -78,7 +78,7 @@
 	}
 	
 	function deleteUser(seq){
-		if(confirm("해당 운영자를 정말 삭제 하실꺼에요?")) {
+		if(confirm("해당 운영자를 정말 삭제 하시겠습니까?")) {
  			 window.location.href = "/stt/deleteUser?STT_SEQ=" + seq;
  			} else {
  			return;
@@ -86,7 +86,7 @@
 	}
 	
 	function resetPw(seq){
-		if(confirm("해당 운영자 비밀번호를 초기화 하시나요?")) {
+		if(confirm("해당 운영자 비밀번호를 초기화 하시겠습니까?")) {
  			 window.location.href = "/stt/resetPw?STT_SEQ=" + seq;
  			} else {
  			return;

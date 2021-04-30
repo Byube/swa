@@ -17,6 +17,10 @@ public class SwaMstDto {
 	private String STT_TX;
 	private String STT_MRESULT;
 	
+	//검색
+	private String key_word;
+	private String checkday;
+	
 	//내선번호, 고객전화
 	private String STT_USER_NUM;
 	private String STT_MEM_NUM;
