@@ -14,7 +14,6 @@
 	function sendUrl(urlKey){
 		var userId = $("#userId").val();
 		var menuKey = $("#menuKey").val();
-		
 		var embedUrl = 	"https://98.28.5.83:8000/lmtool/"
 						+ urlKey;
 						
@@ -23,13 +22,19 @@
 					+ "userId=" + userId 
 					+ "&menuKey=" + menuKey;
 		
-		console.log("url : " + url);	
+	//	console.log("url : " + url);	
 		$(".ob").attr("data",url);		
 		$(".eb").attr("src",embedUrl);
 	}
 	function searchlog(myUrl){
-	//	var searchlogUrl = "https://98.28.5.83:8000/stt/" + myUrl;
-		var searchlogUrl = "http://127.0.0.1:8880/stt/" + myUrl;
+		var ui = $("#userId").val();
+		
+	//	var searchlogUrl = "https://98.28.5.83:8000/stt/" + myUrl
+	//					+ "?userId=" + ui;
+	
+		var searchlogUrl = "http://127.0.0.1:8880/stt/" + myUrl
+						+ "?userId=" + ui;
+						
 		$(".ob").attr("data",searchlogUrl);		
 		$(".eb").attr("src",searchlogUrl);
 	}

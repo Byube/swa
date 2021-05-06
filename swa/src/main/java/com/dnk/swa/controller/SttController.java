@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.dnk.swa.dto.ListenAgoDto;
+import com.dnk.swa.dto.SwaLogDto;
+import com.dnk.swa.dto.SwaLoginDto;
 import com.dnk.swa.dto.SwaMstDto;
 import com.dnk.swa.service.MultipartFileSender;
 import com.dnk.swa.service.SwaService;
@@ -30,7 +32,8 @@ public class SttController {
 	
 	@Autowired
 	private SwaService swaService;
-		
+	
+	SwaLogDto log = new SwaLogDto();
 			
 	@CrossOrigin
     @RequestMapping("/gettxt/")
@@ -42,16 +45,40 @@ public class SttController {
     					,@RequestParam(value = "STT_USER_NUM",defaultValue = "")String STT_USER_NUM
     					,@RequestParam(value = "STT_MEM_NUM",defaultValue = "")String STT_MEM_NUM
     					,@RequestParam(value = "R_F_NM",defaultValue = "")String R_F_NM
-    					,@RequestParam(value = "STT_DTM",defaultValue = "")String STT_DTM) {
+    					,@RequestParam(value = "STT_DTM",defaultValue = "")String STT_DTM
+    					,@RequestParam(value = "userId", defaultValue = "-")String userId
+    					,HttpServletRequest request) {
         response.setContentType("text/plain");
         logger.info("[gettxt] :");
         
         SwaMstDto smd = new SwaMstDto();
+        SwaLoginDto sld = new SwaLoginDto();
         String result = "";
         String result1 = "";
+        String user_p = "";
+        String center = "";
+        String ip = "";
+        ip = request.getHeader("X-FORWARDED-FOR");
+        if (ip == null)
+			if (request.getRemoteAddr().equals("0:0:0:0:0:0:0:1")) {
+				ip = "127.0.0.1";
+			} else {
+				ip = request.getRemoteAddr();
+			}
+        
         smd.setSTT_CALL(R_F_NM);
         result = swaService.getMstC(smd);
-       logger.info(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>" + smd );
+        
+        //로그 입력 부분
+        sld.setSTT_ID(userId);
+        log.setSTT_USER(userId);
+        log.setSTT_IP(ip);
+        center = swaService.getCenter(sld);
+        log.setSTT_CENTER(center);
+        log.setSTT_MENU("과거녹취청취");
+		log.setSTT_CONTENTS(userId+ "님 파일 : " + R_F_NM + " 청취 하였습니다.");
+		swaService.insertLog(log);
+		
         String [] dtm = STT_DTM.split(" ");
         String [] dtm1 = dtm[0].split("-");
         String dtmis = "";
@@ -84,14 +111,25 @@ public class SttController {
 		} else {
 			lad.setR_call_id3(STT_CALL3);
 		}
+		if(STT_USER_NUM.substring(0,1).equals("9")) {
+			user_p = STT_USER_NUM.substring(1,STT_USER_NUM.length());
+		} else {
+			user_p = STT_USER_NUM;
+		}
+	//	logger.info(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>" + user_p);
+		lad.setR_cust_phone1(user_p);
 		
-		lad.setR_cust_phone1(STT_USER_NUM);
 		lad.setR_ext_num(STT_MEM_NUM);
 		lad.setSTT_DTM(dtmis);
-		result2 = swaService.getMp3Url(lad);
+		try {
+			result2 = swaService.getMp3Url(lad);
+		} catch (Exception e) {
+			result2 = null;
+		}
+		
 		result1 += result2;
         
- //      logger.info( R_F_NM + " >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>" + result2);
+  //     logger.info( R_F_NM + " >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>" + result2);
         return result1;
     }
 

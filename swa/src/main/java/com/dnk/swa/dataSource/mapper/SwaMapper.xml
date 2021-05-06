@@ -74,7 +74,7 @@
 							,(SELECT @row_num := 0) rn
 					where	STT_SEQ	> 0
 					<if test="startDate != null and startDate !='' and endDate != null and endDate !='' ">
-					and		date_format(STT_DATE,'%Y-%m-%d') between #{startDate} AND #{endDate} 
+					and		STT_DATE between #{startDate} AND #{endDate}
 					</if>					
 					
 					<if test="STT_USER != null and STT_USER != '' ">
@@ -113,7 +113,7 @@
  		from	STT_LOG_INFO
  		where	STT_SEQ > 0
  		<if test="startDate != null and startDate !='' and endDate != null and endDate !='' ">
-		and		date_format(STT_DATE,'%Y-%m-%d') between #{startDate} AND #{endDate} 
+		and		STT_DATE between #{startDate} AND #{endDate} 
 		</if>					
 		<if test="STT_USER != null and STT_USER != '' ">
 		and		STT_USER = #{STT_USER}				
@@ -363,6 +363,12 @@
  		from	SWA_MEM_INFO
  		where	SWA_SEQ	=	#{SWA_SEQ}
  	</delete>
+ 	
+ 	<select id="getCenter" parameterType="SwaLoginDto" resultType="String">
+ 		select	stt_center 
+ 		from	STT_USER_INFO
+		where	stt_id = #{STT_ID}
+ 	</select>
  	
  	<select id="getMp3Url" parameterType="ListenAgoDto" resultType="String">
  		select		r_listen_url

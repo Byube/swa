@@ -67,7 +67,7 @@
 				</thead>
 				<tbody>
 					<c:forEach items="${agolist }" var="ago" varStatus="cnt">
-					<tr id="test" onclick="getText('${ago.STT_CALL1}','${ago.STT_CALL2}','${ago.STT_CALL3}','${ago.STT_USER_NUM}','${ago.STT_MEM_NUM}','${ago.STT_CALL }','${ago.STT_DTM }')">
+					<tr id="test" onclick="getText('${ago.STT_CALL1}','${ago.STT_CALL2}','${ago.STT_CALL3}','${ago.STT_USER_NUM}','${ago.STT_MEM_NUM}','${ago.STT_CALL }','${ago.STT_DTM }','${userId }')">
 						<th title="${cnt.count }">${cnt.count }</th>
 						<td title="${ago.STT_DTM }">${ago.STT_DTM }</td>
 						<td title="${ago.STT_MEM_NUM}">${ago.STT_MEM_NUM}</td>
@@ -107,6 +107,7 @@
 		<!-- 페이지 -->
 		<input type="hidden" id="now_page" name="now_page" value="${nowPage }">
 		<input type="hidden" id="dateMin" name="dateMin" value="${dateMin }">
+		<input type="hidden" id="userId" name="userId" value="${userId }">
 		
 	 </form>
 		<div class="paging_box">

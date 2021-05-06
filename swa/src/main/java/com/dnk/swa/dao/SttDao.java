@@ -107,6 +107,11 @@ private static final String NAME_SPACE = "com.dnk.swa.dao.SttDao";
 	public void deleteSwaMem(SwaMemDto smd) {
 		mariadbsqlSession.delete(NAME_SPACE + ".deleteSwaMem",smd);
 	};
+	
+	public String getCenter(SwaLoginDto sld) {	
+		return mariadbsqlSession.selectOne(NAME_SPACE + ".getCenter", sld);
+	}
+	
 	public String getMp3Url(ListenAgoDto lad) {
 		return postgresqlSession.selectOne(NAME_SPACE + ".getMp3Url", lad);
 	}

@@ -99,7 +99,7 @@
 		});
 		
 		$("#searChSort").click(function(){
-			$('.preloader').fadeIn(2000);
+			$('.preloader').fadeIn(1000);
 			$("#mst_list_form").submit();
 		});
 		
@@ -116,6 +116,7 @@
 	}	
 	
 	function pageEvent(pageNum){
+		$('.preloader').fadeIn(1000);
 		$("#now_page").val(pageNum);
 		$("#mst_list_form").submit();
 	}

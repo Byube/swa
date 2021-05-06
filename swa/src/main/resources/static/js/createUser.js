@@ -1,3 +1,9 @@
+	swal({
+		title:"타이틀",
+		text:"나용",
+		icon:"info"
+	})
+	
 	$(function() {
 		
 		$("#noid").hide();
@@ -5,7 +11,9 @@
 		$("#submit").attr("disabled","disabled");
 		
 		$( "#create-user" ).button().on( "click", function() {
-			alert("운영자 초기 비밀번호는 1234로 자동 생성 됩니다.");
+			
+			
+			alert("초기 비밀번호는 1234로 자동 생성 됩니다.");
     		$(".dialog").fadeIn('slow');
     	});
 		
@@ -18,6 +26,22 @@
                 	$(this).val("");
               	}
              }
+		});
+		
+		$("#STT_NAME").keyup(function(){
+			$("#noid").hide();
+			$("#okid").hide();
+			$("#submit").attr("disabled","disabled");
+		});
+		$("#STT_ID").keyup(function(){
+			$("#noid").hide();
+			$("#okid").hide();
+			$("#submit").attr("disabled","disabled");
+		});
+		$("#STT_CENTER").keyup(function(){
+			$("#noid").hide();
+			$("#okid").hide();
+			$("#submit").attr("disabled","disabled");
 		});
 		
 		//중복체크 하면서 id 특수기호 입력 등 체크 

@@ -42,6 +42,7 @@ public class SwaController {
 	private static final Logger logger = LoggerFactory.getLogger(SwaController.class);
 	
 	private String ip = "";
+	private String ui = "";
 	SwaLogDto log = new SwaLogDto();
 	
 	//실제운영
@@ -83,7 +84,8 @@ public class SwaController {
 							,@RequestParam(value = "startDate", defaultValue = "")String startDate
 							,@RequestParam(value = "endDate", defaultValue = "")String endDate
 							,@RequestParam(value = "STT_ID", defaultValue = "")String STT_ID
-							,@RequestParam(value = "STT_MENU", defaultValue = "")String STT_MENU) {
+							,@RequestParam(value = "STT_MENU", defaultValue = "")String STT_MENU
+							,@RequestParam(value = "userId", defaultValue = "")String userId) {
 		//logger.info(">>>>>>>>>>>>>>>>" + STT_ID + " : " + STT_MENU);
 		String address = "dnk/logtable";
 		PageDto pageDto = new PageDto();
@@ -91,6 +93,8 @@ public class SwaController {
 		SwaLoginDto slg = new SwaLoginDto();
 		
 		slg.setSTT_ID("hello");
+		log.setSTT_MENU("로그테이블");
+		log.setSTT_CONTENTS("로그테이블 조회");
 		String page = now_page;
 		String dateMin = "";
 		int totalCount = 0;
@@ -99,11 +103,31 @@ public class SwaController {
 		
 		if(page.equals("0")) {
 			nowPage = 1;
-			log.setSTT_MENU("로그테이블");
-			log.setSTT_CONTENTS("로그테이블 조회");
-			swaService.insertLog(log);
 		} else {
 			nowPage = Integer.parseInt(page);
+		}
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		Calendar scal = Calendar.getInstance();
+		Calendar ecal = Calendar.getInstance();
+		
+		if(startDate.equals("")) {
+			Date today = new Date();
+			scal.setTime(today);
+			scal.set(Calendar.MILLISECOND, 0);
+			scal.set(Calendar.SECOND, 0);
+			scal.set(Calendar.MINUTE, 59);
+			scal.set(Calendar.HOUR , 11);
+			ecal.setTime(today);
+			ecal.set(Calendar.MILLISECOND, 0);
+			ecal.set(Calendar.SECOND, 0);
+			ecal.set(Calendar.MINUTE, 0);
+			ecal.set(Calendar.HOUR , 0);
+			ecal.add(Calendar.DATE, -30);
+			endDate = format.format(scal.getTime()).toString();
+			startDate = format.format(ecal.getTime()).toString();
+		} else {
+			startDate	+= " 00:00:00";
+			endDate		+= " 23:59:59";
 		}
 		
 		if(STT_ID.equals("all")) {
@@ -120,6 +144,9 @@ public class SwaController {
 
 		sld.setSTT_USER(STT_ID);
 		sld.setSTT_MENU(STT_MENU);
+		
+
+		swaService.insertLog(log);
 		
 		totalCount = swaService.getLogCount(sld);
 		pageCount = totalCount / recordCnt + 1;
@@ -147,8 +174,8 @@ public class SwaController {
 		model.addAttribute("dateSort", dateSort);
 		dateMin = swaService.getMin();
 		model.addAttribute("dateMin", dateMin);
-		model.addAttribute("startDate", startDate);
-		model.addAttribute("endDate", endDate);
+		model.addAttribute("startDate", startDate.substring(0, 10));
+		model.addAttribute("endDate", endDate.substring(0, 10));
 		
 	//	logger.info(" test >>>>>>>>>>> " + STT_ID);
 		model.addAttribute("sttuser", STT_ID);
@@ -192,6 +219,7 @@ public class SwaController {
 				who = wholist.get(i);
 			}
 //			logger.info("  >>>>>>   " + who);
+			ui = who.getSTT_ID();
 			session.setAttribute("User_Name", who.getSTT_NAME());	
 			session.setAttribute("level", who.getSTT_LEVEL());
 			session.setAttribute("User_Id", who.getSTT_ID());
@@ -204,6 +232,7 @@ public class SwaController {
 			address = "dnk/lmtool";
 		} else {
 			address = stt1;
+			ui = "";
 		}		
 		return address;
 	}
@@ -224,9 +253,10 @@ public class SwaController {
 							,@RequestParam(value = "STT_ID", defaultValue = "")String STT_ID
 							,@RequestParam(value = "key_word", defaultValue = "null")String key_word
 							,@RequestParam(value = "STT_USER_NUM", defaultValue = "")String STT_USER_NUM
-							,@RequestParam(value = "STT_MEM_NUM", defaultValue = "")String STT_MEM_NUM) {
+							,@RequestParam(value = "STT_MEM_NUM", defaultValue = "")String STT_MEM_NUM
+							,@RequestParam(value = "userId", defaultValue = "")String userId) {
 		String address = "dnk/listenAgo";
-//		logger.info(">>>>>>>>>>>" + startDate);
+	//	logger.info(">>>>>>>>>>>" + userId);
 		SwaMstDto smd = new SwaMstDto();
 		PageDto pageDto = new PageDto();
 		String page = now_page;
@@ -239,19 +269,19 @@ public class SwaController {
 		Calendar ecal = Calendar.getInstance();
 		if(page.equals("0")) {
 			nowPage = 1;
-			log.setSTT_MENU("과거녹취 청취");
-			log.setSTT_CONTENTS("과거녹취 청취 시작");
-			swaService.insertLog(log);
 		} else {
 			nowPage = Integer.parseInt(page);
 		}
 		if(startDate.equals("")) {
 			Date today = new Date();
 			scal.setTime(today);
+			
 			scal.set(Calendar.MILLISECOND, 0);
 			scal.set(Calendar.SECOND, 0);
 			scal.set(Calendar.MINUTE, 59);
-			scal.set(Calendar.HOUR , 23);
+			scal.set(Calendar.HOUR , 11);
+		//	scal.add(Calendar.DATE, -1);
+		//	logger.info(">>>>>>>>>>>>>>>>>>>>>>>>>" + scal.getTime().toString());
 			ecal.setTime(today);
 			ecal.set(Calendar.MILLISECOND, 0);
 			ecal.set(Calendar.SECOND, 0);
@@ -330,6 +360,7 @@ public class SwaController {
 		model.addAttribute("mem_num", STT_MEM_NUM);
 		model.addAttribute("user_num", STT_USER_NUM);
 		model.addAttribute("key_word", key_word);
+		model.addAttribute("userId", userId);
 		return address;
 	}
 	
@@ -449,6 +480,7 @@ public class SwaController {
 	public String logout(Model model
 						,HttpSession session) {
 		String address = stt1;
+		ui = "";
 		session.invalidate();
 		return address;
 	}
@@ -505,15 +537,18 @@ public class SwaController {
 		Row row = null;
 		Cell cell = null;
 		int rowNum = 0;
+		String excelnm = "";
 		
 		PageDto pageDto = new PageDto();
 		SwaLogDto sld = new SwaLogDto();
 		SwaLoginDto slg = new SwaLoginDto();
-		slg.setSTT_ID("hello");
 		String page = now_page;
 		int totalCount = 0;
 		int nowPage = 1;
 		int pageCount = 0;
+		
+		startDate	+= " 00:00:00";
+		endDate		+= " 23:59:59";
 		
 		if(page.equals("0")) {
 			nowPage = 1;
@@ -543,11 +578,17 @@ public class SwaController {
 		sld.setStartRow(pagingService.getStartRow());
 		sld.setEndRow(totalCount);
 		
+		log.setSTT_MENU("엑셀 다운로드");
+		if(startDate.substring(0, 10).equals(endDate.substring(0, 10))) {
+			log.setSTT_CONTENTS(ui + "님 " + startDate.substring(0, 10) + " 로그 엑셀 다운로드");
+		} else {
+			log.setSTT_CONTENTS(ui + "님 " + startDate.substring(0, 10) + "부터 " + endDate.substring(0, 10) + "까지 로그 엑셀 다운로드");
+		}
+		swaService.insertLog(log);
 		List<SwaLogDto> plist = swaService.getLogtable(sld);
 
 	    // Header
 	    row = sheet.createRow(rowNum++);
-	    
 	    cell = row.createCell(0);
 	    cell.setCellValue("작업일시");
 	    cell = row.createCell(1);
@@ -582,14 +623,20 @@ public class SwaController {
 
 	    // 컨텐츠 타입과 파일명 지정
 	    response.setContentType("ms-vnd/excel");
-	    response.setHeader("Content-Disposition", "attachment;filename=example.xlsx");
+	    
+	    if(startDate.substring(0, 10).equals(endDate.substring(0, 10))) {
+	    	excelnm = "attachment;filename=LMtool_log_"+ startDate.substring(0, 10) +".xlsx";
+	    } else {
+	    	excelnm = "attachment;filename=LMtool_log_"+ startDate.substring(0, 10) + "_" + endDate.substring(0, 10) +".xlsx";
+	    }
+	  
+	    
+	    response.setHeader("Content-Disposition", excelnm);
 
 	    // Excel File Output
 	    wb.write(response.getOutputStream());
 	    wb.close();
-	    log.setSTT_MENU("운영자 삭제");
-		log.setSTT_CONTENTS("로그 엑셀 다운로드");
-		swaService.insertLog(log);
+	   
 	}
 	
 	@RequestMapping(value = "/insertSwaMem")

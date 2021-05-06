@@ -40,6 +40,8 @@ public interface SwaService {
 	public void updateSwaMem(SwaMemDto smd);
 	public void deleteSwaMem(SwaMemDto smd);
 	
+	public String getCenter(SwaLoginDto sld);
+	
 	//퓨렌스 연결
 	public String getMp3Url(ListenAgoDto lad);
 	

@@ -170,13 +170,18 @@ public class SwaServiceImpl implements SwaService{
 		dao.deleteSwaMem(smd);
 	}
 
+	@Override
+	public String getCenter(SwaLoginDto sld) {
+		return dao.getCenter(sld);
+	}
+
 	//퓨렌스 db 연결
 	@Override
 	public String getMp3Url(ListenAgoDto lad) {
 		String result = "";
 		String listenurl = dao.getMp3Url(lad);
 //		if(listenurl.equals("") || listenurl.equals(null)) {
-//			result = listenurl;
+//			return listenurl;
 //		} else {
 //			String[] check = listenurl.split("28881/");
 //			result += "https://98.28.5.83:8000/";

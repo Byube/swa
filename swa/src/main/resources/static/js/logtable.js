@@ -16,10 +16,8 @@
 		
 		
 		$("#searChSort").click(function(){
-		//	var sMin = $("#startDate").val();
-		//	if(sMin != '' || sMin != "" || sMin != null){
-				$("#stt_list_form").submit();
-		//	}
+			$("#stt_list_form").attr("action", "/stt/searchlog");
+			$("#stt_list_form").submit();
 		});
 		
 		$("#allSearch").click(function(){
@@ -27,7 +25,10 @@
 		});
 		
 		$("#excel").click(function(){
-			window.location.href = "/stt/excel/download";
+			$('.preloader').fadeIn(1000);
+			$("#stt_list_form").attr("action", "/stt/excel/download");
+			$("#stt_list_form").submit();
+		//	window.location.href = "/stt/excel/download";
 		});
 		
 		if($("#startDate").val() == '' || $("#startDate").val() == null) {
@@ -52,11 +53,13 @@
 	}
 	
 	function pageEvent(pageNum){
+		$("#stt_list_form").attr("action", "/stt/searchlog");
 		$("#now_page").val(pageNum);
 		$("#stt_list_form").submit();
 	}
 	
 	function dateSort(){
+		$("#stt_list_form").attr("action", "/stt/searchlog");
 		$(".sort_class").val("");
 		if($("#date_sort").attr("class") == "btn_down") {
 			//alert("up");

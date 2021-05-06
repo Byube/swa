@@ -33,14 +33,14 @@
 			<option title="ID" value="${sttuser }">ID</option>
 			<option value="all" title="전체">전체</option>
 			<c:forEach items="${mlist }" var="clist" varStatus="cnt">
-				<option value="${clist.STT_ID }" title="${clist.STT_ID }" id="stt_center" >${clist.STT_ID }</option>
+				<option value="${clist.STT_ID }" ${clist.STT_ID == sttuser ? 'selected="selected"' : '' } title="${clist.STT_ID }" id="stt_center" >${clist.STT_ID }</option>
 			</c:forEach>
 			</select> 
 			<select class="sel_02" name="STT_MENU">
 				<option value="${sttmenu }" title="접근메뉴">접근메뉴</option>
 				<option value="all" title="전체">전체</option>
 			<c:forEach items="${menu }" var="m" varStatus="cnt">	
-				<option value="${m.STT_MENU }" title="${m.STT_MENU }">${m.STT_MENU }</option>
+				<option value="${m.STT_MENU }" ${m.STT_MENU == sttmenu ? 'selected="selected"' : '' } title="${m.STT_MENU }">${m.STT_MENU }</option>
 			</c:forEach>
 			</select>
 
@@ -103,6 +103,7 @@
 		<input type="hidden" id="now_page" name="now_page" value="${nowPage }">
 		<input type="hidden" id="dateSort" name="dateSort" class="sort_class" value="${dateSort }">
 		<input type="hidden" id="minda" value="${dateMin }">
+		<input type="hidden" id="userId" name="userId" value="${userId }">
 	 </form>
 		<div class="paging_box">
 			 ${pageTag}

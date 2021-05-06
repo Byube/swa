@@ -1,20 +1,51 @@
+	var check = false;
+	var update = false;
+	
 	$(function() {
 		//한글입력 방지
 		$("#SWA_ID").keyup(function(){
+			update = false;
+			$("#okid").hide();
+			$("#noid").hide();
 			if(!(event.keyCode >=37 && event.keyCode<=40)) {
                 var inputVal = $(this).val();
-                var check = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/;
-            	 if(check.test(inputVal)){
+                var checks = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/;
+            	 if(checks.test(inputVal)){
                 	$(this).val("");
               	}
              }
 		});
 		
+		$("#SWA_CENTER").keyup(function(){
+			update = false;
+			check = false;
+			$("#okid").hide();
+			$("#noid").hide();
+		});
+		$("#SWA_INNUM").keyup(function(){
+			update = false;
+			check = false;
+			$("#okid").hide();
+			$("#noid").hide();
+		});
+		
+		$("#SWA_NAME").keyup(function(){
+			update = false;
+			check = false;
+			$("#okid").hide();
+			$("#noid").hide();
+		});
+		
+		$("#SWA_ID").keyup(function(){
+			update = false;
+			check = false;
+			$("#okid").hide();
+			$("#noid").hide();
+		});
+		
 		
 	});
-	var check = false;
-	
-	var update = false;
+
 	
 	//중복체크 하면서 id 특수기호 입력 등 체크 
 	function checkid(){
