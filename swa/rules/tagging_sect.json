@@ -1,0 +1,815 @@
+{ 
+  "format": "eznlp/postproc", // fixed
+  "purpose": "tagging",       // tagging, replace <== json rule format
+  "what":    "sect",
+  "options": [
+    "wrap_tag_with_brace",  // When loading rules, attach brace at begin and end of each 'tag' value
+    "unpack_regex_rule",    // replace {{raw_pattern_unit}} --> to real 
+    "compile_regex"         // tag compile to use regex
+  ],
+  "groups": [
+    {
+      "use": "false",
+      "mask": "false",
+      "group": "email",
+      "rules": [
+        {
+          "name": "email1",
+          "tag": "(?<LEFT>{{NONE_ARIBIC_LEFT_BOUNDARY}})(?<E1>{{EMAILID_CHAR}}*)(?<S1>{{EMAIL_AT}}*)(?<E2>{{DOMAIN2_EMAIL}}+)(?<E3>{{DOMAIN1}}?)"
+        },
+        {
+          "name": "email5",
+          "tag": "(?<LEFT>{{NONE_ARIBIC_LEFT_BOUNDARY}})(?<E1>{{EMAILID_CHAR}}*)(?<S1>{{EMAIL_AT}}+)(?<E2>{{DOMAIN2}}+)(?<E3>{{DOMAIN1}}?)"
+        },
+        {
+          "name": "email4",
+          "tag": "(?<LEFT>(메일|이메일|메일{{SOMETHING_0_25}}주소){{SOMETHING_0_25}}{{BOUNDARY}})(?<E1>{{EMAILID_CHAR}}{2,})(?<S1>{{EMAIL_AT}}*)(?<E2>({{DOMAIN2}}|{{DOMAIN2_EMAIL}})*)(?<E3>{{DOMAIN1}}?)"
+        },
+        {
+          "name": "email3",
+          "tag": "(?<LEFT>(메일|이메일|메일{{SOMETHING_0_25}}주소){{SOMETHING_0_25}}{{BOUNDARY}})(?<E1>{{EMAILID_CHAR2}}{2,})(?<S1>{{EMAIL_AT}}*)(?<E2>({{DOMAIN2}}|{{DOMAIN2_EMAIL}})*)(?<E3>{{DOMAIN1}}?)"
+        }
+      ]
+    },
+    {
+      "use": "false",
+      "mask": "false",
+      "group": "url",
+      "rules": [
+        {
+          "name": "url",
+          "tag": "(?<DOMAIN2b>{{DOMAIN2b}}+)(?<DOMAIN1b>{{DOMAIN1b}})"
+        }
+      ]
+    },
+    {
+      "use": "true",
+      "mask": "true",
+      "group": "car_id",
+      "rules": [
+        {
+          "name": "car_id1",
+          "mask": [ "N4" ],
+          "tag": "(?<LEFT>(자동차 *번호|차량 *번호|번호판|차 *번호){{SOMETHING_0_25}}{{BOUNDARY}})(?<N1>{{NUM012345}}{2,3}{{BOUNDARY_ALLOW}})(?<D1>( *에)?{{BOUNDARY}}?)(?<CARNCODE>{{CAR_NCODE}}{{BOUNDARY_ALLOW}})(?<N4>{{NUM012}}{4})"
+        },
+        {
+          "name": "car_id4",
+          "mask": [ "N4" ],
+          "tag": "(?<LEFT>(자동차 *번호|차량 *번호|번호판|차 *번호){{SOMETHING_0_25}}{{BOUNDARY}})(?<N4>{{NUM012}}{4})"
+        },
+        {
+          "name": "car_id5",
+          "mask": [ "N4" ],
+          "tag": "(?<LEFT>{{NONE_ARIBIC_LEFT_BOUNDARY}})(?<N1>{{NUM012345}}{2,3}{{BOUNDARY_ALLOW}})(?<D1>( *에)?{{BOUNDARY}}?)(?<CARNCODE>{{CAR_NCODE}}{{BOUNDARY_ALLOW}})(?<N4>{{NUM012}}{4})(?<RIGHT>.{0,30}(차량|차주|차종))"
+        },
+        {
+          "name": "car_id6",
+          "mask": [ "N4" ],
+          "tag": "(?<LEFT>{{NONE_ARIBIC_LEFT_BOUNDARY}})(?<N1>{{NUM012345}}{2,3}{{BOUNDARY_ALLOW}})(?<D1>( *에)?{{BOUNDARY}}?)(?<CARNCODE>{{CAR_NCODE_NO_AMBIGUIOUS}}{{BOUNDARY_ALLOW}})(?<N4>{{NUM012}}{4})"
+        },
+        {
+          "name": "car_id7",
+          "mask": [ "N4" ],
+          "tag": "(?<LEFT>{{NONE_ARIBIC_LEFT_BOUNDARY}})(?<N1>[0-9]{2,3})(?<D1>( *에)?{{BOUNDARY}}?)(?<CARNCODE>{{CAR_NCODE}}{{BOUNDARY_ALLOW}})(?<N4>[0-9]{4})(?<RIGHT>[ -]*([^0-9 *-]|$))"
+        }
+      ]
+    },
+    {
+      "use": "true",
+      "mask": "true",
+      "group": "tel",
+      "rules": [
+        {
+          "name": "tel1",
+          "mask": [ "N3" ],
+          "tag": "(?<LEFT>(팩스|전화|연락처|휴대폰|핸드폰|폰 *번호)({{SOMETHING_0_25}}){{BOUNDARY}})(?<N1>{{TEL_HEAD}})(?<D1>{{ALLOW_DASH}})(?<N2>{{NUM012}}{3,4}|{{NUMBER_ARABIC_1000_GE1000}})(?<D2>{{ALLOW_DASH}})(?<N3>{{NUM012}}{4}|{{NUMBER_ARABIC_1000_GE1000}})"
+        },
+        {
+          "name": "tel2",
+          "mask": [ "N3" ],
+          "tag": "(?<LEFT>(팩스|전화|연락처|휴대폰|핸드폰|폰 *번호)({{SOMETHING_0_25}}){{BOUNDARY}})(?<N1>{{TEL_HEAD}})(?<D1>{{ALLOW_DASH}})(?<N2>{{NUM012}}{3,4}|{{NUMBER_ARABIC_1000_GE1000}})(?<D2>{{ALLOW_DASH}})(?<N3>{{NUM012}}*)"
+        },
+        {
+          "name": "tel2b",
+          "mask": [ "N3" ],
+          "tag": "(?<LEFT>(팩스|전화|연락처|휴대폰|핸드폰|폰 *번호)({{SOMETHING_0_25}}){{BOUNDARY}})(?<N2>{{TEL_HEAD2}})(?<D2>{{ALLOW_DASH}})(?<N3>{{NUM012}}{3,4}|{{NUMBER_ARABIC_1000_GE1000}})"
+        },
+        {
+          "name": "tel4",
+          "mask": [ "N3" ],
+          "tag": "(?<LEFT>(팩스|전화|연락처|휴대폰|핸드폰|폰 *번호)(네 *자리)({{SOMETHING_0_25}}){{BOUNDARY}})(?<N3>{{NUM012}}{4})"
+        },
+        // {
+        //   "name": "tel3",
+        //   "tag": "(?<LEFT>(팩스|전화|연락처|휴대폰|핸드폰|폰 *번호)({{SOMETHING_0_25}}){{BOUNDARY}})(?<N3>{{NUM012}}+)"
+        // },
+        {
+          "name": "tel3b",
+          "mask": [ "N3" ],
+          "tag": "(?<LEFT>(팩스|전화|연락처|휴대폰|핸드폰|폰 *번호)({{SOMETHING_0_25}}){{BOUNDARY}})(?<N2>{{NUM012}}{3,4}|{{NUMBER_ARABIC_1000_GE1000}})(?<D2>{{ALLOW_DASH}})(?<N3>{{NUM012}}{4}|{{NUMBER_ARABIC_1000_GE1000}})"
+        },
+        {
+          "name": "tel3c",
+          "mask": [ "N3" ],
+          "tag": "(?<LEFT>(팩스|전화|연락처|휴대폰|핸드폰|폰 *번호)({{SOMETHING_0_25}}){{BOUNDARY}})(?<N3>{{NUM012}}{3,8})",
+          "except": "^[^0-9*-]*{{TEL_HEAD}}$"
+        },
+        {
+          "name": "tel7",
+          "mask": [ "N3" ],
+          "tag": "(?<LEFT>{{NONE_ARIBIC_LEFT_BOUNDARY}})(?<N1>{{TEL_HEAD}})(?<D1>{{ALLOW_DASH}})(?<N2>{{NUM012}}{3,4}|{{NUMBER_ARABIC_1000_GE1000}})(?<D2>{{ALLOW_DASH}})(?<N3>{{NUM012}}{4,}|{{NUMBER_ARABIC_1000_GE1000}})(?<RIGHT>{{SOMETHING_0_25}}(전화|팩스|연락|번(으로)? *(등록|접수|신청)))"
+        },
+        {
+          "name": "tel8",
+          "mask": [ "N3" ],
+          "tag": "(?<LEFT>{{NONE_ARIBIC_LEFT_BOUNDARY}})(?<N2>{{NUM012}}{3,4}|{{NUMBER_ARABIC_1000_GE1000}})(?<D2>{{ALLOW_DASH}})(?<N3>{{NUM012}}{4,}|{{NUMBER_ARABIC_1000_GE1000}})(?<RIGHT>{{SOMETHING_0_25}}(전화|팩스|연락|번(으로)? *(등록|접수|신청)))"
+        },
+        {
+          "name": "tel9",
+          "mask": [ "N3" ],
+          "tag": "(?<LEFT>{{NONE_ARIBIC_LEFT_BOUNDARY}})(?<N3>{{NUM012}}{4,}|{{NUMBER_ARABIC_1000_GE1000}})(?<RIGHT>{{SOMETHING_0_25}}(전화|팩스|연락|번(으로)? *(등록|접수|신청)))"
+        }
+      ]
+    },
+    {
+      "use": "false",
+      "mask": "false",
+      "group": "etc",
+      "rules": [
+        {
+          "name": "etc1",
+          "tag": "(?<S1>{{WORD}}? *{{CHAR_OF_A}} *)(?<E1>{{ENG1}})(?<D2>(에)?)"
+        },
+        {
+          "name": "etc2",
+          "tag": "(?<S1>{{WORD}}? *{{CHAR_OF_N}} *)(?<N1>{{NUM01}})(?<D2>(에)?)"
+        },
+        {
+          "name": "etc3",
+          "tag": "(?<S1>{{WORD}}? *{{CHAR_OF}} *)(?<E1>{{ENG1}}|{{NUM01}})(?<D2>(에)?)"
+        }
+      ]
+    },
+    {
+      "use": "true",
+      "mask": "false",
+      "group": "day",
+      "rules": [
+        {
+          "name": "day1",
+          "tag": "(?<LEFT>(생년 *월일|생일|몇 *년 *도 *생){{SOMETHING_0_25}}{{BOUNDARY}})(?<N1>{{NUM06541}}|{{NUM012}}{2})(?<D1>( *년 *)?)(?<N2>{{NUM_MMs}})(?<N3>{{NUM_DDs}})"
+        },
+        {
+          "name": "day2",
+          "tag": "(?<LEFT>(생년 *월일|생일|몇 *년 *도 *생){{SOMETHING_0_25}}{{BOUNDARY}})(?<N1>{{NUM06541}}|{{NUM012}}{2})(?<D1> *년 *)(?<N2>시|유|{{NUM_MMn}})(?<D2> *월 *)(?<N3>{{NUM_DDn}})(?<D3> *일)"
+        },
+        {
+          "name": "day3",
+          "tag": "(?<LEFT>(생년 *월(일)?|몇 *년 *도 *생){{SOMETHING_0_25}}{{BOUNDARY}})(?<N1>{{NUM06541}}|{{NUM012}}{2})(?<D1> *년 *)(?<N2>시|유|{{NUM_MMn}})(?<D2> *월)"
+        },
+        {
+          "name": "day4",
+          "tag": "(?<LEFT>(생년 *월(일)?|몇 *년 *도 *생|나이|연세){{SOMETHING_0_25}}{{BOUNDARY}})(?<N1>{{NUM06541}}|{{NUM012}}{2})(?<D1>( *년))"
+        }
+      ]
+    },
+    {
+      "use": "true",
+      "mask": "false",
+      "group": "dayyymmdd",
+      "rules": [
+        {
+          "name": "dayyymmdd",
+          "tag": "(?<LEFT>{{NONE_ARIBIC_LEFT_BOUNDARY}})(?<N1>{{NUM06541}}|{{NUM012}}{2})(?<D1>( *년 *))(?<N2>(시|유|{{NUM_MMn}}))(?<D2>( *월 *))(?<N3>{{NUM_DDn}})(?<D3> *일)"
+        }
+      ]
+    },
+    {
+      "use": "true",
+      "mask": "false",
+      "group": "daymmdd",
+      "rules": [
+        {
+          "name": "daymmdd",
+          "tag": "(?<LEFT>{{NONE_ARIBIC_LEFT_BOUNDARY}})(?<N2>(시|유|{{NUM_MMn}}))(?<D2>( *월 *))(?<N3>{{NUM_DDn}})(?<D3> *일)"
+        }
+      ]
+    },
+    {
+      "use": "true",
+      "mask": "false",
+      "group": "daydd",
+      "rules": [
+        {
+          "name": "daydd",
+          "tag": "(?<LEFT>(날짜){{SOMETHING_0_25}}{{BOUNDARY}})(?<N3>{{NUM_DDn}})(?<D3> *일)"
+        }
+      ]
+    },
+    {
+      "use": "true",
+      "mask": "false",
+      "group": "yearsold",
+      "rules": [
+        {
+          "name": "yearsold1",
+          "tag": "(?<LEFT>(몇 *년 *도 *생|나이|연세){{SOMETHING_0_25}}{{BOUNDARY}})(?<N1>{{NUM06541}}|{{NUM012}}{2}) *(?<D1>년(도)? ?생)"
+        },
+        {
+          "name": "yearsold2a",
+          "tag": "(?<LEFT>(몇 *년 *도 *생|나이|연세){{SOMETHING_0_25}}{{BOUNDARY}})(?<N1>{{NUM5}}?({{NUM7}}|{{NUM4}})?({{NUM1}}|{{NUM2x}})) *(?<D1>(세|살))"
+        },
+        {
+          "name": "yearsold2b",
+          "tag": "(?<LEFT>(몇 *년 *도 *생|나이|연세){{SOMETHING_0_25}}{{BOUNDARY}})(?<N1>{{NUM5}}?({{NUM7}}|{{NUM4}})) *(?<D1>(세|살))"
+        },
+        {
+          "name": "yearsold2c",
+          "tag": "(?<LEFT>(몇 *년 *도 *생|나이|연세){{SOMETHING_0_25}}{{BOUNDARY}})(?<N1>{{NUM5}}) *(?<D1>(세|살))"
+        },
+        {
+          "name": "yearsold3a",
+          "tag": "(?<LEFT>(몇 *년 *도 *생|나이|연세){{SOMETHING_0_25}}{{BOUNDARY}})(?<N1>{{NUM5}}?({{NUM7}}|{{NUM4}})?{{NUM2x}})"
+        },
+        {
+          "name": "yearsold3b",
+          "tag": "(?<LEFT>(몇 *년 *도 *생|나이|연세){{SOMETHING_0_25}}{{BOUNDARY}})(?<N1>{{NUM5}}?({{NUM7}}|{{NUM4}}))"
+        }
+      ]
+    },
+    {
+      "use": "true",
+      "mask": "false",
+      "group": "yearsold_normal",
+      "rules": [
+        {
+          "name": "yearsold_saeng",
+          "tag": "(?<LEFT>{{NONE_ARIBIC_LEFT_BOUNDARY}})(?<N1>{{NUM06541}}|{{NUM012}}{2}) *(?<D1>년(도)? ?생)"
+        },
+        {
+          "name": "yearsold_se",
+          "tag": "(?<LEFT>{{NONE_ARIBIC_LEFT_BOUNDARY}})(?<N1>{{NUM_YEARSOLD_100se}}) *(?<D1>(세))",
+          "except": " *(일|이|사|오|구) *세 *$"
+        },
+        {
+          "name": "yearsold_sal",
+          "tag": "(?<LEFT>{{NONE_ARIBIC_LEFT_BOUNDARY}})(?<N1>{{NUM_YEARSOLD_100sal}}) *(?<D1>(살))"
+        }
+      ]
+    },
+    {
+      "use": "true",
+      "mask": "true",
+      "group": "jumin",
+      "rules": [
+        {
+          "name": "jumin1",
+          "mask": [ "N3" ],
+          "tag": "(?<LEFT>(주민 *번호){{SOMETHING_0_25}}{{BOUNDARY}})(?<N1>{{NUM012}}{2}{{NUMo01}}{{NUM012}}{{NUMo0123}}{{NUM012}})(?<D1>{{ALLOW_DASH}})(?<N2>{{NUMo0123}})(?<N3>{{NUM012}}{1,6})"
+        },
+        {
+          "name": "jumin2",
+          "mask": [ "N1" ],
+          "tag": "(?<LEFT>(주민 *번호){{SOMETHING_0_25}}{{BOUNDARY}})(?<N1>{{NUM012}}{2}{{NUMo01}}{{NUM012}}{{NUMo0123}}{{NUM012}})"
+        },
+        {
+          "name": "jumin3",
+          "mask": [ "N3" ],
+          "tag": "(?<LEFT>{{NONE_ARIBIC_LEFT_BOUNDARY}})(?<N1>{{NUM012}}{2}{{NUMo01}}{{NUM012}}{{NUMo0123}}{{NUM012}})(?<D1>{{ALLOW_DASH}})(?<N2>{{NUMo0123}})(?<N3>{{NUM012}}{6})"
+        }
+      ]
+    },
+    {
+      "use": "true",
+      "mask": "true",
+      "group": "credit",
+      "rules": [
+        {
+          "name": "credit4",
+          "mask": [ "N4" ],
+          "tag": "(?<LEFT>(신용|체크 *카드){{SOMETHING_0_25}}{{BOUNDARY}})(?<N1>{{NUM012}}{4})(?<D1>{{ALLOW_DASH}})(?<N2>{{NUM012}}{4})(?<D2>{{ALLOW_DASH}})(?<N3>{{NUM012}}{4})(?<D3>{{ALLOW_DASH}})(?<N4>{{NUM012}}{4})"
+        },
+        {
+          "name": "credit2",
+          "mask": [ "N2" ],
+          "tag": "(?<LEFT>(신용|체크 *카드){{SOMETHING_0_25}}{{BOUNDARY}})(?<N1>{{NUM012}}{4})(?<D1>{{ALLOW_DASH}})(?<N2>{{NUM012}}{4})"
+        },
+        {
+          "name": "credit1",
+          "mask": [ "N1" ],
+          "tag": "(?<LEFT>(신용|체크 *카드){{SOMETHING_0_25}}{{BOUNDARY}})(?<N1>{{NUM012}}{4})"
+        }
+      ]
+    },
+    {
+      "use": "true",
+      "mask": "false",
+      "group": "creditlimit",
+      "rules": [
+        {
+          "name": "creditlimit1",
+          "tag": "(?<LEFT>(유효 *기간){{SOMETHING_0_25}}{{BOUNDARY}})(?<N1>{{NUM0124}}{2})(?<D1> *?(에|월)? *?)(?<N2>{{NUM0124}}{2})(?<D2> *?(년)?)"
+        },
+        {
+          "name": "creditlimit2",
+          "tag": "(?<LEFT>(유효 *기간){{SOMETHING_0_25}}{{BOUNDARY}})(?<N1>{{NUM0124}}{1,2})(?<D1> *?(월) *?)(?<N2>{{NUM0124}}{1,2})(?<D2> *?(년))"
+        }
+      ]
+    },
+    {
+      "use": "true",
+      "mask": "true",
+      "group": "passwd",
+      "rules": [
+        {
+          "name": "passwd4",
+          "mask": [ "N1" ],
+          "tag": "(?<LEFT>(비번|비밀 *번호){{SOMETHING_0_25}}(네 *자리){{SOMETHING_0_25}}{{BOUNDARY}})(?<N1>{{NUM012}}{4})"
+        },
+        {
+          "name": "passwd6",
+          "mask": [ "N1" ],
+          "tag": "(?<LEFT>(비번|비밀 *번호){{SOMETHING_0_25}}(여섯 *자리){{SOMETHING_0_25}}{{BOUNDARY}})(?<N1>{{NUM012}}{6})"
+        },
+        {
+          "name": "passwd5",
+          "mask": [ "N1" ],
+          "tag": "(?<LEFT>(비번|비밀 *번호){{SOMETHING_0_25}}(다섯 *자리){{SOMETHING_0_25}}{{BOUNDARY}})(?<N1>{{NUM012}}{5})"
+        },
+        {
+          "name": "passwd2",
+          "mask": [ "N1" ],
+          "tag": "(?<LEFT>(비번|비밀 *번호){{SOMETHING_0_25}}(두 *자리){{SOMETHING_0_25}}{{BOUNDARY}})(?<N1>{{NUM012}}{2})"
+        },
+        {
+          "name": "passwd1",
+          "mask": [ "N1" ],
+          "tag": "(?<LEFT>(비번|비밀 *번호){{SOMETHING_0_25}}{{BOUNDARY}})(?<N1>{{NUM012}}{2,})"
+        }
+      ]
+    },
+    {
+      "use": "false",
+      "mask": "true",
+      "group": "passwd2",
+      "rules": [
+        {
+          "name": "passwd4b",
+          "mask": [ "N1" ],
+          "tag": "(?<LEFT>(비번|비밀 *번호){{SOMETHING_0_25}}{{BOUNDARY}})(?<N1>{{NUM012}}{4})"
+        }
+      ]
+    },
+    {
+      "use": "true",
+      "mask": "true",
+      "group": "account",
+      "rules": [
+        {
+          "name": "account",
+          "mask": [ "N1" ],
+          "tag": "(?<LEFT>(계좌|통장|뱅크|농협|케이이비|아이비케이|우체국|신협|새마을|수협|우체국|신한|은행){{SOMETHING_0_25}}{{BOUNDARY}})(?<N1>({{NUM012}}|다시|에| ){5,})"
+        }
+      ]
+    },
+    {
+      "use": "true",
+      "mask": "true",
+      "group": "address_ho",
+      "rules": [
+        {
+          "name": "address_ho1",
+          "mask": [ "N1", "N2", "N3", "N4" ],
+          "tag": "(?<LEFT>{{NONE_ARIBIC_LEFT_BOUNDARY}}({{AREA9}}{{SOMETHING_0_175}}{{BOUNDARY}})?)((?<N1>{{NUMBER}})(?<D1> *차))?((?<N2>{{NUMBER}})(?<D2> *단지))?(?<N3>{{NUMBER}})(?<D3> *동)(?<N4>{{NUMBER}})(?<D4> *호)"
+        },
+        {
+          "name": "address_ho3",
+          "mask": [ "N1", "N2", "N3", "N4" ],
+          "tag": "(?<LEFT>{{NONE_ARIBIC_LEFT_BOUNDARY}}({{AREA9}}{{SOMETHING_0_175}}{{BOUNDARY}})?)((?<N1>{{NUMBER}})(?<D1> *차))?((?<N2>{{NUMBER}})(?<D2> *단지))((?<N3>{{NUMBER}})(?<D3> *동))?(?<N4>{{NUMBER}})(?<D4> *호)"
+        },
+        {
+          "name": "address_ho4",
+          "mask": [ "N1", "N2", "N3", "N4" ],
+          "tag": "(?<LEFT>{{NONE_ARIBIC_LEFT_BOUNDARY}}({{AREA9}}{{SOMETHING_0_175}}{{BOUNDARY}})?)((?<N1>{{NUMBER}})(?<D1> *차))((?<N2>{{NUMBER}})(?<D2> *단지))?((?<N3>{{NUMBER}})(?<D3> *동))?(?<N4>{{NUMBER}})(?<D4> *호)"
+        },
+        {
+          "name": "address_ho5",
+          "mask": [ "N1", "N2", "N3", "N4" ],
+          "tag": "(?<LEFT>{{NONE_ARIBIC_LEFT_BOUNDARY}}({{AREA9}}{{SOMETHING_0_175}}{{BOUNDARY}}))((?<N1>{{NUMBER}})(?<D1> *차))?((?<N2>{{NUMBER}})(?<D2> *단지))?((?<N3>{{NUMBER}})(?<D3> *동))?(?<N4>{{NUMBER}})(?<D4> *호)"
+        }
+      ]
+    },
+    {
+      "use": "true",
+      "mask": "true",
+      "group": "address_dong",
+      "rules": [
+        {
+          "name": "address_dong1",
+          "mask": [ "N1", "N2", "N3", "N4" ],
+          "tag": "(?<LEFT>{{NONE_ARIBIC_LEFT_BOUNDARY}}({{AREA9}}{{SOMETHING_0_175}}{{BOUNDARY}})?)((?<N1>{{NUMBER}})(?<D1> *차))?((?<N2>{{NUMBER}})(?<D2> *단지))(?<N3>{{NUMBER}})(?<D3> *동)"
+        },
+        {
+          "name": "address_dong2",
+          "mask": [ "N1", "N2", "N3", "N4" ],
+          "tag": "(?<LEFT>{{NONE_ARIBIC_LEFT_BOUNDARY}}({{AREA9}}{{SOMETHING_0_175}}{{BOUNDARY}})?)((?<N1>{{NUMBER}})(?<D1> *차))((?<N2>{{NUMBER}})(?<D2> *단지))?(?<N3>{{NUMBER}})(?<D3> *동)"
+        },
+        {
+          "name": "address_dong3",
+          "mask": [ "N1", "N2", "N3", "N4" ],
+          "tag": "(?<LEFT>{{NONE_ARIBIC_LEFT_BOUNDARY}}({{AREA9}}{{SOMETHING_0_175}}{{BOUNDARY}}))((?<N1>{{NUMBER}})(?<D1> *차))?((?<N2>{{NUMBER}})(?<D2> *단지))?(?<N3>{{NUMBER}})(?<D3> *동)"
+        }
+      ]
+    },
+    {
+      "use": "true",
+      "mask": "true",
+      "group": "address_cha",
+      "rules": [
+        {
+          "name": "address_cha1",
+          "mask": [ "N1", "N2", "N3", "N4" ],
+          "tag": "(?<LEFT>{{NONE_ARIBIC_LEFT_BOUNDARY}}({{AREA9}}{{SOMETHING_0_175}}{{BOUNDARY}})?)((?<N1>{{NUMBER}})(?<D1> *차))(?<N2>{{NUMBER}})(?<D2> *단지)"
+        },
+        {
+          "name": "address_cha2",
+          "mask": [ "N1", "N2", "N3", "N4" ],
+          "tag": "(?<LEFT>{{NONE_ARIBIC_LEFT_BOUNDARY}}({{AREA9}}{{SOMETHING_0_175}}{{BOUNDARY}}))((?<N1>{{NUMBER}})(?<D1> *차))?(?<N2>{{NUMBER}})(?<D2> *단지)"
+        },
+        {
+          "name": "address_cha3",
+          "mask": [ "N1", "N2", "N3", "N4" ],
+          "tag": "(?<LEFT>{{NONE_ARIBIC_LEFT_BOUNDARY}}({{AREA9}}{{SOMETHING_0_175}}{{BOUNDARY}}))(?<N1>{{NUMBER}})(?<D1> *차)"
+        }
+      ]
+    },
+    {
+      "use": "true",
+      "mask": "true",
+      "group": "address_bj",
+      "rules": [
+        {
+          "name": "address_bj",
+          "mask": [ "N1", "N2", "N3", "N4" ],
+          "tag": "(?<LEFT>{{BOUNDARY}})(?<N1>{{DASHABLE_NUM}})(?<D1> *번지)"
+        }
+      ]
+    },
+    {
+      "use": "true",
+      "mask": "true",
+      "group": "address_road",
+      "rules": [
+        {
+          "name": "address_road1",
+          "mask": [ "N3", "N4" ],
+          "tag": "(?<LEFT>{{NONE_ARIBIC_LEFT_BOUNDARY}})(?<N1>{{NUMBER}})(?<D1> *로)(?<N2>{{NUMBER}})(?<D2> *{{GAGIL}})(?<N3>{{DASHABLE_NUM}})",
+          "except": "(^| )이구 *"
+        },
+        {
+          "name": "address_road2",
+          "mask": [ "N3", "N4" ],
+          "tag": "(?<LEFT>{{NONE_ARIBIC_LEFT_BOUNDARY}})(?<N2>{{NUMBER}})(?<D2> *{{GAGIL}})(?<N3>{{DASHABLE_NUM}})",
+          "except": "(^| )이구 *"
+        },
+        {
+          "name": "address_road3",
+          "mask": [ "N3", "N4" ],
+          "tag": "(?<LEFT>{{NONE_ARIBIC_LEFT_BOUNDARY}})(?<N1>{{NUMBER}})(?<D1> *로)(?<N2>{{NUMBER}})(?<D2> *{{GAGIL}})"
+        },
+        {
+          "name": "address_road4",
+          "mask": [ "N3", "N4" ],
+          "tag": "(?<LEFT>{{NONE_ARIBIC_LEFT_BOUNDARY}})(?<N1>{{NUMBER}})(?<D1> *대로)(?<N2>{{NUMBER}})(?<D2> *로)(?<N3>{{DASHABLE_NUM}})",
+          "except": "(^| )이구 *"
+        },
+        {
+          "name": "address_road5",
+          "mask": [ "N3", "N4" ],
+          "tag": "(?<LEFT>{{NONE_ARIBIC_LEFT_BOUNDARY}})(?<N1>{{NUMBER}})(?<D1> *대로)(?<N2>{{NUMBER}})(?<D2> *로)"
+        },
+        {
+          "name": "address_road6",
+          "mask": [ "N3", "N4" ],
+          "tag": "(?<LEFT>주소{{SOMETHING_0_25}}(읍|면|동|리|길|로){{BOUNDARY}})(?<N3>{{DASHABLE_NUM}})",
+          "except": "(^| )이구* "
+        },
+        {
+          "name": "address_road7",
+          "mask": [ "N3", "N4" ],
+          "tag": "(?<LEFT>(읍|면|동|길|로) )(?<N3>{{DASHED_NUM}})",
+          "except": "(^| )이구 *"
+        },
+        {
+          "name": "address_road8",
+          "mask": [ "N3", "N4" ],
+          "tag": "(?<LEFT>((시|군|구) [^ ]*(읍|면|동))|((시|군|구|읍|면|동|대로) [^ ]*로)|((시|군|구|읍|면|동|로) [^ ]*길) )(?<N3>{{DASHABLE_NUM}})",
+          "except": "(^| )이구 *"
+        },
+        {
+          "name": "address_road9",
+          "mask": [ "N3", "N4" ],
+          "tag": "(?<LEFT>{{NONE_ARIBIC_LEFT_BOUNDARY}})(?<N1>{{NUMBER}})(?<D1> *대로)(?<N3>{{DASHABLE_NUM}})",
+          "except": "(^| )이구 *"
+        }
+      ]
+    },
+    {
+      "use": "true",
+      "mask": "false",
+      "group": "zip_code",
+      "rules": [ //TODO : update git and DBins local
+        {
+          "name": "zip_codenew",
+          "tag": "(?<LEFT>(우편 *번호)({{SOMETHING_0_25}}){{BOUNDARY}})(?<N3>{{NUM012}}{6})"
+        },
+        {
+          "name": "zip_codeold",
+          "tag": "(?<LEFT>(우편 *번호)({{SOMETHING_0_25}}){{BOUNDARY}})(?<N1>{{NUM012}}{3})(?<D1>{{ALLOW_DASH}})({{SOMETHING_0_25}})(?<N3>{{NUM012}}{3})"
+        },
+        {
+          "name": "zip_code2",
+          "tag": "(?<LEFT>(우편 *번호)({{SOMETHING_0_25}}){{BOUNDARY}})(?<N3>{{NUM012}}{1,3})"
+        }
+      ]
+    },
+    {
+      "use": "false",
+      "mask": "true",
+      "group": "car_lic",
+      "rules": [ //TODO : Doing 고객들의 응답 패턴을 대충 보고 추가 생성 후 ... -> update git and DBins local
+        {
+          "name": "car_licnew",
+          "mask": [ "N3" ],
+          "tag": "(?<LEFT>(운전면허|운전면허증|운전자면허증|자동차면허|자동차면허증 *번호)({{SOMETHING_0_25}}){{BOUNDARY}})(?<N3>{{NUM012}}{12})"
+        },
+        {
+          "name": "car_licold",
+          "mask": [ "N3" ],
+          "tag": "(?<LEFT>(운전면허|운전면허증|운전자면허증|자동차면허|자동차면허증 *번호)({{SOMETHING_0_25}}){{BOUNDARY}})(?<N3>{{NUM012}}{10})"
+        },
+        {
+          "name": "car_lic2",
+          "mask": [ "N3" ],
+          "tag": "(?<LEFT>(운전면허|운전면허증|운전자면허증|자동차면허|자동차면허증 *번호)({{SOMETHING_0_25}}){{BOUNDARY}})(?<N3>{{NUM012}}{1,3})"
+        }
+      ]
+    },
+    {
+      "use": "true",
+      "mask": "true",
+      "group": "fixed",
+      "rules": [
+        {
+          "name": "fixed2",
+          "mask": [ "N3" ],
+          "tag": "(?<LEFT>(두 *자리)({{SOMETHING_0_25}}){{BOUNDARY}})(?<N3>{{NUM012}}{2})"
+        },
+        {
+          "name": "fixed3",
+          "mask": [ "N3" ],
+          "tag": "(?<LEFT>(세 *자리)({{SOMETHING_0_25}}){{BOUNDARY}})(?<N3>{{NUM012}}{3})"
+        },
+        {
+          "name": "fixed4",
+          "mask": [ "N3" ],
+          "tag": "(?<LEFT>(네 *자리)({{SOMETHING_0_25}}){{BOUNDARY}})(?<N3>{{NUM012}}{4})"
+        },
+        {
+          "name": "fixed5",
+          "mask": [ "N3" ],
+          "tag": "(?<LEFT>(다섯 *자리)({{SOMETHING_0_25}}){{BOUNDARY}})(?<N3>{{NUM012}}{5})"
+        },
+        {
+          "name": "fixed6",
+          "mask": [ "N3" ],
+          "tag": "(?<LEFT>(여섯 *자리)({{SOMETHING_0_25}}){{BOUNDARY}})(?<N3>{{NUM012}}{6})"
+        },
+        {
+          "name": "fixed7",
+          "mask": [ "N3" ],
+          "tag": "(?<LEFT>(일곱 *자리)({{SOMETHING_0_25}}){{BOUNDARY}})(?<N3>{{NUM012}}{7})"
+        },
+        {
+          "name": "fixed8",
+          "mask": [ "N3" ],
+          "tag": "(?<LEFT>(여덟 *자리)({{SOMETHING_0_25}}){{BOUNDARY}})(?<N3>{{NUM012}}{8})"
+        }
+      ]
+    },
+    {
+      "use": "true",
+      "mask": "true",
+      "group": "tel_risk",
+      "rules": [
+        {
+          "name": "tel5",
+          "mask": [ "N3" ],
+          "tag": "(?<LEFT>{{NONE_ARIBIC_LEFT_BOUNDARY}})(?<N1>{{TEL_HEAD}})(?<D1>{{ALLOW_DASH}})(?<N2>({{NUM012}} *){3,4}|{{NUMBER_ARABIC_1000_GE1000}})(?<D2>{{ALLOW_DASH}})(?<N3>({{NUM012}} *){4}|{{NUMBER_ARABIC_1000_GE1000}})"
+        },
+        {
+          "name": "tel6",
+          "tag": "(?<LEFT>{{NONE_ARIBIC_LEFT_BOUNDARY}})(?<N2>{{TEL_HEAD2}})(?<D2>{{ALLOW_DASH}})(?<N3>{{NUM012}}{3,4}|{{NUMBER_ARABIC_1000_GE1000}})"
+        },
+        {
+          "name": "tel10",
+          "tag": "(?<LEFT>{{NONE_ARIBIC_LEFT_BOUNDARY}})(?<N1>{{TEL_HEAD3}})(?<D1>{{ALLOW_DASH}})(?<N2>({{NUM012}} *){3,4})(?<RIGHT>.{0,10}(다음|뒷번호))"
+        }
+      ]
+    },
+    {
+      "use": "true",
+      "mask": "true",
+      "group": "serial_x",
+      "rules": [
+        {
+          "name": "serial_x1",
+          "mask": [ "N3" ],
+          "tag": "(?<N2>([0-9][ -]*)*)(?<N3>([0-9][ -]*){4})(?<RIGHT>[ -]*번)"
+        }
+      ]
+    },
+    {
+      "use": "true",
+      "mask": "false",
+      "group": "normal_arabic_unit",
+      "rules": [
+        { // to avoid wrong masking
+          "name": "normal_arabic_unit2",
+          "tag": "(?<LEFT>{{NONE_ARIBIC_LEFT_BOUNDARY}})(?<N3>[0-9][0-9 -]*)(?<D1>동|호|차|번지|길|로|번|살|년|월|일|달)"
+        },
+        {
+          "name": "normal_arabic_unit_man",
+          "tag": "(?<LEFT>{{NONE_ARIBIC_LEFT_BOUNDARY}})(?<N3>{{NUMBER_ARABIC_1000}}) *(?<D1>(만))",
+          "except": "^ *(일|이|오|칠|팔|구) *만 *$"
+        },
+        {
+          "name": "normal_arabic_unit1",
+          "tag": "(?<LEFT>{{NONE_ARIBIC_LEFT_BOUNDARY}})(?<N3>{{NUMBER_ARABIC_10000}}) *(?<D1>(억|학기|학 *년 *도|개월|(만 *)?(달러|키로|킬로|톤|원|년|회|번|분|인분|층)))",
+          "except": "^ *(일|이|사|구) *(원) *$|^ *(이번|사번|사회) *$|(^| )(이|구)분"
+        },
+        {
+          "name": "normal_arabic_10",
+          "tag": "(?<LEFT>{{NONE_ARIBIC_LEFT_BOUNDARY}})(?<N3>{{NUMBER_ARABIC_1000_GE10}}) *(?<D1>(시|시간|개))",
+          "except": "(^| )(십시|십개)"
+        },
+        {
+          "name": "urimal_numer_9999",
+          "tag": "(?<LEFT>{{NONE_ARIBIC_LEFT_BOUNDARY}})(?<N1>{{NUM_YEARSOLD_9999sal}}) *(?<D1>(시간|시|분|개|명))",
+          "except": "(^| )십시"
+        },
+        {
+          "name": "urimal_numer_9",
+          "tag": "(?<LEFT>{{NONE_ARIBIC_LEFT_BOUNDARY}})(?<N1>{{NUM2c}}}) *(?<D1>(시간|시|분|개|명))"
+        }
+      ]
+    },
+    {
+      "use": "true",
+      "mask": "false",
+      "group": "daymm",
+      "rules": [
+        {
+          "name": "daymm",
+          "tag": "(?<LEFT>{{NONE_ARIBIC_LEFT_BOUNDARY}})(?<N2>({{NUM_MMn}})) *(?<D2>(월))",
+          "except": "^ *이 *월 *"
+        },
+        {
+          "name": "daymm2",
+          "tag": "(?<LEFT>{{NONE_ARIBIC_LEFT_BOUNDARY}})[ _]*(?<N2>({{NUM_MMn}}))[ _]*(?<D2>(월 ?(달|부터|까지|에)))"
+        }
+      ]
+    },
+    {
+      "use": "true",
+      "mask": "false",
+      "group": "daydd2",
+      "rules": [
+        {
+          "name": "daydd2",
+          "tag": "(?<LEFT>{{NONE_ARIBIC_LEFT_BOUNDARY}})(?<N3>{{NUMBER_ARABIC_1000_GE10}}) *(?<D3>일)",
+          "except": "(천|백|십) *일 *$"
+        }
+      ]
+    },
+    {
+      "use": "true",
+      "mask": "false",
+      "group": "time",
+      "rules": [
+        {
+          "name": "timeHHmm",
+          "tag": "(?<LEFT>{{NONE_ARIBIC_LEFT_BOUNDARY}})(?<N1>{{NUM_YEARSOLD_10se}}|{{NUM_YEARSOLD_10sal}}) *(?<D1>시) (?<N2>{{NUM_YEARSOLD_10se}}) *(?<D2>분)",
+          "except": ""
+        },
+        {
+          "name": "timeHHmmss",
+          "tag": "(?<LEFT>{{NONE_ARIBIC_LEFT_BOUNDARY}})(?<N1>{{NUM_YEARSOLD_10se}}|{{NUM_YEARSOLD_10sal}}) *(?<D1>시) (?<N2>{{NUM_YEARSOLD_10se}}) *(?<D2>분) (?<N3>{{NUM_YEARSOLD_10se}}) *(?<D3>초)",
+          "except": ""
+        },
+        {
+          "name": "timemmss",
+          "tag": "(?<LEFT>{{NONE_ARIBIC_LEFT_BOUNDARY}})(?<N2>{{NUM_YEARSOLD_10se}}) *(?<D2>분) (?<N3>{{NUM_YEARSOLD_10se}}) *(?<D3>초)",
+          "except": ""
+        }
+      ]
+    },
+    {
+      "use": "false",
+      "mask": "false",
+      "comment": "do not use, not safe",
+      "group": "normal_arabic_risk",
+      "rules": [
+        {
+          "name": "normal_arabic_ge10_safe",
+          "tag": "(?<LEFT>{{NONE_ARIBIC_LEFT_BOUNDARY}})(?<N3>{{NUMBER_ARABIC_1000_GE10}})(?<RIGHT>$|번|{{BOUNDARY}}|고|요|면|라|에|예|입니)",
+          "except": "( 천| 백|(일|이|삼|사|오|육|칠|팔|구)(백|천|( *)(일|이|구|이구))) *$|^ *(이사|공사|공구|오일|이번|사번) *$|에이"
+        }
+      ]
+    },
+    {
+      "use": "true",
+      "mask": "true",
+      "comment": "not safe. 4연숫자",
+      "group": "risk_number",
+      "rules": [
+        {
+          "name": "continuas_number4",
+          "mask": [ "N3" ],
+          "tag": "(?<LEFT>{{NONE_ARIBIC_LEFT_BOUNDARY}})(?<N3>{{NUMBER_ARABIC_1000_GE10}})"
+        },
+        {
+          "name": "continuas_digit4a",
+          "mask": [ "N3" ],
+          "tag": "(?<LEFT>{{NONE_ARIBIC_LEFT_BOUNDARY}})(?<N1>({{NUM012}} *){3,})(?<D1>{{ALLOW_DASH}})(?<N2>({{NUM012}} *){3,})(?<D2>{{ALLOW_DASH}})(?<N3>{{NUM012}}{4})"
+        },
+        {
+          "name": "continuas_digit4b",
+          "mask": [ "N3" ],
+          "tag": "(?<LEFT>{{NONE_ARIBIC_LEFT_BOUNDARY}})(?<N2>({{NUM012}} *){3,})(?<D2>{{ALLOW_DASH}})(?<N3>{{NUM012}}{4})"
+        },
+        {
+          "name": "continuas_digit4c",
+          "mask": [ "N3" ],
+          "tag": "(?<LEFT>{{NONE_ARIBIC_LEFT_BOUNDARY}})(?<N3>{{NUM012}}{4})"
+        }
+      ]
+    },
+    {
+      "use": "true",
+      "mask": "true",
+      "group": "serial",
+      "rules": [
+        {
+          "name": "serial9",
+          "mask": [ "N3" ],
+          "tag": "(?<N2>([0-9][ -]*)*)(?<N3>([0-9][ -]*){4})(?<RIGHT>[ -]*([^*0-9 -]|$))"
+        },
+        { // to avoid wrong masking
+          "name": "serial0",
+          "tag": "(?<N0>([0-9][ -]*)+)"
+        },
+        {
+          "name": "serial1",
+          "tag": "(?<LEFT>{{NONE_ARIBIC_LEFT_BOUNDARY}})(?<N3>{{NUM012}}{2,12}({{NUM012}}|{{DASH_safe}}){2,12})(?<RIGHT>$|번|{{BOUNDARY}})",
+          "except": "(일|이|삼|사|오|육|칠|팔|구)(백|천|( *)(일|이|오구|사구|이구)) *$|^ *(이사|공사|공구|오일|이번|사번) *$|에이"
+        },
+        {
+          "name": "serial2",
+          "tag": "(?<LEFT>{{NONE_ARIBIC_LEFT_BOUNDARY}})(?<N3>{{NUM012}}{2,9}({{NUM012}}|{{DASH_safe}}){2,9})(?<RIGHT>$|번|{{BOUNDARY}})",
+          "except": "(일|이|삼|사|오|육|칠|팔|구)(백|천|( *)(일|이|오구|사구|이구)) *$|^ *(이사|공사|공구|오일|이번|사번) *$|에이"
+        },
+        {
+          "name": "serial3",
+          "tag": "(?<LEFT>{{NONE_ARIBIC_LEFT_BOUNDARY}})(?<N3>{{NUM012}}{2,6}({{NUM012}}|{{DASH_safe}}){2,6})(?<RIGHT>$|번|{{BOUNDARY}})",
+          "except": "(일|이|삼|사|오|육|칠|팔|구)(백|천|( *)(일|이|오구|사구|이구)) *$|^ *(이사|공사|공구|오일|이번|사번) *$|에이"
+        },
+        {
+          "name": "serial4",
+          "tag": "(?<LEFT>{{NONE_ARIBIC_LEFT_BOUNDARY}})(?<N3>{{NUM012}}{2,3}({{NUM012}}|{{DASH_safe}}){2,3})(?<RIGHT>$|번|{{BOUNDARY}})",
+          "except": "(일|이|삼|사|오|육|칠|팔|구)(백|천|( *)(일|이|오구|사구|이구)) *$|^ *(이사|공사|공구|오일|이번|사번) *$|에이"
+        },
+        {
+          "name": "serial5",
+          "tag": "(?<LEFT>{{NONE_ARIBIC_LEFT_BOUNDARY}})(?<N3>{{NUM012}}{3,12})(?<RIGHT>$|번|{{BOUNDARY}})",
+          "except": "(일|이|삼|사|오|육|칠|팔|구)(백|천|( *)(일|이|오구|사구|이구)) *$|^ *(이사|공사|공구|오일|이번|사번) *$|에이"
+        },
+        {
+          "name": "serial6",
+          "tag": "(?<LEFT>{{NONE_ARIBIC_LEFT_BOUNDARY}})(?<N3>{{NUM012}}{3,9})(?<RIGHT>$|번|{{BOUNDARY}})",
+          "except": "(일|이|삼|사|오|육|칠|팔|구)(백|천|( *)(일|이|오구|사구|이구)) *$|^ *(이사|공사|공구|오일|이번|사번) *$|에이"
+        },
+        {
+          "name": "serial7",
+          "tag": "(?<LEFT>{{NONE_ARIBIC_LEFT_BOUNDARY}})(?<N3>{{NUM012}}{3,6})(?<RIGHT>$|번|{{BOUNDARY}})",
+          "except": "(일|이|삼|사|오|육|칠|팔|구)(백|천|( *)(일|이|오구|사구|이구)) *$|^ *(이사|공사|공구|오일|이번|사번) *$|에이"
+        },
+        {
+          "name": "serial8",
+          "tag": "(?<LEFT>{{NONE_ARIBIC_LEFT_BOUNDARY}})(?<N3>{{NUM012}}{3})(?<RIGHT>$|번|{{BOUNDARY}})",
+          "except": "(일|이|삼|사|오|육|칠|팔|구)(백|천|( *)(일|이|오구|사구|이구)) *$|^ *(이사|공사|공구|오일|이번|사번) *$|에이"
+        }
+      ]
+    }
+  ]
+}

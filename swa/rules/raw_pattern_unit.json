@@ -1,0 +1,470 @@
+{ 
+  "format": "eznlp/postproc", // fixed
+  "purpose": "tagging",       // tagging, replace <== json rule format
+  "what":    "unit",
+  "options": [
+    "unpack_regex_rule"    // replace {{raw_pattern_unit}} --> to real 
+  ],
+  "groups": [
+    {
+      "use": "true",
+      "group": "SOMETHINGS",
+      "rules": [
+        {
+          "name": "SOMETHING",
+          "tag": "[^<>=*0-9]"
+        },
+        {
+          "name": "SOMETHING_0_75",
+          "tag": "{{SOMETHING}}{0,75}?"
+        },
+        {
+          "name": "SOMETHING_0_175",
+          "tag": "{{SOMETHING}}{0,175}?"
+        },
+        {
+          "name": "SOMETHING_0_25",
+          "tag": "{{SOMETHING}}{0,25}?"
+        }
+      ]
+    },
+    {
+      "use": "true",
+      "group": "BOUNDARYS",
+      "rules": [
+        {
+          "name": "NONE_ARIBIC_LEFT_BOUNDARY",
+          "tag": "^|^[ \t\r\n]+?|[^0-9* \t\r\n-][ \t\r\n]+?"
+        },
+        {
+          "name": "NONE_ARIBIC_RIGHT_BOUNDARY",
+          "tag": "[ \t\r\n]*?$|[ \t\r\n]+?[^0-9* \t\r\n-]"
+        },
+        {
+          "name": "BOUNDARY",
+          "tag": "^|$|([ \t\r\n])+?"
+        },
+        {
+          "name": "BOUNDARY_ALLOW",
+          "tag": "([ \t\r\n])*?"
+        }
+      ]
+    },
+    {
+      "use": "true",
+      "group": "CHAR",
+      "rules": [
+        {
+          "name": "CHAR_OF_N",
+          "tag": "{{BOUNDARY_ALLOW}}(숫자로|숫자)"
+        },
+        {
+          "name": "CHAR_OF_A",
+          "tag": "{{BOUNDARY_ALLOW}}(영어로|영어|영문|영문으로|소문자로|소문자|대문자로|대문자|알파벳|알파벳으로)"
+        },
+        {
+          "name": "CHAR_OF",
+          "tag": "{{BOUNDARY_ALLOW}}할 *때|{{CHAR_OF_A}}|{{CHAR_OF_N}}"
+        },
+        {
+          "name": "SINGLE_CHAR",
+          "tag": "{{BOUNDARY_ALLOW}}(언더 *바|{{ENUM1}}|{{ENG1}}|{{NUM012}})"
+        }
+      ]
+    },
+    {
+      "use": "true",
+      "group": "NUM",
+      "rules": [
+        {
+          "name": "NUM0",
+          "tag": "{{BOUNDARY_ALLOW}}(공|영)"
+        },
+        {
+          "name": "NUM1",
+          "tag": "{{BOUNDARY_ALLOW}}(일|이|삼|사|오|육|칠|팔|구)"
+        },
+        {
+          "name": "NUM2",
+          "tag": "{{BOUNDARY_ALLOW}}(하나|둘|셋|넷|다섯|여섯|일곱|여덟|아홉)"
+        },
+        {
+          "name": "NUM2b",
+          "tag": "{{BOUNDARY_ALLOW}}(한|두|세|네)"
+        },
+        {
+          "name": "NUM2c",
+          "tag": "{{BOUNDARY_ALLOW}}(한|두|세|네|다섯|여섯|일곱|여덟|아홉)"
+        },
+        {
+          "name": "NUM2x",
+          "tag": "{{NUM2}}|{{NUM2b}}"
+        },
+        {
+          "name": "NUM3",
+          "tag": "{{BOUNDARY_ALLOW}}(십|백|천)"
+        },
+        {
+          "name": "NUM4",
+          "tag": "{{BOUNDARY_ALLOW}}(십|이 *십|삼 *십|사 *십|오 *십|육 *십|칠 *십|팔 *십|구 *십)"
+        },
+        {
+          "name": "NUM40",
+          "tag": "{{BOUNDARY_ALLOW}}(공|십|이 *십|삼 *십|사 *십|오 *십|육 *십|칠 *십|팔 *십|구 *십)"
+        },
+        {
+          "name": "NUM5",
+          "tag": "{{BOUNDARY_ALLOW}}(백|이 *백|삼 *백|사 *백|오 *백|육 *백|칠 *백|팔 *백|구 *백)"
+        },
+        {
+          "name": "NUM6",
+          "tag": "{{BOUNDARY_ALLOW}}(천|이 *천|삼 *천|사 *천|오 *천|육 *천|칠 *천|팔 *천|구 *천)"
+        },
+        {
+          "name": "NUM7",
+          "tag": "{{BOUNDARY_ALLOW}}(열|스물|스무|서른|마흔|쉰|예순|일흔|여든|아흔)"
+        },
+        {
+          "name": "NUM8",
+          "tag": "{{BOUNDARY_ALLOW}}(만|일 *만|이 *만|삼 *만|사 *만|오 *만|육 *만|칠 *만|팔 *만|구 *만)"
+        },
+        {
+          "name": "NUMo01",
+          "tag": "{{BOUNDARY_ALLOW}}(공|영|일|하나|[01])"
+        },
+        {
+          "name": "NUMo0123",
+          "tag": "{{BOUNDARY_ALLOW}}(공|영|일|하나|이|삼|둘|셋|십|이십|삼십|[0123])"
+        },
+        {
+          "name": "NUM01",
+          "tag": "{{NUM0}}|{{NUM1}}"
+        },
+        {
+          "name": "NUM012",
+          "tag": "[0-9]|{{NUM1}}|{{NUM0}}|{{NUM2}}"
+        },
+        {
+          "name": "NUM12",
+          "tag": "{{NUM2}}|{{NUM1}}"
+        },
+        {
+          "name": "NUM012x",
+          "tag": "{{NUM2x}}|{{NUM1}}|{{NUM0}}"
+        },
+        {
+          "name": "NUM13",
+          "tag": "{{NUM1}}|{{NUM3}}"
+        },
+        {
+          "name": "NUM0123",
+          "tag": "{{NUM3}}|{{NUM0}}|{{NUM1}}|{{NUM2}}"
+        },
+        {
+          "name": "NUM0124",
+          "tag": "{{NUM4}}|{{NUM0}}|{{NUM1}}|{{NUM2}}"
+        },
+        {
+          "name": "NUM140",
+          "tag": "{{NUM40}}|{{NUM1}}"
+        },
+        {
+          "name": "NUM012345",
+          "tag": "{{NUM5}}|{{NUM4}}|{{NUM3}}|{{NUM0}}|{{NUM1}}|{{NUM2}}"
+        },
+        {
+          "name": "NUM06541",
+          "tag": "{{BOUNDARY_ALLOW}}공{{NUM1}}|({{NUM1}}?{{NUM3}})+{{NUM1}}?"
+        },
+        {
+          "name": "NUM_MMs",
+          "tag": "{{BOUNDARY_ALLOW}}(공|영|일|하나){{NUM12}}"
+        },
+        {
+          "name": "NUM_MMn",
+          "tag": "{{BOUNDARY_ALLOW}}(시|유|십( *(일|이))?|(공)?{{NUM1}}|0?[1-9]|1[012])"
+        },
+        {
+          "name": "NUM_DDs",
+          "tag": "{{BOUNDARY_ALLOW}}(공|영|일|이|삼|하나|둘|셋|[0123]){{NUM12}}"
+        },
+        {
+          "name": "NUM_DDn",
+          "tag": "{{BOUNDARY_ALLOW}}(공|(이|삼)?(십))? *{{NUM1}}|(이|삼)?(십)|0?[1-9]|[12][0-9]|3[01]"
+        },
+        {
+          "name": "NUM_MM",
+          "tag": "{{BOUNDARY_ALLOW}}{{NUM_MMn}}|{{NUM_MMs}}"
+        },
+        {
+          "name": "NUM_DD",
+          "tag": "{{BOUNDARY_ALLOW}}{{NUM_DDn}}|{{NUM_DDs}}"
+        },
+        { // 예순한 살, 육십 한 살
+          "name": "NUM_YEARSOLD_10sal",
+          "tag": "({{NUM7}}|{{NUM4}})({{NUM2c}})?|{{NUM2c}}"
+        },
+        { // 백 한 살
+          "name": "NUM_YEARSOLD_100sal",
+          "tag": "백({{NUM_YEARSOLD_10sal}})?|{{NUM_YEARSOLD_10sal}}"
+        },
+        { // 구백아흔아홉~한
+          "name": "NUM_YEARSOLD_999sal",
+          "tag": "{{NUM5}} *({{NUM_YEARSOLD_10sal}})?|{{NUM_YEARSOLD_10sal}}"
+        },
+        { // 구천구백아흔아홉~한
+          "name": "NUM_YEARSOLD_9999sal",
+          "tag": "{{NUM6}} *({{NUM_YEARSOLD_999sal}})?|{{NUM_YEARSOLD_999sal}}"
+        },
+        { // 육십일 세
+          "name": "NUM_YEARSOLD_10se",
+          "tag": "{{NUM4}}({{NUM1}})?|{{NUM1}}"
+        },
+        { // 백일 세
+          "name": "NUM_YEARSOLD_100se",
+          "tag": "백({{NUM_YEARSOLD_10se}})?|{{NUM_YEARSOLD_10se}}"
+        }
+      ]
+    },
+    {
+      "use": "true",
+      "group": "ENUM",
+      "rules": [
+        {
+          "name": "ENUM1",
+          "tag": "{{BOUNDARY_ALLOW}}(제로|원|투|쓰리|포|파이브|식스|세븐|에잇|나인|텐)"
+        }
+      ]
+    },
+    {
+      "use": "true",
+      "group": "ENG",
+      "rules": [
+        {
+          "name": "ENG1",
+          "tag": "{{BOUNDARY_ALLOW}}(에이|비|씨|디|이|에프|지|에이치|아이|제이|케이|엘|엠|엔|오|피|큐|알|에스|티|유|브이|더블유|엑스|와이|제트|쥐)"
+        }
+      ]
+    },
+    {
+      "use": "true",
+      "group": "WORD",
+      "rules": [
+        {
+          "name": "WORD",
+          "tag": "{{BOUNDARY_ALLOW}}{{SOMETHING}}+?"
+        }
+      ]
+    },
+    {
+      "use": "false",
+      "group": "AMBIGUIOUS",
+      "rules": [
+        {
+          "name": "AMBIGUIOUS_ENG",
+          "tag": "{{BOUNDARY_ALLOW}}(원|포|비|디|이|지|아이|오|알)"
+        },
+        {
+          "name": "AMBIGUIOUS_CHAR",
+          "tag": "{{AMBIGUIOUS_ENG}}|{{NUM01}}"
+        }
+      ]
+    },
+    {
+      "use": "true",
+      "group": "NON_AMBIGUIOUS",
+      "rules": [
+        {
+          "name": "NON_AMBIGUIOUS_ENG",
+          "tag": "{{BOUNDARY_ALLOW}}(제로|투|쓰리|파이브|식스|세븐|에잇|나인|텐|에이|씨|에프|에이치|제이|케이|엘|엠|엔|피|큐|에스|티|유|브이|더블유|엑스|와이|제트|쥐)"
+        },
+        {
+          "name": "NON_AMBIGUIOUS_CHAR",
+          "tag": "{{NON_AMBIGUIOUS_ENG}}|{{NUM2}}|육|칠|{{CHAR_OF}}{{SINGLE_CHAR}}"
+        }
+      ]
+    },
+    {
+      "use": "true",
+      "group": "AREA",
+      "rules": [
+        {
+          "name": "AREA1",
+          "tag": "{{BOUNDARY_ALLOW}}(서울|경기|인천|강원|대전|충북|충남|대구|경북|부산|경남|울산|광주|전남|전북|제주)"
+        },
+        {
+          "name": "AREA9",
+          "tag": "{{BOUNDARY_ALLOW}}(아파트|빌라|빌리지|빌|마을|단지|캐슬|파크|펠리스|레미안|우성|경남|포스코|세상|우림|대림|현대|대우|삼성|주공|하이츠)"
+        }
+      ]
+    },
+    {
+      "use": "true",
+      "group": "GANADA",
+      "rules": [
+        {
+          "name": "GANADA",
+          "tag": "{{BOUNDARY_ALLOW}}(가|나|다|라|마|바|사|아|자|차|카|타|파|하)"
+        }
+      ]
+    },
+    {
+      "use": "true",
+      "group": "GAGIL",
+      "rules": [
+        {
+          "name": "GAGIL",
+          "tag": "{{GANADA}}? *(안|뒷|못)? *길"
+        }
+      ]
+    },
+    {
+      "use": "true",
+      "group": "EMAIL",
+      "rules": [
+        {
+          "name": "EMAIL_AT",
+          "tag": "{{BOUNDARY_ALLOW}}골뱅이"
+        },
+        {
+          "name": "EMAILID_CHAR",
+          "tag": "{{CHAR_OF}}?{{SINGLE_CHAR}}"
+        },
+        {
+          "name": "EMAILID_CHAR2",
+          "tag": "{{EMAILID_CHAR}}*{{NON_AMBIGUIOUS_CHAR}}{{EMAILID_CHAR}}*"
+        }
+      ]
+    },
+    {
+      "use": "true",
+      "group": "DOMAIN",
+      "rules": [
+        {
+          "name": "DOMAIN2_EMAIL",
+          "tag": "{{BOUNDARY_ALLOW}}(지 *메일|쥐 *메일|한 *메일|핫 *메일|네이버 (이)?메일|다음 (이)?메일)"
+        },
+        {
+          "name": "DOMAIN2",
+          "tag": "{{BOUNDARY_ALLOW}}(네이버|다음)"
+        },
+        {
+          "name": "DOMAIN2b",
+          "tag": "{{BOUNDARY_ALLOW}}(네이버|다음|({{CHAR_OF}}?{{SINGLE_CHAR}})+)"
+        },
+        {
+          "name": "DOMAIN1",
+          "tag": "{{BOUNDARY_ALLOW}}((점|쩜|닷) *)?(넷|컴)"
+        },
+        {
+          "name": "DOMAIN1b",
+          "tag": "{{BOUNDARY_ALLOW}}((점|쩜|닷) *)(넷|컴)"
+        }
+      ]
+    },
+    {
+      "use": "true",
+      "group": "TEL",
+      "rules": [
+        {
+          "name": "TEL_HEAD",
+          "tag": "{{BOUNDARY_ALLOW}}(공(일|삼|오|육|칠|팔) *공|공이|공(삼|사|오|육) *(일|이|삼|사|오)|공일 *(일|이|오|육|칠|팔|구|공)|0[135678]0|02|0[3456][12345]|01[12567890])"
+        },
+        {
+          "name": "TEL_HEAD2",
+          "tag": "{{BOUNDARY_ALLOW}}일(오|육|팔)( *(공|사|오|육|칠|팔)){2}|1[568][045678]{2}"
+        },
+        {
+          "name": "TEL_HEAD3",
+          "tag": "{{BOUNDARY_ALLOW}}(공(삼|사|오|육) *(일|이|삼|사|오)|공일 *(일|이|오|육|칠|팔|구|공)|0[3456][12345]|01[12567890])"
+        }
+      ]
+    },
+    {
+      "use": "true",
+      "group": "DASH",
+      "rules": [
+        {
+          "name": "DASH",
+          "tag": "{{BOUNDARY_ALLOW}}(에|다시|-|번|번예|번에|예)"
+        },
+        {
+          "name": "ALLOW_DASH",
+          "tag": "( |{{DASH}})*"
+        },
+        {
+          "name": "DASH_safe",
+          "tag": "{{BOUNDARY_ALLOW}}(에|다시|-|번|번예|번에)"
+        },
+        {
+          "name": "DASHABLE_NUM",
+          "tag": "{{NUM_s}}({{DASH}}{{NUM_s}})?"
+        },
+        {
+          "name": "DASHED_NUM",
+          "tag": "{{NUM_s}}{{DASH}}{{NUM_s}}"
+        }
+      ]
+    },
+    {
+      "use": "true",
+      "group": "CAR_NCODE",
+      "rules": [
+        {
+          "name": "CAR_NCODE",
+          "tag": "{{BOUNDARY_ALLOW}}(할 *때 +)?(하|호|허|바|사|아|자|배|가|나|다|라|마|거|너|더|러|머|뭐|버|서|어|저|고|노|도|로|모|보|소|오|조|구|누|두|루|무|부|수|우|주)(에|의)?([ \t]|$)"
+        },
+        {
+          "name": "CAR_NCODE_NO_AMBIGUIOUS",
+          "tag": "{{BOUNDARY_ALLOW}}(할 *때 +)?(하|호|허|바|아|자|배|가|나|다|라|마|거|너|더|러|머|뭐|버|서|어|저|고|노|도|로|모|보|소|조|누|두|루|무|부|수|우|주)(에|의)?([ \t]|$)"
+        }
+      ]
+    },
+    {
+      "use": "true",
+      "group": "NUMBERS",
+      "rules": [
+        {
+          "name": "NUM_s",
+          "tag": "[0-9]+|{{NUM06541}}|{{NUM0123}}+"
+        },
+        {
+          "name": "NUMBER",
+          "tag": "({{NUM06541}}|{{NUM1}})"
+        },
+        { // 구십구~십
+          "name": "NUMBER_ARABIC_10_GE10",
+          "tag": "{{NUM4}} *({{NUM1}})?|[0-9]{2}"
+        },
+        { // 구백구십구~십
+          "name": "NUMBER_ARABIC_100_GE10",
+          "tag": "{{NUM5}} *({{NUMBER_ARABIC_10_GE10}})?|{{NUMBER_ARABIC_10_GE10}}|[0-9]{2,3}"
+        },
+        { // 구천구백구십구~십
+          "name": "NUMBER_ARABIC_1000_GE10",
+          "tag": "{{NUM6}} *({{NUMBER_ARABIC_100_GE10}})?|{{NUMBER_ARABIC_100_GE10}}|[0-9]{2,4}"
+        },
+        { // 구천구백구십구~천
+          "name": "NUMBER_ARABIC_1000_GE1000",
+          "tag": "{{NUM6}} *({{NUMBER_ARABIC_100}})?|[0-9]{4}"
+        },
+        { // 구십구~일
+          "name": "NUMBER_ARABIC_10",
+          "tag": "{{NUM4}} *({{NUM1}})?|{{NUM1}}|[0-9]{1,2}"
+        },
+        { // 구백구십구~일
+          "name": "NUMBER_ARABIC_100",
+          "tag": "{{NUM5}} *({{NUMBER_ARABIC_10}})?|{{NUMBER_ARABIC_10}}|[0-9]{1,3}"
+        },
+        { // 구천구백구십구~일
+          "name": "NUMBER_ARABIC_1000",
+          "tag": "{{NUM6}} *({{NUMBER_ARABIC_100}})?|{{NUMBER_ARABIC_100}}|[0-9]{1,4}"
+        },
+        { // 구만구천구백구십구~일
+          "name": "NUMBER_ARABIC_10000",
+          "tag": "({{NUM8}} *)?{{NUM6}} *({{NUMBER_ARABIC_100}})?|{{NUMBER_ARABIC_100}}|[0-9]{1,5}"
+        }
+      ]
+    }
+  ]
+}

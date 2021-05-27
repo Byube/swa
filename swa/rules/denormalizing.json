@@ -1,0 +1,700 @@
+{ 
+  "format": "eznlp/postproc", // fixed
+  "purpose": "replace",       // tagging, replace <== json rule format
+  "what":    "denorm",
+  "options": [
+    "compile_regex"  // tag compile to use regex
+  ],
+  "groups": [
+    { // for each sect after denorm_pattern_unit tagging
+      "use": "true",
+      "group": "n10",
+      "rules": [
+        {
+          "target": { "sect": "W[0-9]" },     // apply only if target matched with rule name and sect name
+          "before": "^ *$",
+          "after":  ""
+        },
+        {
+          "target": { "sect": "N5" },
+          "before": "^$",
+          "after":  "e0"
+        },
+        {
+          "target": { "sect": "N5" },
+          "before": "^(일 *)?만$",
+          "after":  "e1"
+        },
+        {
+          "target": { "sect": "N5" },
+          "before": "^이 *만$",
+          "after":  "e2"
+        },
+        {
+          "target": { "sect": "N5" },
+          "before": "^삼 *만$",
+          "after":  "e3"
+        },
+        {
+          "target": { "sect": "N5" },
+          "before": "^사 *만$",
+          "after":  "e4"
+        },
+        {
+          "target": { "sect": "N5" },
+          "before": "^오 *만$",
+          "after":  "e5"
+        },
+        {
+          "target": { "sect": "N5" },
+          "before": "^육 *만$",
+          "after":  "e6"
+        },
+        {
+          "target": { "sect": "N5" },
+          "before": "^칠 *만$",
+          "after":  "e7"
+        },
+        {
+          "target": { "sect": "N5" },
+          "before": "^팔 *만$",
+          "after":  "e8"
+        },
+        {
+          "target": { "sect": "N5" },
+          "before": "^구 *만$",
+          "after":  "e9"
+        },
+        {
+          "target": { "sect": "N4" },
+          "before": "^$",
+          "after":  "d0"
+        },
+        {
+          "target": { "sect": "N4" },
+          "before": "^천$",
+          "after":  "d1"
+        },
+        {
+          "target": { "sect": "N4" },
+          "before": "^이 *천$",
+          "after":  "d2"
+        },
+        {
+          "target": { "sect": "N4" },
+          "before": "^삼 *천$",
+          "after":  "d3"
+        },
+        {
+          "target": { "sect": "N4" },
+          "before": "^사 *천$",
+          "after":  "d4"
+        },
+        {
+          "target": { "sect": "N4" },
+          "before": "^오 *천$",
+          "after":  "d5"
+        },
+        {
+          "target": { "sect": "N4" },
+          "before": "^육 *천$",
+          "after":  "d6"
+        },
+        {
+          "target": { "sect": "N4" },
+          "before": "^칠 *천$",
+          "after":  "d7"
+        },
+        {
+          "target": { "sect": "N4" },
+          "before": "^팔 *천$",
+          "after":  "d8"
+        },
+        {
+          "target": { "sect": "N4" },
+          "before": "^구 *천$",
+          "after":  "d9"
+        },
+        {
+          "target": { "sect": "N3" },
+          "before": "^$",
+          "after":  "c0"
+        },
+        {
+          "target": { "sect": "N3" },
+          "before": "^백$",
+          "after":  "c1"
+        },
+        {
+          "target": { "sect": "N3" },
+          "before": "^이 *백$",
+          "after":  "c2"
+        },
+        {
+          "target": { "sect": "N3" },
+          "before": "^삼 *백$",
+          "after":  "c3"
+        },
+        {
+          "target": { "sect": "N3" },
+          "before": "^사 *백$",
+          "after":  "c4"
+        },
+        {
+          "target": { "sect": "N3" },
+          "before": "^오 *백$",
+          "after":  "c5"
+        },
+        {
+          "target": { "sect": "N3" },
+          "before": "^육 *백$",
+          "after":  "c6"
+        },
+        {
+          "target": { "sect": "N3" },
+          "before": "^칠 *백$",
+          "after":  "c7"
+        },
+        {
+          "target": { "sect": "N3" },
+          "before": "^팔 *백$",
+          "after":  "c8"
+        },
+        {
+          "target": { "sect": "N3" },
+          "before": "^구 *백$",
+          "after":  "c9"
+        },
+        {
+          "target": { "sect": "N2" },
+          "before": "^$",
+          "after":  "b0"
+        },
+        {
+          "target": { "sect": "N2" },
+          "before": "^십$",
+          "after":  "b1"
+        },
+        {
+          "target": { "sect": "N2" },
+          "before": "^이 *십$",
+          "after":  "b2"
+        },
+        {
+          "target": { "sect": "N2" },
+          "before": "^삼 *십$",
+          "after":  "b3"
+        },
+        {
+          "target": { "sect": "N2" },
+          "before": "^사 *십$",
+          "after":  "b4"
+        },
+        {
+          "target": { "sect": "N2" },
+          "before": "^오 *십$",
+          "after":  "b5"
+        },
+        {
+          "target": { "sect": "N2" },
+          "before": "^육 *십$",
+          "after":  "b6"
+        },
+        {
+          "target": { "sect": "N2" },
+          "before": "^칠 *십$",
+          "after":  "b7"
+        },
+        {
+          "target": { "sect": "N2" },
+          "before": "^팔 *십$",
+          "after":  "b8"
+        },
+        {
+          "target": { "sect": "N2" },
+          "before": "^구 *십$",
+          "after":  "b9"
+        },
+        {
+          "target": { "sect": "N2" },
+          "before": "^열$",
+          "after":  "b1"
+        },
+        {
+          "target": { "sect": "N2" },
+          "before": "^스물$",
+          "after":  "b2"
+        },
+        {
+          "target": { "sect": "N2" },
+          "before": "^스무$",
+          "after":  "b2"
+        },
+        {
+          "target": { "sect": "N2" },
+          "before": "^서른$",
+          "after":  "b3"
+        },
+        {
+          "target": { "sect": "N2" },
+          "before": "^마흔$",
+          "after":  "b4"
+        },
+        {
+          "target": { "sect": "N2" },
+          "before": "^쉰$",
+          "after":  "b5"
+        },
+        {
+          "target": { "sect": "N2" },
+          "before": "^예순$",
+          "after":  "b6"
+        },
+        {
+          "target": { "sect": "N2" },
+          "before": "^일흔$",
+          "after":  "b7"
+        },
+        {
+          "target": { "sect": "N2" },
+          "before": "^여든$",
+          "after":  "b8"
+        },
+        {
+          "target": { "sect": "N2" },
+          "before": "^아흔$",
+          "after":  "b9"
+        },
+        {
+          "target": { "sect": "N1" },
+          "before": "^$",
+          "after":  "a0"
+        },
+        {
+          "target": { "sect": "N1" },
+          "before": "^하나$",
+          "after":  "a1"
+        },
+        {
+          "target": { "sect": "N1" },
+          "before": "^둘$",
+          "after":  "a2"
+        },
+        {
+          "target": { "sect": "N1" },
+          "before": "^셋$",
+          "after":  "a3"
+        },
+        {
+          "target": { "sect": "N1" },
+          "before": "^넷$",
+          "after":  "a4"
+        },
+        {
+          "target": { "sect": "N1" },
+          "before": "^다섯$",
+          "after":  "a5"
+        },
+        {
+          "target": { "sect": "N1" },
+          "before": "^여섯$",
+          "after":  "a6"
+        },
+        {
+          "target": { "sect": "N1" },
+          "before": "^일곱$",
+          "after":  "a7"
+        },
+        {
+          "target": { "sect": "N1" },
+          "before": "^여덟$",
+          "after":  "a8"
+        },
+        {
+          "target": { "sect": "N1" },
+          "before": "^아홉$",
+          "after":  "a9"
+        },
+        {
+          "target": { "sect": "N1" },
+          "before": "^한$",
+          "after":  "a1"
+        },
+        {
+          "target": { "sect": "N1" },
+          "before": "^두$",
+          "after":  "a2"
+        },
+        {
+          "target": { "sect": "N1" },
+          "before": "^세$",
+          "after":  "a3"
+        },
+        {
+          "target": { "sect": "N1" },
+          "before": "^네$",
+          "after":  "a4"
+        },
+        {
+          "target": { "sect": "N1" },
+          "before": "^일$",
+          "after":  "a1"
+        },
+        {
+          "target": { "sect": "N1" },
+          "before": "^이$",
+          "after":  "a2"
+        },
+        {
+          "target": { "sect": "N1" },
+          "before": "^삼$",
+          "after":  "a3"
+        },
+        {
+          "target": { "sect": "N1" },
+          "before": "^사$",
+          "after":  "a4"
+        },
+        {
+          "target": { "sect": "N1" },
+          "before": "^오$",
+          "after":  "a5"
+        },
+        {
+          "target": { "sect": "N1" },
+          "before": "^육$",
+          "after":  "a6"
+        },
+        {
+          "target": { "sect": "N1" },
+          "before": "^칠$",
+          "after":  "a7"
+        },
+        {
+          "target": { "sect": "N1" },
+          "before": "^팔$",
+          "after":  "a8"
+        },
+        {
+          "target": { "sect": "N1" },
+          "before": "^구$",
+          "after":  "a9"
+        }
+      ]
+    },
+    {
+      "use": "true",
+      "group": "n1",
+      "rules": [
+        {
+          "target": { "sect": "W[0-9]" },
+          "before": "^ *$",
+          "after":  ""
+        },
+        {
+          "before": "^( *)하나( *)$",
+          "after":  "$11$2"
+        },
+        {
+          "before": "^( *)둘( *)$",
+          "after":  "$12$2"
+        },
+        {
+          "before": "^( *)셋( *)$",
+          "after":  "$13$2"
+        },
+        {
+          "before": "^( *)넷( *)$",
+          "after":  "$14$2"
+        },
+        {
+          "before": "^( *)다섯( *)$",
+          "after":  "$15$2"
+        },
+        {
+          "before": "^( *)여섯( *)$",
+          "after":  "$16$2"
+        },
+        {
+          "before": "^( *)일곱( *)$",
+          "after":  "$17$2"
+        },
+        {
+          "before": "^( *)여덟( *)$",
+          "after":  "$18$2"
+        },
+        {
+          "before": "^( *)아홉( *)$",
+          "after":  "$19$2"
+        },
+        {
+          "before": "^( *)한( *)$",
+          "after":  "$11$2"
+        },
+        {
+          "before": "^( *)두( *)$",
+          "after":  "$12$2"
+        },
+        {
+          "before": "^( *)세( *)$",
+          "after":  "$13$2"
+        },
+        {
+          "before": "^( *)네( *)$",
+          "after":  "$14$2"
+        },
+        {
+          "before": "^( *)영( *)$",
+          "after":  "$10$2"
+        },
+        {
+          "before": "^( *)공( *)$",
+          "after":  "$10$2"
+        },
+        {
+          "before": "^( *)일( *)$",
+          "after":  "$11$2"
+        },
+        {
+          "before": "^( *)이( *)$",
+          "after":  "$12$2"
+        },
+        {
+          "before": "^( *)삼( *)$",
+          "after":  "$13$2"
+        },
+        {
+          "before": "^( *)사( *)$",
+          "after":  "$14$2"
+        },
+        {
+          "before": "^( *)오( *)$",
+          "after":  "$15$2"
+        },
+        {
+          "before": "^( *)(육|유)( *)$",
+          "after":  "$16$3"
+        },
+        {
+          "before": "^( *)칠( *)$",
+          "after":  "$17$2"
+        },
+        {
+          "before": "^( *)팔( *)$",
+          "after":  "$18$2"
+        },
+        {
+          "before": "^( *)구( *)$",
+          "after":  "$19$2"
+        },
+        {
+          "before": "^( *)시( *)$",
+          "after":  "$110$2"
+        }
+      ]
+    },
+    {
+      "use": "true",
+      "group": "symbol",
+      "rules": [
+        {
+          "before": "^( *)골뱅이( *)$",
+          "after":  "$1@$2"
+        },
+        {
+          "target": { "sect": "dash" },
+          "before": "^.*$",
+          "after":  "-"
+        },
+        {
+          "before": "^( *)([^ ]* *할 *때|숫자로|숫자|영어로|영어|소문자로|소문자|대문자로|대문자|알파벳|알파벳으로)( *)$",
+          "after":  "$1_$3"
+        }
+      ]
+    },
+    {
+      "use": "false",
+      "group": "alphabet",
+      "rules": [
+        {
+          "before": "^( *)지 *메일( *)$",
+          "after":  "$1gmail$2"
+        },
+        {
+          "before": "^( *)네이버( *)$",
+          "after":  "$1naver$2"
+        },
+        {
+          "before": "^( *)다음( *)$",
+          "after":  "$1daum$2"
+        },
+        {
+          "before": "^( *)한 *메일( *)$",
+          "after":  "$1hanmail$2"
+        },
+        {
+          "before": "^( *)핫 *메일( *)$",
+          "after":  "$1hotmail$2"
+        },
+        {
+          "before": "^( *)점|쩜|닷( *)$",
+          "after":  "$1.$2"
+        },
+        {
+          "before": "^( *)넷( *)$",
+          "after":  "$1net$2"
+        },
+        {
+          "before": "^( *)컴( *)$",
+          "after":  "$1com$2"
+        },
+        {
+          "before": "^( *)에이( *)$",
+          "after":  "$1a$2"
+        },
+        {
+          "before": "^( *)비( *)$",
+          "after":  "$1b$2"
+        },
+        {
+          "before": "^( *)씨( *)$",
+          "after":  "$1c$2"
+        },
+        {
+          "before": "^( *)디( *)$",
+          "after":  "$1d$2"
+        },
+        {
+          "before": "^( *)에프( *)$",
+          "after":  "$1f$2"
+        },
+        {
+          "before": "^( *)쥐( *)$",
+          "after":  "$1g$2"
+        },
+        {
+          "before": "^( *)에이치( *)$",
+          "after":  "$1h$2"
+        },
+        {
+          "before": "^( *)아이( *)$",
+          "after":  "$1i$2"
+        },
+        {
+          "before": "^( *)제이( *)$",
+          "after":  "$1j$2"
+        },
+        {
+          "before": "^( *)케이( *)$",
+          "after":  "$1k$2"
+        },
+        {
+          "before": "^( *)엘( *)$",
+          "after":  "$1l$2"
+        },
+        {
+          "before": "^( *)엠( *)$",
+          "after":  "$1m$2"
+        },
+        {
+          "before": "^( *)엔( *)$",
+          "after":  "$1n$2"
+        },
+        {
+          "before": "^( *)오( *)$",
+          "after":  "$1o$2"
+        },
+        {
+          "before": "^( *)피( *)$",
+          "after":  "$1p$2"
+        },
+        {
+          "before": "^( *)큐( *)$",
+          "after":  "$1q$2"
+        },
+        {
+          "before": "^( *)알( *)$",
+          "after":  "$1r$2"
+        },
+        {
+          "before": "^( *)에스( *)$",
+          "after":  "$1s$2"
+        },
+        {
+          "before": "^( *)티( *)$",
+          "after":  "$1t$2"
+        },
+        {
+          "before": "^( *)유( *)$",
+          "after":  "$1u$2"
+        },
+        {
+          "before": "^( *)브이( *)$",
+          "after":  "$1v$2"
+        },
+        {
+          "before": "^( *)더블유( *)$",
+          "after":  "$1w$2"
+        },
+        {
+          "before": "^( *)엑스( *)$",
+          "after":  "$1x$2"
+        },
+        {
+          "before": "^( *)와이( *)$",
+          "after":  "$1y$2"
+        },
+        {
+          "before": "^( *)제트( *)$",
+          "after":  "$1z$2"
+        },
+        {
+          "before": "^( *)이( *)$",
+          "after":  "$1e$2"
+        },
+        {
+          "before": "^( *)지( *)$",
+          "after":  "$1g$2"
+        }
+      ]
+    },
+    { // after detagging
+      "use": "true",
+      "group": "final",
+      "rules": [
+        {
+          "before": "(e[0-9]) *(d[0-9]) *(c[0-9]) *(b[0-9]) *(a[0-9])",
+          "after":  "\\{\\{$1$2$3$4$5\\}\\}"
+        },
+        {
+          "before": "(\\{\\{)e0d",
+          "after":  "$1d"
+        },
+        {
+          "before": "(\\{\\{)d0c",
+          "after":  "$1c"
+        },
+        {
+          "before": "(\\{\\{)c0b",
+          "after":  "$1b"
+        },
+        {
+          "before": "(\\{\\{)b0a",
+          "after":  "$1a"
+        },
+        {
+          "before": "[abcd]([0-9])",
+          "after":  "$1"
+        },
+        {
+          "before": "[e]([0-9])",
+          "after":  "$1만 "
+        },
+        {
+          "before": "\\{\\{|\\}\\}",
+          "after":  ""
+        }
+      ]
+    }
+  ]
+}

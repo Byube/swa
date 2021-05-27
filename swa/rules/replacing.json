@@ -1,0 +1,70 @@
+{ 
+  "format": "eznlp/postproc", // fixed
+  "purpose": "replace",       // tagging, replace <== json rule format
+  "what":    "etc",
+  "options": [
+    "compile_regex"  // tag compile to use regex
+  ],
+  "groups": [
+    {
+      "use": "true",
+      "group": "preproc_before_tagging",
+      "rules": [
+        {
+           "before": " 이상",
+           "after":  " _이상"
+        },
+        {
+           "before": " 이하",
+           "after":  " _이하"
+        },
+        {
+           "before": " _이하나",
+           "after":  " 이하나"
+        },
+        {
+           "before": " 이 ",
+           "after":  " _이_ "
+        },
+        {
+          "before": "십 _이_ ",
+          "after":  "십 이 "
+        },
+        {
+          "before": " _이_ (십|백|천|만|억)",
+          "after":  " 이 $1"
+        }
+      ]
+    },
+    {
+      "use": "true",
+      "group": "detagging",
+      "rules": [
+        {
+          "before": "<[^>]*>",
+          "after": ""
+        }
+      ]
+    },
+    {
+      "use": "true",
+      "group": "masking",
+      "rules": [
+        {
+          "before": "[^ -]",
+          "after": "*"
+        }
+      ]
+    },
+    {
+      "use": "true",
+      "group": "heuristic_sent_segmenting",
+      "rules": [
+        {
+          "before": "(까|까요|세요|데요|니다|니까|어요)($|[^가-힣])",
+          "after": "$1\n$2"
+        }
+      ]
+    }
+  ]
+}

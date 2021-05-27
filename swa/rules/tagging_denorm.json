@@ -1,0 +1,61 @@
+{ 
+  "format": "eznlp/postproc", // fixed
+  "purpose": "tagging",       // tagging, replace <== json rule format
+  "what":    "denorm",
+  "options": [
+    "unpack_regex_rule",    // replace {{raw_pattern_unit}} --> to real 
+    "compile_regex"         // tag compile to use regex
+  ],
+  "groups": [
+    {
+      "use": "true",
+      "group": "alphabet",
+      "rules": [
+        {
+          "name": "alphabet",
+          "tag": "(?<A0>지 *메일|네이버|다음|한 *메일|핫 *메일|점|쩜|닷|넷|컴|{{ENG1}})"
+        }
+      ]
+    },
+    {
+      "use": "true",
+      "group": "number",
+      "rules": [
+        {
+          "name": "dash",
+          "tag": "(?<DASH> *(다시|에) *)"
+        },
+        {
+          "name": "number2",
+          "tag": "(?<N5>{{NUM8}}?)(?<W0> *)(?<N4>{{NUM6}}?)(?<W1> *)(?<N3>{{NUM5}}?)(?<W2> *)(?<N2>({{NUM4}}|{{NUM7}}))(?<W3> *)(?<N1>{{NUM012x}}?)"
+        },
+        {
+          "name": "number3",
+          "tag": "(?<N5>{{NUM8}}?)(?<W0> *)(?<N4>{{NUM6}}?)(?<W1> *)(?<N3>{{NUM5}})(?<W2> *)(?<N2>({{NUM4}}|{{NUM7}})?)(?<W3> *)(?<N1>{{NUM012x}}?)"
+        },
+        {
+          "name": "number4",
+          "tag": "(?<N5>{{NUM8}}?)(?<W0> *)(?<N4>{{NUM6}})(?<W1> *)(?<N3>{{NUM5}}?)(?<W2> *)(?<N2>({{NUM4}}|{{NUM7}})?)(?<W3> *)(?<N1>{{NUM012x}}?)"
+        },
+        {
+          "name": "number5",
+          "tag": "(?<N5>{{NUM8}})(?<W0> *)(?<N4>{{NUM6}}?)(?<W1> *)(?<N3>{{NUM5}}?)(?<W2> *)(?<N2>({{NUM4}}|{{NUM7}})?)(?<W3> *)(?<N1>{{NUM012x}}?)"
+        },
+        {
+          "name": "digits",
+          "tag": "(?<N0>시|유|{{NUM012x}})"
+        }
+      ]
+    },
+    {
+      "use": "true",
+      "group": "symbol",
+      "rules": [
+        {
+          "name": "atsign",
+          "tag": "(?<S0>골뱅이|[^ ]* *할 *때|{{CHAR_OF}})"
+        }
+      ]
+    }
+  ]
+}
