@@ -180,15 +180,15 @@ public class SwaServiceImpl implements SwaService{
 	public String getMp3Url(ListenAgoDto lad) {
 		String result = "";
 		String listenurl = dao.getMp3Url(lad);
-//		if(listenurl.equals("") || listenurl.equals(null)) {
-//			return listenurl;
-//		} else {
-//			String[] check = listenurl.split("28881/");
-//			result += "https://98.28.5.83:8000/";
-//			result += check[1];
-//		}
-//		return result;
-		return listenurl;
+		if(listenurl.equals("") || listenurl.equals(null)) {
+			return listenurl;
+		} else {
+			String[] check = listenurl.split("28881/");
+			result += "https://98.28.5.83:8000/";
+			result += check[1];
+		}
+		return result;
+//		return listenurl;
 	}
 	
 	

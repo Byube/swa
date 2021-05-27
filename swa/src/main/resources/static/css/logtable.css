@@ -385,10 +385,6 @@ tbody td:last-child{
 	text-align: left;
 }
 
-/*과거녹취청취 - 인풋창스타일*/
-.search_btn{
-   margin-top: 10px;;
-}
 .search_btn input[type="text"]{
    height: 40px;
    padding: 0 10px;

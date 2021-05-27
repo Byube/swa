@@ -263,7 +263,7 @@ function getText(STT_CALL1,STT_CALL2,STT_CALL3,STT_USER_NUM,STT_MEM_NUM,fname,dt
     }
   };
 
-  httpRequest.open('GET', "http://localhost:8880/stt/gettxt/?STT_CALL1="+STT_CALL1+"&STT_CALL2="+STT_CALL2+"&STT_CALL3="+STT_CALL3+"&STT_USER_NUM="+STT_USER_NUM+"&STT_MEM_NUM="+STT_MEM_NUM+"&R_F_NM="+fname+"&STT_DTM="+dtm+"&userId="+id);
- // httpRequest.open('GET', "https://98.28.5.83:8000/stt/gettxt/?STT_CALL1="+STT_CALL1+"&STT_CALL2="+STT_CALL2+"&STT_CALL3="+STT_CALL3+"&STT_USER_NUM="+STT_USER_NUM+"&STT_MEM_NUM="+STT_MEM_NUM+"&R_F_NM="+fname+"&STT_DTM="+dtm+"&userId="+id);
+ // httpRequest.open('GET', "http://localhost:8880/stt/gettxt/?STT_CALL1="+STT_CALL1+"&STT_CALL2="+STT_CALL2+"&STT_CALL3="+STT_CALL3+"&STT_USER_NUM="+STT_USER_NUM+"&STT_MEM_NUM="+STT_MEM_NUM+"&R_F_NM="+fname+"&STT_DTM="+dtm+"&userId="+id);
+  httpRequest.open('GET', "https://98.28.5.83:8000/stt/gettxt/?STT_CALL1="+STT_CALL1+"&STT_CALL2="+STT_CALL2+"&STT_CALL3="+STT_CALL3+"&STT_USER_NUM="+STT_USER_NUM+"&STT_MEM_NUM="+STT_MEM_NUM+"&R_F_NM="+fname+"&STT_DTM="+dtm+"&userId="+id);
   httpRequest.send();
 }

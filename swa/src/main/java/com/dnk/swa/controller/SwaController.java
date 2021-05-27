@@ -46,14 +46,14 @@ public class SwaController {
 	SwaLogDto log = new SwaLogDto();
 	
 	//실제운영
-//	private String stt1 = "redirect:https://98.28.5.83:8000/stt/stt";
-//	private String memadd1 = "redirect:https://98.28.5.83:8000/stt/swaMem";
-//	private String creatuser = "redirect:https://98.28.5.83:8000/stt/createUser";
+	private String stt1 = "redirect:https://98.28.5.83:8000/stt/stt";
+	private String memadd1 = "redirect:https://98.28.5.83:8000/stt/swaMem";
+	private String creatuser = "redirect:https://98.28.5.83:8000/stt/createUser";
 	
 	//개발
-	private String stt1 = "redirect:/stt/stt";
-	private String memadd1 = "redirect:/stt/swaMem";
-	private String creatuser = "redirect:/stt/createUser";
+//	private String stt1 = "redirect:/stt/stt";
+//	private String memadd1 = "redirect:/stt/swaMem";
+//	private String creatuser = "redirect:/stt/createUser";
 	
 	
 	

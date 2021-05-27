@@ -1,4 +1,12 @@
 	$(function() {
+		
+		
+		var checkTime = 30 * 10000;
+		var timer = setInterval(function(){
+       		 alert("세션이 만료되어 다시 로그아웃 되었습니다.");
+       		 window.location.href = "/stt/logout";
+   			 }, checkTime);
+		
 		var check = $("#check").val();	
 		var seq = $("#seq").val();
 		if(check == '1234'){
@@ -29,11 +37,11 @@
 	function searchlog(myUrl){
 		var ui = $("#userId").val();
 		
-	//	var searchlogUrl = "https://98.28.5.83:8000/stt/" + myUrl
-	//					+ "?userId=" + ui;
-	
-		var searchlogUrl = "http://127.0.0.1:8880/stt/" + myUrl
+		var searchlogUrl = "https://98.28.5.83:8000/stt/" + myUrl
 						+ "?userId=" + ui;
+	
+	//	var searchlogUrl = "http://127.0.0.1:8880/stt/" + myUrl
+	//					+ "?userId=" + ui;
 						
 		$(".ob").attr("data",searchlogUrl);		
 		$(".eb").attr("src",searchlogUrl);

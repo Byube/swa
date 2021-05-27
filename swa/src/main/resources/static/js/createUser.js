@@ -1,18 +1,11 @@
-	swal({
-		title:"타이틀",
-		text:"나용",
-		icon:"info"
-	})
-	
+
 	$(function() {
 		
 		$("#noid").hide();
 		$("#okid").hide();
 		$("#submit").attr("disabled","disabled");
 		
-		$( "#create-user" ).button().on( "click", function() {
-			
-			
+		$("#create-user").button().on("click", function() {
 			alert("초기 비밀번호는 1234로 자동 생성 됩니다.");
     		$(".dialog").fadeIn('slow');
     	});
