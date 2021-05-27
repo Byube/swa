@@ -1,7 +1,7 @@
 	$(function() {
 		
 		
-		var checkTime = 30 * 10000;
+		var checkTime = 30 * 1000 * 60;
 		var timer = setInterval(function(){
        		 alert("세션이 만료되어 다시 로그아웃 되었습니다.");
        		 window.location.href = "/stt/logout";

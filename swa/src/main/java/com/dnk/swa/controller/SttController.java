@@ -1,5 +1,6 @@
 package com.dnk.swa.controller;
 
+import java.io.File;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
@@ -23,6 +24,7 @@ import com.dnk.swa.dto.SwaLoginDto;
 import com.dnk.swa.dto.SwaMstDto;
 import com.dnk.swa.service.MultipartFileSender;
 import com.dnk.swa.service.SwaService;
+import com.llsollu.eznlp.postproc.PostProcessor2;
 
 @Controller
 @RequestMapping("/stt")
@@ -33,8 +35,16 @@ public class SttController {
 	@Autowired
 	private SwaService swaService;
 	
+	private PostProcessor2 mPostProcessor = null;
+	
 	SwaLogDto log = new SwaLogDto();
 			
+	public SttController() {
+		String str = System.getProperty("user.dir");
+		logger.info(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Rule Path : "+str);
+		mPostProcessor = new PostProcessor2(new File(str, "rules").getAbsolutePath());
+	}
+	
 	@CrossOrigin
     @RequestMapping("/gettxt/")
     @ResponseBody
@@ -50,6 +60,8 @@ public class SttController {
     					,HttpServletRequest request) {
         response.setContentType("text/plain");
         logger.info("[gettxt] :");
+        
+        
         
         SwaMstDto smd = new SwaMstDto();
         SwaLoginDto sld = new SwaLoginDto();
@@ -91,7 +103,7 @@ public class SttController {
         line = result.split("\n");
         for (int i = 0; i < line.length - 3; i++) {
 			hp = line[i].split("\\|");
-			result1 += hp[0] + "|" + hp[1] + "|" + hp[2] +"\n";
+			result1 += hp[0] + "|" + hp[1] + "|" + mPostProcessor.postProcessing(hp[2]) +"\n";
 			
 		}
 		String result2 = "";

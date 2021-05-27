@@ -21,8 +21,6 @@
 	</properties>
 	<dependencies>
 
-
-
 		<!-- 스프링 JDBC -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
